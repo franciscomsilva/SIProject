@@ -1,0 +1,16 @@
+C:\Users\joaopms\Dev\SIProject\BinaryDecoderTest\BinaryDecoderTest\bin\Debug\bin_1
+C:\Users\joaopms\Dev\SIProject\BinaryDecoderTest\BinaryDecoderTest\bin\Debug\bin_2
+C:\Users\joaopms\Dev\SIProject\BinaryDecoderTest\BinaryDecoderTest\bin\Debug\BinaryDecoderTest.exe.config
+C:\Users\joaopms\Dev\SIProject\BinaryDecoderTest\BinaryDecoderTest\bin\Debug\BinaryDecoderTest.exe
+C:\Users\joaopms\Dev\SIProject\BinaryDecoderTest\BinaryDecoderTest\bin\Debug\BinaryDecoderTest.pdb
+C:\Users\joaopms\Dev\SIProject\BinaryDecoderTest\BinaryDecoderTest\obj\Debug\BinaryDecoderTest.csprojAssemblyReference.cache
+C:\Users\joaopms\Dev\SIProject\BinaryDecoderTest\BinaryDecoderTest\obj\Debug\BinaryDecoderTest.exe
+C:\Users\joaopms\Dev\SIProject\BinaryDecoderTest\BinaryDecoderTest\obj\Debug\BinaryDecoderTest.pdb
+C:\Users\joaopms\Dev\SIProject\BinaryDecoderTest\bin\Debug\bin_1
+C:\Users\joaopms\Dev\SIProject\BinaryDecoderTest\bin\Debug\bin_2
+C:\Users\joaopms\Dev\SIProject\BinaryDecoderTest\bin\Debug\BinaryDecoderTest.exe.config
+C:\Users\joaopms\Dev\SIProject\BinaryDecoderTest\bin\Debug\BinaryDecoderTest.exe
+C:\Users\joaopms\Dev\SIProject\BinaryDecoderTest\bin\Debug\BinaryDecoderTest.pdb
+C:\Users\joaopms\Dev\SIProject\BinaryDecoderTest\obj\Debug\BinaryDecoderTest.csprojAssemblyReference.cache
+C:\Users\joaopms\Dev\SIProject\BinaryDecoderTest\obj\Debug\BinaryDecoderTest.exe
+C:\Users\joaopms\Dev\SIProject\BinaryDecoderTest\obj\Debug\BinaryDecoderTest.pdb
