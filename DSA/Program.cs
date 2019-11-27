@@ -9,13 +9,9 @@ namespace DSA
         static void Main(string[] args)
         {
             UserController sqlUser = new UserController();
+            SQLAssistant sqlAss = new SQLAssistant();
 
-            User user = sqlUser.GetUser(30);
-            if (user==null)
-            {
-                Console.WriteLine("User não encontrado");
-            }
-            Console.WriteLine(user);
+            sqlAss.cleanTable("t_users");
         }
     }
 }

@@ -12,13 +12,13 @@ namespace DSA
         static string connectionString = Properties.Resources.BDConnectString;
         public void cleanTable(string table_name)
         {
-            string teste = table_name;
+            
             try
             {
                 SqlConnection sql = new SqlConnection(connectionString);
                 sql.Open();
-                SqlCommand sqlCommand = new SqlCommand("DELETE FROM t_users", sql);
-              //  sqlCommand.Parameters.AddWithValue("@table", teste);
+                SqlCommand sqlCommand = new SqlCommand("DELETE FROM "+table_name, sql);
+       
                 sqlCommand.ExecuteNonQuery();
 
                 sql.Close();
