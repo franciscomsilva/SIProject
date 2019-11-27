@@ -2,42 +2,33 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Data.SqlClient;
-
+using Newtonsoft.Json;
+using System.Security.Cryptography;
 namespace DSA
 {
 
     class SQLAssistant
     {
         static string connectionString = Properties.Resources.BDConnectString;
-        public List<User> GetAllUsers()
+        public void cleanTable(string table_name)
         {
-            List<User> users = new List<User>();
+            string teste = table_name;
             try
             {
                 SqlConnection sql = new SqlConnection(connectionString);
                 sql.Open();
-                SqlCommand sqlCommand = new SqlCommand("Select * from t_users", sql);
-                SqlDataReader reader = sqlCommand.ExecuteReader();
-                while (reader.Read())
-                {
-                    User user = new User
-                    {
-                        Id = (int)reader["id"],
-                        Name = (string)reader["name"]
-                    };
-                    users.Add(user);
-                };
+                SqlCommand sqlCommand = new SqlCommand("DELETE FROM t_users", sql);
+              //  sqlCommand.Parameters.AddWithValue("@table", teste);
+                sqlCommand.ExecuteNonQuery();
+
                 sql.Close();
             }
             catch (Exception e)
             {
 
-                Console.WriteLine("Something went wrong!" + e.Message);
-                Console.ReadKey();
+                Console.WriteLine($"Error cleaning {table_name}! Reason: " + e.Message);
             }
-
-
-            return users;
         }
+
     }
 }
