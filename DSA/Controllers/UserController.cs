@@ -15,7 +15,7 @@ namespace DSA.Controllers
             User user=null;
             SqlConnection sql = new SqlConnection(connectionString);
             sql.Open();
-            SqlCommand command = new SqlCommand("SELECT * FROM t_users WHERE id=@id");
+            SqlCommand command = new SqlCommand("SELECT * FROM t_users WHERE id=@id",sql);
             command.Parameters.AddWithValue("@id",index);
             SqlDataReader reader = command.ExecuteReader();
             if (reader.Read())
@@ -23,7 +23,8 @@ namespace DSA.Controllers
                 user = new User
                 {
                     id =(int)reader["id"],
-                    name=(string)reader["name"]
+                    name=(string)reader["name"],
+                    password = Encoding.UTF8.GetString((byte[])reader["password"])
                 };
             }
 
