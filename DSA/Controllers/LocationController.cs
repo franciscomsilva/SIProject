@@ -10,25 +10,76 @@ namespace DSA.Controllers
     class LocationController
     {
         static string connectionString = Properties.Resources.BDConnectString;
-
-        public Location GetLocation(int index)
+        public Location GetLocation(string name)
         {
+            Location location = null;
 
             try
             {
+               
+                SqlConnection sql = new SqlConnection(connectionString);
+                sql.Open();
+                SqlCommand sqlCommand = new SqlCommand("SELECT * FROM t_locations WHERE @name=location_name", sql);
+                sqlCommand.Parameters.AddWithValue("@name", name);
+                SqlDataReader reader = sqlCommand.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    location = new Location
+                    {
+                        id = (int)reader["id"],
+                        location_name = (string)reader["location_name"]
+                    };
+                }
+                if (location == null)
+                {
+                    Console.WriteLine("The location with name = " + name + " appears to not exist");
+                }
+                return location;
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine("Error retrieving location! Reason: " + e.Message);
+                Console.ReadKey();
+            }
+            return location;
+        }
+        public Location GetLocation(int index)
+        {
+            Location location = null;
+            try
+            {
+               
                 SqlConnection sql = new SqlConnection(connectionString);
                 sql.Open();
                 SqlCommand sqlCommand = new SqlCommand("SELECT * FROM t_locations WHERE @id=id", sql);
                 sqlCommand.Parameters.AddWithValue("@id", index);
                 SqlDataReader reader = sqlCommand.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    location = new Location
+                    {
+                        id=(int)reader["id"],
+                        location_name = (string)reader["location_name"]
+                    };
+                }
+                if (location==null)
+                {
+                    Console.WriteLine("The location with id = " + index + " appears to not exist");
+                }
+                
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
-                throw;
+                Console.WriteLine("Error retrieving location! Reason: "+e.Message);
+                Console.ReadKey();
+                
             }
+            return location;
 
-            return null;
         }
         public List<Location> GetAllLocations()
 

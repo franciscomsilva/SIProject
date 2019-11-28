@@ -22,25 +22,31 @@ namespace DSA.Controllers
 
         public User GetUser(int index)
         {
+            User user = null;
             if (index<=0)
             {
                 Console.WriteLine("Index needs to be positive!");
-                return null;
+                return user;
             }
-            User user=null;
-            SqlConnection sql = new SqlConnection(connectionString);
-            sql.Open();
-            SqlCommand command = new SqlCommand("SELECT * FROM t_users WHERE id=@id",sql);
-            command.Parameters.AddWithValue("@id",index);
-            SqlDataReader reader = command.ExecuteReader();
-            if (reader.Read())
+            try
             {
-                user = new User
+                SqlConnection sql = new SqlConnection(connectionString);
+                sql.Open();
+                SqlCommand command = new SqlCommand("SELECT * FROM t_users WHERE id=@id", sql);
+                command.Parameters.AddWithValue("@id", index);
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read())
                 {
-                    id =(int)reader["id"],
-                    name=(string)reader["name"],
-                    password = Encoding.UTF8.GetString((byte[])reader["password"])
-                };
+                    user = new User
+                    {
+                        id = (int)reader["id"],
+                        name = (string)reader["name"],
+                        password = Encoding.UTF8.GetString((byte[])reader["password"])
+                    };
+                }
+            }catch(Exception e)
+            {
+                Console.WriteLine("Error retrieving user! Reason: " + e.Message);
             }
 
             return user;
@@ -82,7 +88,7 @@ namespace DSA.Controllers
         }
         public void AddUser(User user)
         {
-            
+            //TODO: lock com login(admin only)
             try
             {
                 SqlConnection sql = new SqlConnection(connectionString);

@@ -6,12 +6,12 @@ namespace DSA.Models
 {
     class Sensor
     {
-        int id { get; set; }
-        int user_id { get; set; }
-        int location_id { get; set; }
-        bool personal { get; set; }
-        bool valid { get; set; }
-        DateTime date_creation { get; set; }
+        public int id { get; set; }
+        public int user_id { get; set; }
+        public int location_id { get; set; }
+        public bool personal { get; set; }
+        public bool valid { get; set; }
+        public string date_creation { get; set; }
 
 
 
