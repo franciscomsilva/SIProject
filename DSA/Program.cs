@@ -1,7 +1,9 @@
 ﻿using DSA.Controllers;
 using System;
+using DSA.Models;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using Newtonsoft.Json;
 namespace DSA
 {
     class Program
@@ -10,8 +12,9 @@ namespace DSA
         {
             UserController sqlUser = new UserController();
             SQLAssistant sqlAss = new SQLAssistant();
+            LocationController sqlLocation = new LocationController();
 
-            sqlAss.cleanTable("t_users");
+            sqlLocation.AddLocation(new Location("Biblioteca"));
         }
     }
 }

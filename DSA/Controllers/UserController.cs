@@ -9,9 +9,24 @@ namespace DSA.Controllers
 {
     class UserController
     {
+        bool isLogged { get; set; } = false;
+        
         static string connectionString = Properties.Resources.BDConnectString;
+        public void login()
+        {
+
+            //TODO: implementar login, altera os isLogged e isso vai ser a var que controla o login, aquando do logout ela e set to false again, added campo a BD chamado 
+            //isAdmin para apoiar a Api e permitir operações mais sensíves deste lado
+            
+        }
+
         public User GetUser(int index)
         {
+            if (index<=0)
+            {
+                Console.WriteLine("Index needs to be positive!");
+                return null;
+            }
             User user=null;
             SqlConnection sql = new SqlConnection(connectionString);
             sql.Open();
@@ -31,7 +46,7 @@ namespace DSA.Controllers
             return user;
         }
 
-        public string GetAllUsers()
+        public List<User> GetAllUsers()
         {
             
             List<User> users = new List<User>();
@@ -59,13 +74,15 @@ namespace DSA.Controllers
 
                 Console.WriteLine("Failed retrieving user list! Reason:" + e.Message);
                 Console.ReadKey();
+                return null;
             }
 
 
-            return JsonConvert.SerializeObject(users);
+            return users;
         }
         public void AddUser(User user)
         {
+            
             try
             {
                 SqlConnection sql = new SqlConnection(connectionString);
