@@ -14,7 +14,7 @@ namespace DSA
             SQLAssistant sqlAss = new SQLAssistant();
             LocationController sqlLocation = new LocationController();
 
-            sqlLocation.AddLocation(new Location("Biblioteca"));
+            sqlLocation.AddLocation("Biblioteca");
         }
     }
 }
