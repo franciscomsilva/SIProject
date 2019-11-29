@@ -13,7 +13,12 @@ namespace DSA.Controllers
         public bool isLogged { get; set; }
         public int LoggedId { get; set; }
         static string connectionString = Properties.Resources.BDConnectString;
-
+        public void Logout()
+        {
+            this.isLogged = false;
+            this.LoggedId = -1;
+            Console.WriteLine("Sucessfully Logged out!");
+        }
         public void Login(int index, string password)
         {
             string passwordDB=null;
