@@ -9,16 +9,7 @@ namespace DSA.Controllers
 {
     class UserController
     {
-        bool isLogged { get; set; } = false;
-        
         static string connectionString = Properties.Resources.BDConnectString;
-        public void login()
-        {
-
-            //TODO: implementar login, altera os isLogged e isso vai ser a var que controla o login, aquando do logout ela e set to false again, added campo a BD chamado 
-            //isAdmin para apoiar a Api e permitir operações mais sensíves deste lado
-            
-        }
 
         public User GetUser(int index)
         {
@@ -93,11 +84,12 @@ namespace DSA.Controllers
             {
                 SqlConnection sql = new SqlConnection(connectionString);
                 sql.Open();
-                SqlCommand sqlCommand = new SqlCommand("INSERT INTO t_users VALUES(@name,@password)", sql);
+                SqlCommand sqlCommand = new SqlCommand("INSERT INTO t_users VALUES(@name,@password,0)", sql);
                 sqlCommand.Parameters.AddWithValue("@name", user.name);
                 using (SHA256 sha = SHA256.Create())
                 {
-                    byte[] hashedPassword = sha.ComputeHash(Encoding.UTF8.GetBytes(user.password));
+                    byte[] hashedPassword =(sha.ComputeHash(Encoding.UTF8.GetBytes(user.password))); //TODO: Verificar
+                    //Console.WriteLine("Hash size: " + hashedPassword.Length);
                     sqlCommand.Parameters.AddWithValue("@password", hashedPassword);
                 }
                 sqlCommand.ExecuteNonQuery();

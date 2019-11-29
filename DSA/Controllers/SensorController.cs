@@ -9,9 +9,11 @@ namespace DSA.Controllers
     class SensorController
     {
         static string connectionString = Properties.Resources.BDConnectString;
+
+
         public Sensor GetSensor(int index)
         {
-           Sensor sensor = null;
+          Sensor sensor = null;
             if (index <= 0)
             {
                 Console.WriteLine("Index needs to be positive!");
@@ -52,7 +54,7 @@ namespace DSA.Controllers
             //Assume-se que o sensor é criado a partir do momento em que se chama a função therefore o timestamp e atribuido agora
             //TODO:lock c/ login(admin)
             //TODO receber dinamicamente de user loggado o id dele
-            throw new NotImplementedException()
+            throw new NotImplementedException();
             try
             {
                 SqlConnection sql = new SqlConnection(connectionString);

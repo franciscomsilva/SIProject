@@ -13,8 +13,11 @@ namespace DSA
             UserController sqlUser = new UserController();
             SQLAssistant sqlAss = new SQLAssistant();
             LocationController sqlLocation = new LocationController();
-
-            Console.WriteLine(DateTime.Today.ToShortDateString() );
+            LoginController sqlLogin = new LoginController();
+        //    sqlAss.cleanTable("t_users");
+           // sqlUser.AddUser(new User("TesteLogin", "123"));
+            sqlLogin.Login(1035, "123");
+            Console.WriteLine("Login com sucesso?: " + sqlLogin.isLogged + "\n" + "Id do user loggado :" + sqlLogin.LoggedId);
         }
     }
 }
