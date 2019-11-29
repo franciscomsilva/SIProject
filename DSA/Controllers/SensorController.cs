@@ -10,9 +10,24 @@ namespace DSA.Controllers
     {
         static string connectionString = Properties.Resources.BDConnectString;
 
-
+        SensorController()
+        {
+        }
+        private static SensorController instance = null;
+        public static SensorController Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new SensorController();
+                }
+                return instance;
+            }
+        }
         public Sensor GetSensor(int index)
         {
+
           Sensor sensor = null;
             if (index <= 0)
             {

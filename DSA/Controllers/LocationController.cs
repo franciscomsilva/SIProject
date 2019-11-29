@@ -10,6 +10,21 @@ namespace DSA.Controllers
     class LocationController
     {
         static string connectionString = Properties.Resources.BDConnectString;
+        LocationController()
+        {
+        }
+        private static LocationController instance = null;
+        public static LocationController Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new LocationController();
+                }
+                return instance;
+            }
+        }
         public Location GetLocation(string name)
         {
             Location location = null;

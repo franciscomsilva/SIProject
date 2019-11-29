@@ -9,6 +9,21 @@ namespace DSA.Controllers
 {
     class LoginController
     {
+        LoginController()
+        {
+        }
+        private static LoginController instance = null;
+        public static LoginController Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new LoginController();
+                }
+                return instance;
+            }
+        }
 
         public bool isLogged { get; set; }
         public int LoggedId { get; set; }
@@ -22,7 +37,6 @@ namespace DSA.Controllers
         public void Login(int index, string password)
         {
             string passwordDB=null;
-            //TODO: implementar login, altera os isLogged e isso vai ser a var que controla o login, aquando do logout ela e set to false again, added campo a BD chamado 
             //isAdmin para apoiar a Api e permitir operações mais sensíves deste lado
             try
             {

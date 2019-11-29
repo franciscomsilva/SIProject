@@ -9,6 +9,20 @@ namespace DSA.Controllers
 {
     class UserController
     {
+        UserController(){
+            }
+        private static UserController instance = null;
+        public static UserController Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new UserController();
+                }
+                return instance;
+            }
+        }
         static string connectionString = Properties.Resources.BDConnectString;
 
         public User GetUser(int index)
@@ -77,9 +91,9 @@ namespace DSA.Controllers
 
             return users;
         }
-        public void AddUser(User user)
+        public void AddUser(User user,int loggedId)
         {
-            //TODO: lock com login(admin only)
+         
             try
             {
                 SqlConnection sql = new SqlConnection(connectionString);
@@ -88,8 +102,8 @@ namespace DSA.Controllers
                 sqlCommand.Parameters.AddWithValue("@name", user.name);
                 using (SHA256 sha = SHA256.Create())
                 {
-                    byte[] hashedPassword =(sha.ComputeHash(Encoding.UTF8.GetBytes(user.password))); //TODO: Verificar
-                    //Console.WriteLine("Hash size: " + hashedPassword.Length);
+                    byte[] hashedPassword =(sha.ComputeHash(Encoding.UTF8.GetBytes(user.password))); 
+     
                     sqlCommand.Parameters.AddWithValue("@password", hashedPassword);
                 }
                 sqlCommand.ExecuteNonQuery();
