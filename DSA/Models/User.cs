@@ -30,5 +30,12 @@ namespace DSA
         {
 
         }
+        public User(int id, string name, string password,bool isAdmin)
+        {
+            this.id = id;
+            this.name = name;
+            this.password = password;
+            this.isAdmin = isAdmin;
+        }
     }
 }

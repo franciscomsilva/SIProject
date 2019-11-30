@@ -9,7 +9,7 @@ namespace DSA.Controllers
 {
     class UserController
     {
-        UserController(){
+        private UserController(){
             }
         private static UserController instance = null;
         public static UserController Instance
@@ -46,7 +46,8 @@ namespace DSA.Controllers
                     {
                         id = (int)reader["id"],
                         name = (string)reader["name"],
-                        password = Encoding.UTF8.GetString((byte[])reader["password"])
+                        password = Encoding.UTF8.GetString((byte[])reader["password"]),
+                        isAdmin = (bool)reader["isAdmin"]
                     };
                 }
             }catch(Exception e)
@@ -75,6 +76,7 @@ namespace DSA.Controllers
                         id = (int)reader["id"],
                         name = (string)reader["name"],
                         password = Encoding.UTF8.GetString((byte[])reader["password"])
+
                     };
                     users.Add(user);
                 };

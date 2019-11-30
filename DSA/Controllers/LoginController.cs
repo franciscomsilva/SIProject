@@ -9,14 +9,13 @@ namespace DSA.Controllers
 {
     class LoginController
     {
-        LoginController()
+        private LoginController()
         {
         }
         private static LoginController instance = null;
+   
         public static LoginController Instance
-        {
-            get
-            {
+        { get {
                 if (instance == null)
                 {
                     instance = new LoginController();

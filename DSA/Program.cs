@@ -18,7 +18,7 @@ namespace DSA
             LoginController sqlLogin = LoginController.Instance;
             Menus menu = new Menus();
             #endregion
-            /*     while (true)
+               while (true)
                  {
                      if (sqlLogin.isLogged)
                      {
@@ -28,9 +28,7 @@ namespace DSA
                      {
                          menu.LoginMenu();
                      }
-                 }*/
-            sqlAss.reseedTable("t_users");
-            sqlUser.AddUser(new User("Teste123","123"));
+                 }
         }
     }
 }

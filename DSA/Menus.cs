@@ -39,7 +39,7 @@ namespace DSA
                     i++;
                     continue;
                 }
-                if (n <= 1)
+                if (n < 1)
                 {
                     Console.WriteLine("The user id needs to be greater than 1!");
                     i++;
@@ -72,8 +72,7 @@ namespace DSA
             Console.WriteLine("\t\t(3)Logout)");
             Console.WriteLine("\t\t(4)Exit application");
             key=Console.ReadKey().KeyChar;
-            switch (key)
-            {
+            switch (key){
                 case '1': UserMenu();  break;
                 case '2':break;
                 case '3': LoginController.Instance.Logout();return;
@@ -85,7 +84,20 @@ namespace DSA
         }
         public void UserMenu()
         {
+            int i = 1;
+            //TODO: Acabar menu
+            Console.Clear();
+            Console.WriteLine("\n****************************************Main Menu*********************************************");
+            Console.WriteLine("\tChoose an option: ");
+            if (UserController.Instance.GetUser(LoginController.Instance.LoggedId).isAdmin) // ver se e admin
+            {
+                Console.WriteLine($"({i})Adicionar Novo Utilizador");
+                i++;
 
+
+            }
+
+            Console.ReadLine();
         }
     }
 }
