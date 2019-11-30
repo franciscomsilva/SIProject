@@ -62,12 +62,11 @@ namespace DSA.Controllers
                     {
                        this.isLogged = true;
                         this.LoggedId = index;
-                        Console.WriteLine("Login was sucessfull!");
                         return true;
                     }
                     else
                     {
-                        Console.WriteLine("Login failed, consider reentering the password");
+                        
                         return false;
                     }
 

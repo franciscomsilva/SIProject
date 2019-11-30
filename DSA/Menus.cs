@@ -10,20 +10,22 @@ namespace DSA
         public void LoginMenu()
         {
             int n,i=0;
-            bool repeat = false;
+        
             string user_id;
             string password;
             Console.Clear();
             Console.WriteLine("\n\n****************************************Welcome*********************************************\n");
             Console.WriteLine("Before you enter our service we'll need you to login!");
-            Console.WriteLine("Insert your user ID: "); user_id = Console.ReadLine();
-            Console.WriteLine("Insert the password: "); password = Console.ReadLine();
+            Console.Write("\tInsert your user ID: "); user_id = Console.ReadLine();
+            Console.Write("\tInsert the password: "); password = Console.ReadLine();
             //TODO:Verificação de input;
             while (true) {
                 if (i != 0)
                 {
-                    Console.WriteLine("Insert your user ID: "); user_id = Console.ReadLine();
-                    Console.WriteLine("Insert the password: "); password = Console.ReadLine();
+                    Console.Write("Insert your user ID: "); user_id = Console.ReadLine();
+             
+                    Console.Write("Insert the password: "); password = Console.ReadLine();
+
                 }
                 if (String.IsNullOrEmpty(user_id) || String.IsNullOrEmpty(password))
                 {
@@ -60,7 +62,28 @@ namespace DSA
         }
         public void MainMenu()
         {
-            Console.WriteLine("Tou");
+            char key;
+            Console.WriteLine("****************************************Main Menu*********************************************");
+            Console.WriteLine("Hello there "+UserController.Instance.GetUser(LoginController.Instance.LoggedId).name+" what do you wish to do today?");
+            Console.WriteLine("\tChoose an option: ");
+            Console.WriteLine("\t\t(1)User Operations");
+            Console.WriteLine("\t\t(2)Sensor Operations");
+            Console.WriteLine("\t\t(3)Logout)");
+            Console.WriteLine("\t\t(4)Exit application");
+            key=Console.ReadKey().KeyChar;
+            switch (key)
+            {
+                case '1': UserMenu();  break;
+                case '2':break;
+                case '3': LoginController.Instance.Logout();return;
+                case '4': Console.WriteLine("Exiting as by user request");System.Environment.Exit(0);break;
+                default: Console.WriteLine("Invalid option, please choose again!");break;
+
+            }
+      
+        }
+        public void UserMenu()
+        {
 
         }
     }
