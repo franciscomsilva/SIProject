@@ -34,7 +34,7 @@ namespace DSA.Controllers
             this.LoggedId = -1;
             Console.WriteLine("Sucessfully Logged out!");
         }
-        public void Login(int index, string password)
+        public bool Login(int index, string password)
         {
             string passwordDB=null;
             //isAdmin para apoiar a Api e permitir operações mais sensíves deste lado
@@ -63,10 +63,12 @@ namespace DSA.Controllers
                        this.isLogged = true;
                         this.LoggedId = index;
                         Console.WriteLine("Login was sucessfull!");
+                        return true;
                     }
                     else
                     {
                         Console.WriteLine("Login failed, consider reentering the password");
+                        return false;
                     }
 
                 }
@@ -75,6 +77,7 @@ namespace DSA.Controllers
             catch (Exception e)
             {
                 Console.WriteLine("Error logging in! Reason: " + e.Message);
+                return false;
             }
 
         }

@@ -22,7 +22,7 @@ namespace DSA
             {
                 if (sqlLogin.isLogged)
                 {
-                    //TODO: Acabar isto
+                    menu.MainMenu();
                 }
                 else
                 {
