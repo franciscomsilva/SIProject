@@ -91,7 +91,7 @@ namespace DSA.Controllers
 
             return users;
         }
-        public void AddUser(User user,int loggedId)
+        public void AddUser(User user)
         {
          
             try

@@ -18,18 +18,19 @@ namespace DSA
             LoginController sqlLogin = LoginController.Instance;
             Menus menu = new Menus();
             #endregion
-            while (true)
-            {
-                if (sqlLogin.isLogged)
-                {
-                    menu.MainMenu();
-                }
-                else
-                {
-                    menu.LoginMenu();
-                }
-            }
-
+            /*     while (true)
+                 {
+                     if (sqlLogin.isLogged)
+                     {
+                         menu.MainMenu();
+                     }
+                     else
+                     {
+                         menu.LoginMenu();
+                     }
+                 }*/
+            sqlAss.reseedTable("t_users");
+            sqlUser.AddUser(new User("Teste123","123"));
         }
     }
 }
