@@ -22,5 +22,20 @@ namespace ALERTS_APPLICATION
         private void tabPage1_Click(object sender, EventArgs e)
         {
         }
+
+        private void configureTab_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
