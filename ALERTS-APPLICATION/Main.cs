@@ -10,11 +10,17 @@ using System.Windows.Forms;
 
 namespace ALERTS_APPLICATION
 {
-    public partial class Form1 : Form
+    public partial class Main : Form
     {
-        public Form1()
+
+        public Main()
         {
             InitializeComponent();
+
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
         }
     }
 }

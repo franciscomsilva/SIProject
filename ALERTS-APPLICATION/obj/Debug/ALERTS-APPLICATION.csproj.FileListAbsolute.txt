@@ -1,0 +1,9 @@
+C:\Users\Francisco Silva\Desktop\SIProject\ALERTS-APPLICATION\bin\Debug\ALERTS-APPLICATION.exe.config
+C:\Users\Francisco Silva\Desktop\SIProject\ALERTS-APPLICATION\bin\Debug\ALERTS-APPLICATION.exe
+C:\Users\Francisco Silva\Desktop\SIProject\ALERTS-APPLICATION\bin\Debug\ALERTS-APPLICATION.pdb
+C:\Users\Francisco Silva\Desktop\SIProject\ALERTS-APPLICATION\obj\Debug\ALERTS-APPLICATION.csprojAssemblyReference.cache
+C:\Users\Francisco Silva\Desktop\SIProject\ALERTS-APPLICATION\obj\Debug\ALERTS_APPLICATION.Main.resources
+C:\Users\Francisco Silva\Desktop\SIProject\ALERTS-APPLICATION\obj\Debug\ALERTS_APPLICATION.Properties.Resources.resources
+C:\Users\Francisco Silva\Desktop\SIProject\ALERTS-APPLICATION\obj\Debug\ALERTS-APPLICATION.csproj.GenerateResource.cache
+C:\Users\Francisco Silva\Desktop\SIProject\ALERTS-APPLICATION\obj\Debug\ALERTS-APPLICATION.exe
+C:\Users\Francisco Silva\Desktop\SIProject\ALERTS-APPLICATION\obj\Debug\ALERTS-APPLICATION.pdb
