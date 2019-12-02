@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.viewTab = new System.Windows.Forms.TabPage();
-            this.listAlerts = new System.Windows.Forms.ListView();
-            this.configureTab = new System.Windows.Forms.TabPage();
+            this.alertasTab = new System.Windows.Forms.TabPage();
+            this.criarTab = new System.Windows.Forms.TabPage();
+            this.lvParametros = new System.Windows.Forms.ListView();
             this.nrValor = new System.Windows.Forms.NumericUpDown();
             this.lblValor = new System.Windows.Forms.Label();
             this.btnCriarAlerta = new System.Windows.Forms.Button();
@@ -45,65 +45,70 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lblDescricaoAlerta = new System.Windows.Forms.Label();
             this.txtDescricao = new System.Windows.Forms.TextBox();
-            this.lvParametros = new System.Windows.Forms.ListView();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lvAlertas = new System.Windows.Forms.ListView();
+            this.btnLimparAlertas = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
-            this.viewTab.SuspendLayout();
-            this.configureTab.SuspendLayout();
+            this.alertasTab.SuspendLayout();
+            this.criarTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nrValor)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.viewTab);
-            this.tabControl1.Controls.Add(this.configureTab);
+            this.tabControl1.Controls.Add(this.alertasTab);
+            this.tabControl1.Controls.Add(this.criarTab);
             this.tabControl1.Location = new System.Drawing.Point(2, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1334, 711);
             this.tabControl1.TabIndex = 0;
             // 
-            // viewTab
+            // alertasTab
             // 
-            this.viewTab.Controls.Add(this.listAlerts);
-            this.viewTab.Location = new System.Drawing.Point(4, 22);
-            this.viewTab.Name = "viewTab";
-            this.viewTab.Padding = new System.Windows.Forms.Padding(3);
-            this.viewTab.Size = new System.Drawing.Size(1326, 685);
-            this.viewTab.TabIndex = 0;
-            this.viewTab.Text = "View";
-            this.viewTab.UseVisualStyleBackColor = true;
+            this.alertasTab.Controls.Add(this.btnLimparAlertas);
+            this.alertasTab.Controls.Add(this.lvAlertas);
+            this.alertasTab.Controls.Add(this.label2);
+            this.alertasTab.Location = new System.Drawing.Point(4, 22);
+            this.alertasTab.Name = "alertasTab";
+            this.alertasTab.Padding = new System.Windows.Forms.Padding(3);
+            this.alertasTab.Size = new System.Drawing.Size(1326, 685);
+            this.alertasTab.TabIndex = 0;
+            this.alertasTab.Text = "Alertas";
+            this.alertasTab.UseVisualStyleBackColor = true;
             // 
-            // listAlerts
+            // criarTab
             // 
-            this.listAlerts.HideSelection = false;
-            this.listAlerts.Location = new System.Drawing.Point(20, 39);
-            this.listAlerts.Name = "listAlerts";
-            this.listAlerts.Size = new System.Drawing.Size(1285, 629);
-            this.listAlerts.TabIndex = 0;
-            this.listAlerts.UseCompatibleStateImageBehavior = false;
+            this.criarTab.Controls.Add(this.lvParametros);
+            this.criarTab.Controls.Add(this.nrValor);
+            this.criarTab.Controls.Add(this.lblValor);
+            this.criarTab.Controls.Add(this.btnCriarAlerta);
+            this.criarTab.Controls.Add(this.lblAdicionarParametro);
+            this.criarTab.Controls.Add(this.lblParametros);
+            this.criarTab.Controls.Add(this.btnAdicionar);
+            this.criarTab.Controls.Add(this.lblDado);
+            this.criarTab.Controls.Add(this.cbTipoDado);
+            this.criarTab.Controls.Add(this.lblCondicao);
+            this.criarTab.Controls.Add(this.cbCondicao);
+            this.criarTab.Controls.Add(this.label1);
+            this.criarTab.Controls.Add(this.lblDescricaoAlerta);
+            this.criarTab.Controls.Add(this.txtDescricao);
+            this.criarTab.Location = new System.Drawing.Point(4, 22);
+            this.criarTab.Name = "criarTab";
+            this.criarTab.Size = new System.Drawing.Size(1326, 685);
+            this.criarTab.TabIndex = 1;
+            this.criarTab.Text = "Criar";
+            this.criarTab.UseVisualStyleBackColor = true;
             // 
-            // configureTab
+            // lvParametros
             // 
-            this.configureTab.Controls.Add(this.lvParametros);
-            this.configureTab.Controls.Add(this.nrValor);
-            this.configureTab.Controls.Add(this.lblValor);
-            this.configureTab.Controls.Add(this.btnCriarAlerta);
-            this.configureTab.Controls.Add(this.lblAdicionarParametro);
-            this.configureTab.Controls.Add(this.lblParametros);
-            this.configureTab.Controls.Add(this.btnAdicionar);
-            this.configureTab.Controls.Add(this.lblDado);
-            this.configureTab.Controls.Add(this.cbTipoDado);
-            this.configureTab.Controls.Add(this.lblCondicao);
-            this.configureTab.Controls.Add(this.cbCondicao);
-            this.configureTab.Controls.Add(this.label1);
-            this.configureTab.Controls.Add(this.lblDescricaoAlerta);
-            this.configureTab.Controls.Add(this.txtDescricao);
-            this.configureTab.Location = new System.Drawing.Point(4, 22);
-            this.configureTab.Name = "configureTab";
-            this.configureTab.Size = new System.Drawing.Size(1326, 685);
-            this.configureTab.TabIndex = 1;
-            this.configureTab.Text = "Configure";
-            this.configureTab.UseVisualStyleBackColor = true;
+            this.lvParametros.HideSelection = false;
+            this.lvParametros.Location = new System.Drawing.Point(31, 317);
+            this.lvParametros.Name = "lvParametros";
+            this.lvParametros.Size = new System.Drawing.Size(1278, 284);
+            this.lvParametros.TabIndex = 15;
+            this.lvParametros.UseCompatibleStateImageBehavior = false;
+            this.lvParametros.SelectedIndexChanged += new System.EventHandler(this.lvParametros_SelectedIndexChanged);
             // 
             // nrValor
             // 
@@ -141,6 +146,7 @@
             this.btnCriarAlerta.TabIndex = 11;
             this.btnCriarAlerta.Text = "CRIAR ALERTA";
             this.btnCriarAlerta.UseVisualStyleBackColor = true;
+            this.btnCriarAlerta.Click += new System.EventHandler(this.btnCriarAlerta_Click);
             // 
             // lblAdicionarParametro
             // 
@@ -239,14 +245,36 @@
             this.txtDescricao.Size = new System.Drawing.Size(448, 20);
             this.txtDescricao.TabIndex = 0;
             // 
-            // lvParametros
+            // label2
             // 
-            this.lvParametros.HideSelection = false;
-            this.lvParametros.Location = new System.Drawing.Point(31, 317);
-            this.lvParametros.Name = "lvParametros";
-            this.lvParametros.Size = new System.Drawing.Size(1278, 284);
-            this.lvParametros.TabIndex = 15;
-            this.lvParametros.UseCompatibleStateImageBehavior = false;
+            this.label2.AutoSize = true;
+            this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.label2.Font = new System.Drawing.Font("Calibri", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(15, 18);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(288, 45);
+            this.label2.TabIndex = 17;
+            this.label2.Text = "LISTA DE ALERTAS";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // lvAlertas
+            // 
+            this.lvAlertas.HideSelection = false;
+            this.lvAlertas.Location = new System.Drawing.Point(23, 110);
+            this.lvAlertas.Name = "lvAlertas";
+            this.lvAlertas.Size = new System.Drawing.Size(1273, 531);
+            this.lvAlertas.TabIndex = 18;
+            this.lvAlertas.UseCompatibleStateImageBehavior = false;
+            // 
+            // btnLimparAlertas
+            // 
+            this.btnLimparAlertas.Location = new System.Drawing.Point(23, 79);
+            this.btnLimparAlertas.Name = "btnLimparAlertas";
+            this.btnLimparAlertas.Size = new System.Drawing.Size(125, 23);
+            this.btnLimparAlertas.TabIndex = 19;
+            this.btnLimparAlertas.Text = "LIMPAR ALERTAS";
+            this.btnLimparAlertas.UseVisualStyleBackColor = true;
+            this.btnLimparAlertas.Click += new System.EventHandler(this.btnLimparAlertas_Click);
             // 
             // Main
             // 
@@ -258,9 +286,10 @@
             this.Text = "Alerts Application";
             this.Load += new System.EventHandler(this.Main_Load);
             this.tabControl1.ResumeLayout(false);
-            this.viewTab.ResumeLayout(false);
-            this.configureTab.ResumeLayout(false);
-            this.configureTab.PerformLayout();
+            this.alertasTab.ResumeLayout(false);
+            this.alertasTab.PerformLayout();
+            this.criarTab.ResumeLayout(false);
+            this.criarTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nrValor)).EndInit();
             this.ResumeLayout(false);
 
@@ -269,9 +298,8 @@
         #endregion
 
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage viewTab;
-        private System.Windows.Forms.ListView listAlerts;
-        private System.Windows.Forms.TabPage configureTab;
+        private System.Windows.Forms.TabPage alertasTab;
+        private System.Windows.Forms.TabPage criarTab;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblDescricaoAlerta;
         private System.Windows.Forms.TextBox txtDescricao;
@@ -286,6 +314,9 @@
         private System.Windows.Forms.Label lblValor;
         private System.Windows.Forms.NumericUpDown nrValor;
         private System.Windows.Forms.ListView lvParametros;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ListView lvAlertas;
+        private System.Windows.Forms.Button btnLimparAlertas;
     }
 }
 

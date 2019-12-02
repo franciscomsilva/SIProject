@@ -21,9 +21,9 @@ namespace ALERTS_APPLICATION
         public int Ativado { get; set; }
 
         [DataMember]
-        public DateTime dataCriacao { get; set; }
+        public DateTime DataCriacao { get; set; }
 
-        public void adicinarParametro(Parametro parametro)
+        public void adicionarParametro(Parametro parametro)
         {
             this.Parametros.AddLast(parametro);
         }
@@ -32,6 +32,11 @@ namespace ALERTS_APPLICATION
         {
             return this.Parametros.Remove(parametro);
         }
-        
+
+        public override string ToString()
+        {
+            return Descricao + UserID + DataCriacao;
+        }
+
     }
 }

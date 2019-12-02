@@ -7,3 +7,6 @@ C:\Users\Francisco Silva\Desktop\SIProject\ALERTS-APPLICATION\obj\Debug\ALERTS_A
 C:\Users\Francisco Silva\Desktop\SIProject\ALERTS-APPLICATION\obj\Debug\ALERTS-APPLICATION.csproj.GenerateResource.cache
 C:\Users\Francisco Silva\Desktop\SIProject\ALERTS-APPLICATION\obj\Debug\ALERTS-APPLICATION.exe
 C:\Users\Francisco Silva\Desktop\SIProject\ALERTS-APPLICATION\obj\Debug\ALERTS-APPLICATION.pdb
+C:\Users\Francisco Silva\Desktop\SIProject\ALERTS-APPLICATION\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Francisco Silva\Desktop\SIProject\ALERTS-APPLICATION\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Francisco Silva\Desktop\SIProject\ALERTS-APPLICATION\obj\Debug\ALERTS-APPLICATION.csproj.CopyComplete
