@@ -1,0 +1,10 @@
+C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\DataShowApplicationSolution\DataShowApplication\bin\Debug\DataShowApplication.exe.config
+C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\DataShowApplicationSolution\DataShowApplication\bin\Debug\DataShowApplication.exe
+C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\DataShowApplicationSolution\DataShowApplication\bin\Debug\DataShowApplication.pdb
+C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\DataShowApplicationSolution\DataShowApplication\obj\Debug\DataShowApplication.csprojAssemblyReference.cache
+C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\DataShowApplicationSolution\DataShowApplication\obj\Debug\DataShowApplication.Form1.resources
+C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\DataShowApplicationSolution\DataShowApplication\obj\Debug\DataShowApplication.InfoSensorBinary.resources
+C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\DataShowApplicationSolution\DataShowApplication\obj\Debug\DataShowApplication.Properties.Resources.resources
+C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\DataShowApplicationSolution\DataShowApplication\obj\Debug\DataShowApplication.csproj.GenerateResource.cache
+C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\DataShowApplicationSolution\DataShowApplication\obj\Debug\DataShowApplication.exe
+C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\DataShowApplicationSolution\DataShowApplication\obj\Debug\DataShowApplication.pdb
