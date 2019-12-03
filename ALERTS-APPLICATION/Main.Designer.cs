@@ -30,6 +30,9 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.alertasTab = new System.Windows.Forms.TabPage();
+            this.btnLimparAlertas = new System.Windows.Forms.Button();
+            this.lvAlertas = new System.Windows.Forms.ListView();
+            this.label2 = new System.Windows.Forms.Label();
             this.criarTab = new System.Windows.Forms.TabPage();
             this.lvParametros = new System.Windows.Forms.ListView();
             this.nrValor = new System.Windows.Forms.NumericUpDown();
@@ -45,9 +48,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lblDescricaoAlerta = new System.Windows.Forms.Label();
             this.txtDescricao = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.lvAlertas = new System.Windows.Forms.ListView();
-            this.btnLimparAlertas = new System.Windows.Forms.Button();
+            this.tabAlertasGerados = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.alertasTab.SuspendLayout();
             this.criarTab.SuspendLayout();
@@ -57,6 +58,7 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.alertasTab);
+            this.tabControl1.Controls.Add(this.tabAlertasGerados);
             this.tabControl1.Controls.Add(this.criarTab);
             this.tabControl1.Location = new System.Drawing.Point(2, 2);
             this.tabControl1.Name = "tabControl1";
@@ -76,6 +78,37 @@
             this.alertasTab.TabIndex = 0;
             this.alertasTab.Text = "Alertas";
             this.alertasTab.UseVisualStyleBackColor = true;
+            // 
+            // btnLimparAlertas
+            // 
+            this.btnLimparAlertas.Location = new System.Drawing.Point(23, 79);
+            this.btnLimparAlertas.Name = "btnLimparAlertas";
+            this.btnLimparAlertas.Size = new System.Drawing.Size(125, 23);
+            this.btnLimparAlertas.TabIndex = 19;
+            this.btnLimparAlertas.Text = "LIMPAR ALERTAS";
+            this.btnLimparAlertas.UseVisualStyleBackColor = true;
+            this.btnLimparAlertas.Click += new System.EventHandler(this.btnLimparAlertas_Click);
+            // 
+            // lvAlertas
+            // 
+            this.lvAlertas.HideSelection = false;
+            this.lvAlertas.Location = new System.Drawing.Point(23, 110);
+            this.lvAlertas.Name = "lvAlertas";
+            this.lvAlertas.Size = new System.Drawing.Size(1273, 531);
+            this.lvAlertas.TabIndex = 18;
+            this.lvAlertas.UseCompatibleStateImageBehavior = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.label2.Font = new System.Drawing.Font("Calibri", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(15, 18);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(288, 45);
+            this.label2.TabIndex = 17;
+            this.label2.Text = "LISTA DE ALERTAS";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // criarTab
             // 
@@ -245,36 +278,15 @@
             this.txtDescricao.Size = new System.Drawing.Size(448, 20);
             this.txtDescricao.TabIndex = 0;
             // 
-            // label2
+            // tabAlertasGerados
             // 
-            this.label2.AutoSize = true;
-            this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.label2.Font = new System.Drawing.Font("Calibri", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(15, 18);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(288, 45);
-            this.label2.TabIndex = 17;
-            this.label2.Text = "LISTA DE ALERTAS";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
-            // 
-            // lvAlertas
-            // 
-            this.lvAlertas.HideSelection = false;
-            this.lvAlertas.Location = new System.Drawing.Point(23, 110);
-            this.lvAlertas.Name = "lvAlertas";
-            this.lvAlertas.Size = new System.Drawing.Size(1273, 531);
-            this.lvAlertas.TabIndex = 18;
-            this.lvAlertas.UseCompatibleStateImageBehavior = false;
-            // 
-            // btnLimparAlertas
-            // 
-            this.btnLimparAlertas.Location = new System.Drawing.Point(23, 79);
-            this.btnLimparAlertas.Name = "btnLimparAlertas";
-            this.btnLimparAlertas.Size = new System.Drawing.Size(125, 23);
-            this.btnLimparAlertas.TabIndex = 19;
-            this.btnLimparAlertas.Text = "LIMPAR ALERTAS";
-            this.btnLimparAlertas.UseVisualStyleBackColor = true;
-            this.btnLimparAlertas.Click += new System.EventHandler(this.btnLimparAlertas_Click);
+            this.tabAlertasGerados.Location = new System.Drawing.Point(4, 22);
+            this.tabAlertasGerados.Name = "tabAlertasGerados";
+            this.tabAlertasGerados.Padding = new System.Windows.Forms.Padding(3);
+            this.tabAlertasGerados.Size = new System.Drawing.Size(1326, 685);
+            this.tabAlertasGerados.TabIndex = 2;
+            this.tabAlertasGerados.Text = "Alertas Gerados";
+            this.tabAlertasGerados.UseVisualStyleBackColor = true;
             // 
             // Main
             // 
@@ -317,6 +329,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ListView lvAlertas;
         private System.Windows.Forms.Button btnLimparAlertas;
+        private System.Windows.Forms.TabPage tabAlertasGerados;
     }
 }
 
