@@ -37,5 +37,6 @@ namespace DSA
             this.password = password;
             this.isAdmin = isAdmin;
         }
+
     }
 }

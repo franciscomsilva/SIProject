@@ -11,7 +11,9 @@ namespace DSA.Controllers
     {
         private UserController(){
             }
+        private readonly int tokenLength = 64;
         private static UserController instance = null;
+        string characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
         public static UserController Instance
         {
             get
@@ -95,17 +97,17 @@ namespace DSA.Controllers
         }
         public void AddUser(User user)
         {
-         
+
             try
             {
                 SqlConnection sql = new SqlConnection(connectionString);
                 sql.Open();
-                SqlCommand sqlCommand = new SqlCommand("INSERT INTO t_users VALUES(@name,@password,0)", sql);
+                SqlCommand sqlCommand = new SqlCommand("INSERT INTO t_users VALUES(@name,@password,0,@token)", sql);
                 sqlCommand.Parameters.AddWithValue("@name", user.name);
+                sqlCommand.Parameters.AddWithValue("@token", generateUserToken()); 
                 using (SHA256 sha = SHA256.Create())
                 {
                     byte[] hashedPassword =(sha.ComputeHash(Encoding.UTF8.GetBytes(user.password))); 
-     
                     sqlCommand.Parameters.AddWithValue("@password", hashedPassword);
                 }
                 sqlCommand.ExecuteNonQuery();
@@ -119,6 +121,17 @@ namespace DSA.Controllers
                 Console.ReadKey();
             }
         }
+        public string generateUserToken()
+        {
+            Random random = new Random();
+            StringBuilder result = new StringBuilder(tokenLength);
+            for (int i = 0; i < tokenLength; i++)
+            {
+                result.Append(characters[random.Next(characters.Length)]);
+            }
+            return result.ToString();
+        }
+    }
 
     }
-}
+

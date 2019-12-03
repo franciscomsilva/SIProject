@@ -4,6 +4,8 @@ using System.Text;
 using System.Data.SqlClient;
 using Newtonsoft.Json;
 using System.Security.Cryptography;
+using DSA.Controllers;
+
 namespace DSA
 {
 
@@ -25,6 +27,15 @@ namespace DSA
                 }
                 return instance;
             }
+        }
+        public bool isAdmin()
+        {
+            if (UserController.Instance.GetUser(LoginController.Instance.LoggedId).isAdmin)
+            {
+                return true;
+            }
+   
+                return false;
         }
         public void cleanTable(string table_name)
         {

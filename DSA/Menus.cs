@@ -18,7 +18,7 @@ namespace DSA
             Console.WriteLine("Before you enter our service we'll need you to login!");
             Console.Write("\tInsert your user ID: "); user_id = Console.ReadLine();
             Console.Write("\tInsert the password: "); password = Console.ReadLine();
-            //TODO:Verificação de input;
+            
             while (true) {
                 if (i != 0)
                 {
@@ -63,20 +63,21 @@ namespace DSA
         public void MainMenu()
         {
             char key;
-            Console.Clear();
             Console.WriteLine("\n****************************************Main Menu*********************************************");
             Console.WriteLine("Hello there "+UserController.Instance.GetUser(LoginController.Instance.LoggedId).name+" what do you wish to do today?");
             Console.WriteLine("\tChoose an option: ");
             Console.WriteLine("\t\t(1)User Operations");
             Console.WriteLine("\t\t(2)Sensor Operations");
-            Console.WriteLine("\t\t(3)Logout)");
-            Console.WriteLine("\t\t(4)Exit application");
-            key=Console.ReadKey().KeyChar;
+            Console.WriteLine("\t\t(3)Connect MQTT Service");
+            Console.WriteLine("\t\t(4)Logout)");
+            Console.WriteLine("\t\t(5)Exit application");
+            key=Console.ReadKey().KeyChar;Console.WriteLine();
             switch (key){
                 case '1': UserMenu();  break;
                 case '2':break;
-                case '3': LoginController.Instance.Logout();return;
-                case '4': Console.WriteLine("Exiting as by user request");System.Environment.Exit(0);break;
+                case '3': MQTTHandler.Instance.ConnectAndSubscribe();break;
+                case '4': LoginController.Instance.Logout();return;
+                case '5': Console.WriteLine("Exiting as by user request");System.Environment.Exit(0);break;
                 default: Console.WriteLine("Invalid option, please choose again!");break;
 
             }
@@ -85,15 +86,12 @@ namespace DSA
         public void UserMenu()
         {
             int i = 1;
-            //TODO: Acabar menu
             Console.Clear();
             Console.WriteLine("\n****************************************Main Menu*********************************************");
             Console.WriteLine("\tChoose an option: ");
-            if (UserController.Instance.GetUser(LoginController.Instance.LoggedId).isAdmin) // ver se e admin
+            if (SQLAssistant.Instance.isAdmin()) // ver se e admin
             {
-                Console.WriteLine($"({i})Adicionar Novo Utilizador");
-                i++;
-
+                Console.WriteLine($"(A)Adicionar Novo Utilizador");
 
             }
 

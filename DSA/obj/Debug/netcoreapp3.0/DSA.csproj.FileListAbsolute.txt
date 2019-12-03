@@ -19,3 +19,4 @@ C:\Users\ADMIN\Desktop\3o ano\1o sem\SIProject\DSA\obj\Debug\netcoreapp3.0\DSA.p
 C:\Users\ADMIN\Desktop\3o ano\1o sem\SIProject\DSA\obj\Debug\netcoreapp3.0\DSA.Properties.Resources.resources
 C:\Users\ADMIN\Desktop\3o ano\1o sem\SIProject\DSA\obj\Debug\netcoreapp3.0\DSA.csproj.GenerateResource.cache
 C:\Users\ADMIN\Desktop\3o ano\1o sem\SIProject\DSA\bin\Debug\netcoreapp3.0\Newtonsoft.Json.dll
+C:\Users\ADMIN\Desktop\3o ano\1o sem\SIProject\DSA\bin\Debug\netcoreapp3.0\M2Mqtt.Net.dll

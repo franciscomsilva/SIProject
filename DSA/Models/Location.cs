@@ -8,7 +8,7 @@ namespace DSA.Models
     {
         public int id { get; set; }
         public string location_name { get; set; }
-
+           
         public Location()
         {
 
