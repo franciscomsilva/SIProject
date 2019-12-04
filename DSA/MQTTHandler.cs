@@ -35,7 +35,8 @@ namespace DSA
         {
             int i,j;
             List<String> sensorsReadings;
-            foreach(Sensor sensor in SensorController.Instance.GetAllSensors()) //todos os canais de raw data
+            topics.Add("alerts/readingType");
+            foreach (Sensor sensor in SensorController.Instance.GetAllSensors()) //todos os canais de raw data
             {
                 sensorsReadings = SensorController.Instance.GetSensorReadingTypes(sensor.id);
                 foreach (string reading in sensorsReadings)
@@ -70,6 +71,15 @@ namespace DSA
             
         }
         //TODO:funcao de bootup do kikinho manel; alerts/readingType
+        public void publishData(string topic,string message)
+        {
+            if (!mClient.IsConnected)
+            {
+                Console.WriteLine("You'll need to connect to a broker before doing that!");
+                return;
+            }
+            mClient.Publish(topic,Encoding.UTF8.GetBytes(message));
+        }
         private void MClient_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
         {
            Console.WriteLine($"Received = {Encoding.UTF8.GetString(e.Message)} on topic = {e.Topic} {Environment.NewLine}");
