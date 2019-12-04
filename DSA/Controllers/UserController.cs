@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Buffers.Text;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
@@ -97,17 +98,18 @@ namespace DSA.Controllers
         }
         public void AddUser(User user)
         {
-
+            Console.WriteLine(user.password);
             try
             {
                 SqlConnection sql = new SqlConnection(connectionString);
                 sql.Open();
-                SqlCommand sqlCommand = new SqlCommand("INSERT INTO t_users VALUES(@name,@password,0,@token)", sql);
+                SqlCommand sqlCommand = new SqlCommand("INSERT INTO t_users VALUES(@name,0,@password,@token)", sql);
                 sqlCommand.Parameters.AddWithValue("@name", user.name);
                 sqlCommand.Parameters.AddWithValue("@token", generateUserToken()); 
                 using (SHA256 sha = SHA256.Create())
                 {
-                    byte[] hashedPassword =(sha.ComputeHash(Encoding.UTF8.GetBytes(user.password))); 
+                    byte[] hashedPassword =sha.ComputeHash(Encoding.UTF8.GetBytes(user.password));
+                    Console.WriteLine("Hash: "+ hashedPassword.ToString());
                     sqlCommand.Parameters.AddWithValue("@password", hashedPassword);
                 }
                 sqlCommand.ExecuteNonQuery();
@@ -129,6 +131,7 @@ namespace DSA.Controllers
             {
                 result.Append(characters[random.Next(characters.Length)]);
             }
+            Console.WriteLine("");
             return result.ToString();
         }
     }

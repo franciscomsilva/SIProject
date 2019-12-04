@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using uPLibrary.Networking.M2Mqtt;
+using Newtonsoft.Json;
 using uPLibrary.Networking.M2Mqtt.Messages;
 
 namespace DSA
@@ -27,44 +28,48 @@ namespace DSA
             }
         }
         MqttClient mClient = null;
-        string[] topics = {  };
-        byte[] qosLevels = { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE };
+        List<string> topics = new List<string>();
    
 
         public void ConnectAndSubscribe()
         {
             int i,j;
             List<String> sensorsReadings;
-            for (i = 0; i < SensorController.Instance.GetAllSensors().Count ; i++) //todos os canais de raw data
+            foreach(Sensor sensor in SensorController.Instance.GetAllSensors()) //todos os canais de raw data
             {
-                sensorsReadings = SensorController.Instance.GetSensorReadingTypes(i);
+                sensorsReadings = SensorController.Instance.GetSensorReadingTypes(sensor.id);
                 foreach (string reading in sensorsReadings)
                 {
-                    topics[i] = $"sensor_data/{i}/{reading}";
+                    topics.Add( $"sensor_data/{sensor.id}/{reading}");
                 }
             }
-            for (j = i; j < AlertController.Instance.GetAllAlerts().Count+i; i++)
-            {
-                topics[j] = $"alerts_data/{j - i}";
-            }
-            topics[j++] = $"alerts/new_alert";
-            Console.WriteLine(topics.ToString());
+            foreach(Alert alert in AlertController.Instance.GetAllAlerts())
+                topics.Add ($"alerts_data/{alert.id}");
+            
+
             if (mClient!=null && mClient.IsConnected )
             {
                 Console.WriteLine("Mqtt was connected to the broker already!");
             }
             Console.WriteLine("Connecting...");
             mClient = new MqttClient("127.0.0.1");
+            
             mClient.Connect(Guid.NewGuid().ToString());
             if (!mClient.IsConnected)
             {
                 Console.WriteLine("Error Connecting to Message Broker!");
                 return;
             }
+            for (int h = 0; h < topics.Count; h++)
+            {
+                Console.WriteLine("Connecting to topic number "+h+":"+topics[h]);
+               mClient.Subscribe(new string[] { topics[h] },new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
+                Console.WriteLine("Connected sucessfully!");
+            }
             mClient.MqttMsgPublishReceived += MClient_MqttMsgPublishReceived;
-            mClient.Subscribe(topics, qosLevels);
+            
         }
-
+        //TODO:funcao de bootup do kikinho manel; alerts/readingType
         private void MClient_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
         {
            Console.WriteLine($"Received = {Encoding.UTF8.GetString(e.Message)} on topic = {e.Topic} {Environment.NewLine}");

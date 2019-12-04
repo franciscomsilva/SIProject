@@ -15,25 +15,29 @@ namespace DSA
             MQTTHandler mqtt = MQTTHandler.Instance;
             UserController sqlUser = UserController.Instance;
             SQLAssistant sqlAss = SQLAssistant.Instance;
+            SensorController sqlSensor = SensorController.Instance;
             LocationController sqlLocation = LocationController.Instance;
             LoginController sqlLogin = LoginController.Instance;
             AlertController sqlAlert = AlertController.Instance;
             Menus menu = new Menus();
             #endregion
-            sqlUser.AddUser(new User("User Teste","123"));
-               while (true)
+            //   LocationController.Instance.AddLocation("Biblioteca");
+
+           
+           
+              while (true)
                  {
                      if (sqlLogin.isLogged)
                      {
-                         menu.MainMenu();
+                    menu.MainMenu();
                      }
                      else
                      {
-                         menu.LoginMenu();
+                   
+                    menu.LoginMenu();
                      }
                  } 
                  
-
         }
     }
 }

@@ -17,7 +17,7 @@ namespace DSA
 
 
         public bool enabled { get; set; }
-
+        public int id { get; set; }
         public string created_at { get; set; }
 
 

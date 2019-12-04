@@ -39,6 +39,7 @@ namespace DSA.Controllers
                 {
                     Alert alert = new Alert
                     {
+                        id=(int)reader["id"],
                         user_id=(int)reader["user_id"],
                         description=(string)reader["description"],
                         enabled=(bool)reader["enabled"],

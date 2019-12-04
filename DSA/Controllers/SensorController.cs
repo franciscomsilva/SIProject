@@ -68,28 +68,28 @@ namespace DSA.Controllers
             //Assume-se que o sensor é criado a partir do momento em que se chama a função therefore o timestamp e atribuido agora
             try
             {
+                Console.WriteLine(LoginController.Instance.LoggedId);
                 SqlConnection sql = new SqlConnection(connectionString);
                 sql.Open();
-                SqlCommand sqlCommand = new SqlCommand("INSERT INTO t_sensors VALUES(@user_id,@location_id,0,1,@date_creation)", sql);
+                SqlCommand sqlCommand = new SqlCommand("INSERT INTO t_sensors VALUES(@user_id,@location_id,0,@date_creation)", sql);
                 sqlCommand.Parameters.AddWithValue("@user_id",LoginController.Instance.LoggedId);
                sqlCommand.Parameters.AddWithValue("@location_id", location_id);
                 sqlCommand.Parameters.AddWithValue("@date_creation",DateTime.Now.ToShortDateString());
                 sqlCommand.ExecuteNonQuery();
 
                 sql.Close();
-                Console.WriteLine("Location created successfully!");
+                Console.WriteLine("Sensor created successfully!");
             }
             catch (Exception e)
             {
 
-                Console.WriteLine("Failed creating a new location! Reason:" + e.Message);
+                Console.WriteLine("Failed creating a new sensor! Reason:" + e.Message);
                 Console.ReadKey();
             }
         }
         
         public List<Sensor> GetAllSensors()
         {
-
             List<Sensor> sensors = new List<Sensor>();
             try
             {
