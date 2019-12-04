@@ -23,37 +23,47 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutSensors = new System.Windows.Forms.TableLayoutPanel();
             this.lblSensor = new System.Windows.Forms.Label();
             this.lblTemperature = new System.Windows.Forms.Label();
             this.lblHumidity = new System.Windows.Forms.Label();
             this.lblBattery = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.lblUpdate = new System.Windows.Forms.Label();
+            this.lblInfoSensor = new System.Windows.Forms.Label();
+            this.lblInfoTemperature = new System.Windows.Forms.Label();
+            this.lblInfoHumidity = new System.Windows.Forms.Label();
+            this.lblInfoBaterry = new System.Windows.Forms.Label();
+            this.lblInfoDate = new System.Windows.Forms.Label();
+            this.tableLayoutSensors.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tableLayoutPanel1
+            // tableLayoutSensors
             // 
-            this.tableLayoutPanel1.BackColor = System.Drawing.SystemColors.Control;
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.tableLayoutPanel1.Controls.Add(this.lblSensor, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.lblTemperature, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.lblHumidity, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.lblBattery, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 4);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 5;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(282, 187);
-            this.tableLayoutPanel1.TabIndex = 0;
+            this.tableLayoutSensors.BackColor = System.Drawing.SystemColors.Control;
+            this.tableLayoutSensors.ColumnCount = 2;
+            this.tableLayoutSensors.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutSensors.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutSensors.Controls.Add(this.lblSensor, 0, 0);
+            this.tableLayoutSensors.Controls.Add(this.lblTemperature, 0, 1);
+            this.tableLayoutSensors.Controls.Add(this.lblHumidity, 0, 2);
+            this.tableLayoutSensors.Controls.Add(this.lblBattery, 0, 3);
+            this.tableLayoutSensors.Controls.Add(this.lblUpdate, 0, 4);
+            this.tableLayoutSensors.Controls.Add(this.lblInfoSensor, 1, 0);
+            this.tableLayoutSensors.Controls.Add(this.lblInfoTemperature, 1, 1);
+            this.tableLayoutSensors.Controls.Add(this.lblInfoHumidity, 1, 2);
+            this.tableLayoutSensors.Controls.Add(this.lblInfoBaterry, 1, 3);
+            this.tableLayoutSensors.Controls.Add(this.lblInfoDate, 1, 4);
+            this.tableLayoutSensors.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutSensors.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutSensors.Name = "tableLayoutSensors";
+            this.tableLayoutSensors.RowCount = 5;
+            this.tableLayoutSensors.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutSensors.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutSensors.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutSensors.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutSensors.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutSensors.Size = new System.Drawing.Size(282, 187);
+            this.tableLayoutSensors.TabIndex = 0;
             // 
             // lblSensor
             // 
@@ -107,39 +117,104 @@
             this.lblBattery.Text = "Battery";
             this.lblBattery.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label1
+            // lblUpdate
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.lblUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 148);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(106, 39);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Last Update at";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblUpdate.AutoSize = true;
+            this.lblUpdate.Location = new System.Drawing.Point(3, 148);
+            this.lblUpdate.Name = "lblUpdate";
+            this.lblUpdate.Size = new System.Drawing.Size(106, 39);
+            this.lblUpdate.TabIndex = 4;
+            this.lblUpdate.Text = "Last Update at";
+            this.lblUpdate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblInfoSensor
+            // 
+            this.lblInfoSensor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblInfoSensor.AutoSize = true;
+            this.lblInfoSensor.Location = new System.Drawing.Point(115, 0);
+            this.lblInfoSensor.Name = "lblInfoSensor";
+            this.lblInfoSensor.Size = new System.Drawing.Size(164, 37);
+            this.lblInfoSensor.TabIndex = 5;
+            this.lblInfoSensor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblInfoTemperature
+            // 
+            this.lblInfoTemperature.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblInfoTemperature.AutoSize = true;
+            this.lblInfoTemperature.Location = new System.Drawing.Point(115, 37);
+            this.lblInfoTemperature.Name = "lblInfoTemperature";
+            this.lblInfoTemperature.Size = new System.Drawing.Size(164, 37);
+            this.lblInfoTemperature.TabIndex = 6;
+            this.lblInfoTemperature.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblInfoHumidity
+            // 
+            this.lblInfoHumidity.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblInfoHumidity.AutoSize = true;
+            this.lblInfoHumidity.Location = new System.Drawing.Point(115, 74);
+            this.lblInfoHumidity.Name = "lblInfoHumidity";
+            this.lblInfoHumidity.Size = new System.Drawing.Size(164, 37);
+            this.lblInfoHumidity.TabIndex = 7;
+            this.lblInfoHumidity.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblInfoBaterry
+            // 
+            this.lblInfoBaterry.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblInfoBaterry.AutoSize = true;
+            this.lblInfoBaterry.Location = new System.Drawing.Point(115, 111);
+            this.lblInfoBaterry.Name = "lblInfoBaterry";
+            this.lblInfoBaterry.Size = new System.Drawing.Size(164, 37);
+            this.lblInfoBaterry.TabIndex = 8;
+            this.lblInfoBaterry.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblInfoDate
+            // 
+            this.lblInfoDate.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblInfoDate.AutoSize = true;
+            this.lblInfoDate.Location = new System.Drawing.Point(115, 148);
+            this.lblInfoDate.Name = "lblInfoDate";
+            this.lblInfoDate.Size = new System.Drawing.Size(164, 39);
+            this.lblInfoDate.TabIndex = 9;
+            this.lblInfoDate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // InfoSensorBinary
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.tableLayoutSensors);
             this.Name = "InfoSensorBinary";
             this.Size = new System.Drawing.Size(282, 187);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutSensors.ResumeLayout(false);
+            this.tableLayoutSensors.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutSensors;
         private System.Windows.Forms.Label lblSensor;
         private System.Windows.Forms.Label lblTemperature;
         private System.Windows.Forms.Label lblHumidity;
         private System.Windows.Forms.Label lblBattery;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblUpdate;
+        private System.Windows.Forms.Label lblInfoSensor;
+        private System.Windows.Forms.Label lblInfoTemperature;
+        private System.Windows.Forms.Label lblInfoHumidity;
+        private System.Windows.Forms.Label lblInfoBaterry;
+        private System.Windows.Forms.Label lblInfoDate;
     }
 }

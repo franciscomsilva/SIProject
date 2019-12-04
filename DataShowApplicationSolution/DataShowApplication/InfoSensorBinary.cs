@@ -8,12 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace DataShowApplication {
-    public partial class InfoSensorBinary : UserControl {
+    public partial class InfoSensorBinary : UserControl, ISensorView<BinarySensorData> {
         public InfoSensorBinary() {
             InitializeComponent();
-            tableLayoutPanel1.Controls.Add(new Label { Text = "Ola" }, 1, 0);
         }
 
+        public void update(BinarySensorData data) {
+            lblInfoSensor.Text = data.sensor;
+            lblInfoTemperature.Text = data.temperature.ToString();
+            lblInfoHumidity.Text = data.humidity.ToString();
+            lblInfoBaterry.Text = data.baterry.ToString();
+            lblInfoDate.Text = data.date.ToString();
+        }
     }
 }
