@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace DSA.Controllers
@@ -87,7 +88,35 @@ namespace DSA.Controllers
                 Console.ReadKey();
             }
         }
-        
+        public List<string> getAllReadingTypes()
+        {
+            List<string> readingTypes = new List<string>();
+            
+            try
+            {
+                SqlConnection sql = new SqlConnection(connectionString);
+                sql.Open();
+                SqlCommand sqlCommand = new SqlCommand("SELECT DISTINCT measure_name FROM t_sensor_reading_types", sql);
+                SqlDataReader reader = sqlCommand.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    readingTypes.Add((string)reader["measure_name"]);
+                };
+                sql.Close();
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine("Failed retrieving sensor list! Reason:" + e.Message);
+                Console.ReadKey();
+                return null;
+            }
+
+
+
+            return readingTypes;
+        }
         public List<Sensor> GetAllSensors()
         {
             List<Sensor> sensors = new List<Sensor>();
@@ -149,6 +178,49 @@ namespace DSA.Controllers
 
 
             return sensorsReadings;
+        }
+        public void addReadingType(string measure_name,string measure_type, int sensor_id, [Optional] string min_value, [Optional] string max_value)
+        {
+
+            try
+            {
+                SqlConnection sql = new SqlConnection(connectionString);
+                sql.Open();
+                SqlCommand sqlCommand = new SqlCommand("INSERT INTO t_sensor_reading_types VALUES(@measure_name,@measure_type,@sensor_id,@timestamp,@min_value,@max_value)", sql);
+                sqlCommand.Parameters.AddWithValue("@measure");
+                sqlCommand.Parameters.AddWithValue();
+                sqlCommand.Parameters.AddWithValue();
+                sqlCommand.Parameters.AddWithValue();
+                sqlCommand.Parameters.AddWithValue();
+                sqlCommand.Parameters.AddWithValue();
+                SqlDataReader reader = sqlCommand.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Sensor sensor = new Sensor
+                    {
+                        id = (int)reader["id"],
+                        user_id = (int)reader["user_id"],
+                        personal = (bool)reader["personal"],
+                        valid = (bool)reader["valid"],
+                        date_creation = (string)reader["date"]
+
+                    };
+                    sensors.Add(sensor);
+                };
+                sql.Close();
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine("Failed retrieving sensor list! Reason:" + e.Message);
+                Console.ReadKey();
+                return null;
+            }
+
+
+            return sensors;
+
         }
     }
 }

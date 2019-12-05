@@ -61,7 +61,7 @@ namespace DSA.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=&quot;C:\Users\ADMIN\Desktop\3o ano\1o sem\SIProject\DSA\DB.mdf&quot;;Integrated Security=True.
+        ///   Looks up a localized string similar to Server=ead01ffe-0341-4f1c-adfb-ab19011acc9d.sqlserver.sequelizer.com;Database=dbead01ffe03414f1cadfbab19011acc9d;User ID=sivqbdpysfyhpcvj;Password=m7tdTmgnn643PkHFjrVvRupHXfZJYuki4g6vcFhFoKyfmRqELzgurCMYRTnMtEw2;.
         /// </summary>
         internal static string BDConnectString {
             get {
