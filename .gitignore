@@ -1,4 +1,4 @@
 .vs/
 *.exe
-*.config
 *.pdb
+*.cache
