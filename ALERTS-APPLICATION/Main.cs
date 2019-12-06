@@ -9,16 +9,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Models;
 
 namespace ALERTS_APPLICATION
 {
     public partial class Main : Form
     {
-        private LinkedList<Parametro> parametros;
+        private LinkedList<Parameter> parameters;
         private ErrorProvider errorProvider;
-        private LinkedList<Alerta> alertas;
+        private LinkedList<Alert> alerts;
 
-        private static string FILE_PATH = "FICHEIRO_CONFIGURACOES_ALERTAS.data";
+        private static string FILE_PATH = "alerts.config";
 
 
         public Main()
@@ -32,37 +33,37 @@ namespace ALERTS_APPLICATION
         private void Main_Load(object sender, EventArgs e)
         {
 
-            parametros = new LinkedList<Parametro>();
-            alertas = new LinkedList<Alerta>();
+            parameters = new LinkedList<Parameter>();
+            alerts = new LinkedList<Alert>();
 
 
 
-            cbTipoDado.DataSource = Enum.GetValues(typeof(TipoDado));
-            cbTipoDado.SelectedItem = TipoDado.TEMPERATURA;
+            cbDataType.DataSource = Enum.GetValues(typeof(DataType));
+            cbDataType.SelectedItem = DataType.TEMPERATURA;
 
-            cbCondicao.SelectedIndex = 0;
+            cbParameterCondition.SelectedIndex = 0;
 
-            lvParametros.View = View.Details;
-            lvParametros.Columns.Add("Condição");
-            lvParametros.Columns.Add("Tipo de Dado");
-            lvParametros.Columns.Add("Valor");
+            lvParameters.View = View.Details;
+            lvParameters.Columns.Add("Condition");
+            lvParameters.Columns.Add("Data Type");
+            lvParameters.Columns.Add("Value");
 
-            lvAlertas.View = View.Details;
-            lvAlertas.Columns.Add("Número de Paramêtros");
-            lvAlertas.Columns.Add("Descrição");
-            lvAlertas.Columns.Add("Data de Criação");
-            lvAlertas.Columns.Add("Ativado");
+            lvAlerts.View = View.Details;
+            lvAlerts.Columns.Add("Number Of Parameters");
+            lvAlerts.Columns.Add("Description");
+            lvAlerts.Columns.Add("Creation Date");
+            lvAlerts.Columns.Add("Enabled");
 
 
 
             errorProvider = new ErrorProvider();
 
-            errorProvider.SetIconAlignment(txtDescricao, ErrorIconAlignment.MiddleRight);
-            errorProvider.SetIconPadding(txtDescricao, 3);
-            errorProvider.SetIconAlignment(nrValor, ErrorIconAlignment.MiddleRight);
-            errorProvider.SetIconPadding(nrValor, 3);
-            errorProvider.SetIconAlignment(btnAdicionar, ErrorIconAlignment.MiddleRight);
-            errorProvider.SetIconPadding(btnAdicionar, 3);
+            errorProvider.SetIconAlignment(txtAlertDescription, ErrorIconAlignment.MiddleRight);
+            errorProvider.SetIconPadding(txtAlertDescription, 3);
+            errorProvider.SetIconAlignment(nrParameterValue, ErrorIconAlignment.MiddleRight);
+            errorProvider.SetIconPadding(nrParameterValue, 3);
+            errorProvider.SetIconAlignment(btnAddParameter, ErrorIconAlignment.MiddleRight);
+            errorProvider.SetIconPadding(btnAddParameter, 3);
 
 
 
@@ -75,23 +76,23 @@ namespace ALERTS_APPLICATION
                 try
                 {
                     string json = File.ReadAllText(FILE_PATH);
-                    alertas = JsonConvert.DeserializeObject<LinkedList<Alerta>>(json);
+                    alerts = JsonConvert.DeserializeObject<LinkedList<Alert>>(json);
 
-                    Console.WriteLine("Leitura do ficheiro de alertas");
+                    Console.WriteLine("ALERT CONFIG FILE READING SUCCESSFULL");
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Error reading file => " + ex.Message);
+                    Console.WriteLine("ERROR_READING_FILE => " + ex.Message);
                 }
 
                 ListViewItem item = null;
 
 
                 /*CARREGA O ALERTAS NA LISTA*/
-                foreach (Alerta alertaI in alertas)
+                foreach (Alert alertI in alerts)
                 {
-                    item = new ListViewItem(new string[] { alertaI.Parametros.Count.ToString(), alertaI.Descricao, alertaI.DataCriacao.ToShortDateString(), alertaI.Ativado.ToString() });
-                    lvAlertas.Items.Add(item);
+                    item = new ListViewItem(new string[] { alertI.Parameters.Count.ToString(), alertI.Description, alertI.DateCreated.ToShortDateString(), alertI.Enabled.ToString() });
+                    lvAlerts.Items.Add(item);
                 }
 
 
@@ -104,33 +105,32 @@ namespace ALERTS_APPLICATION
         {
 
 
-            string condicao = cbCondicao.SelectedItem.ToString();
+            string condition = cbParameterCondition.SelectedItem.ToString();
 
-            TipoDado tipoDado = (TipoDado)cbTipoDado.SelectedItem;
+            DataType dataType = (DataType)cbDataType.SelectedItem;
 
 
 
-            decimal valor = nrValor.Value;
+            decimal value = nrParameterValue.Value;
 
-            Parametro parametro = new Parametro
+            Parameter parameter = new Parameter
             {
-                Condicao = condicao,
-
-                TipoDado = tipoDado,
-                Valor = valor
+                Condition = condition,
+                DataType = dataType,
+                Value = value
             };
 
-            parametros.AddLast(parametro);
+            parameters.AddLast(parameter);
 
             ListViewItem item = null;
 
 
 
-            lvParametros.Items.Clear();
-            foreach (Parametro parametroI in parametros)
+            lvParameters.Items.Clear();
+            foreach (Parameter parameterI in parameters)
             {
-                item = new ListViewItem(new string[] { parametroI.Condicao, parametroI.TipoDado.ToString(), parametroI.Valor.ToString() });
-                lvParametros.Items.Add(item);
+                item = new ListViewItem(new string[] { parameterI.Condition, parameterI.DataType.ToString(), parameterI.Value.ToString() });
+                lvParameters.Items.Add(item);
             }
 
 
@@ -142,83 +142,83 @@ namespace ALERTS_APPLICATION
 
         }
 
-        private void btnCriarAlerta_Click(object sender, EventArgs e)
+        private void btnCriarAlert_Click(object sender, EventArgs e)
         {
-            errorProvider.SetError(btnAdicionar, "");
-            errorProvider.SetError(txtDescricao, "");
+            errorProvider.SetError(btnAddParameter, "");
+            errorProvider.SetError(txtAlertDescription, "");
 
 
-            if (txtDescricao.Text.Length <= 0)
+            if (txtAlertDescription.Text.Length <= 0)
             {
-                errorProvider.SetError(txtDescricao, "Descrição obrigatória!");
+                errorProvider.SetError(txtAlertDescription, "Description is mandatory");
                 return;
             }
 
-            if (parametros.Count <= 0)
+            if (parameters.Count <= 0)
             {
-                errorProvider.SetError(btnAdicionar, "É necessário pelo menos 1 parâmetro para criar um alerta!");
+                errorProvider.SetError(btnAddParameter, "At least one parameter is neccessary to create the alert");
                 return;
             }
 
 
 
             /*CRIAR O ALERTA*/
-            Alerta alerta = new Alerta
+            Alert alerta = new Alert
             {
-                Parametros = parametros,
-                Descricao = txtDescricao.Text,
+                Parameters = parameters,
+                Description = txtAlertDescription.Text,
                 UserID = 1,
-                Ativado = 1,
-                DataCriacao = DateTime.UtcNow
+                Enabled = 1,
+                DateCreated = DateTime.UtcNow
             };
 
-            guardarAlerta(alerta);
+            guardarAlert(alerta);
 
 
             /*LIMPA OS DADOS*/
-            txtDescricao.Clear();
-            nrValor.Value = 0;
-            cbTipoDado.SelectedIndex = 0;
-            cbCondicao.SelectedIndex = 0;
+            txtAlertDescription.Clear();
+            nrParameterValue.Value = 0;
+            cbDataType.SelectedIndex = 0;
+            cbParameterCondition.SelectedIndex = 0;
 
-            lvParametros.Items.Clear();
+            lvParameters.Items.Clear();
 
-            parametros.Clear();
+            parameters.Clear();
 
 
 
         }
 
 
-        private void guardarAlerta(Alerta alerta)
+        private void guardarAlert(Alert alerta)
         {
             if (alerta == null)
             {
                 return;
             }
 
-            alertas.AddLast(alerta);
+            alerts.AddLast(alerta);
 
             /*ATUALIZA LISTA*/
             ListViewItem item = null;
 
-            lvAlertas.Items.Clear();
+            lvAlerts.Items.Clear();
             /*CARREGA O ALERTAS NA LISTA*/
-            foreach (Alerta alertaI in alertas)
+            foreach (Alert alertI in alerts)
             {
-                item = new ListViewItem(new string[] { alertaI.Parametros.Count.ToString(), alertaI.Descricao, alertaI.DataCriacao.ToShortDateString(), alertaI.Ativado.ToString() });
-                lvAlertas.Items.Add(item);
+                item = new ListViewItem(new string[] { alertI.Parameters.Count.ToString(), alertI.Description, alertI.DateCreated.ToShortDateString(), alertI.Enabled.ToString() });
+                lvAlerts.Items.Add(item);
             }
 
 
 
             /*SERIALIZAR E GUARDAR NUM FICHEIRO*/
-            string json = JsonConvert.SerializeObject(alertas);
+            string json = JsonConvert.SerializeObject(alerts);
 
             try
             {
                 File.WriteAllText(FILE_PATH, json);
-
+                Console.WriteLine
             }
             catch (Exception ex)
             {
@@ -228,7 +228,7 @@ namespace ALERTS_APPLICATION
 
         }
 
-        private void lvParametros_SelectedIndexChanged(object sender, EventArgs e)
+        private void lvParameters_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
@@ -238,10 +238,10 @@ namespace ALERTS_APPLICATION
 
         }
 
-        private void btnLimparAlertas_Click(object sender, EventArgs e)
+        private void btnLimparAlerts_Click(object sender, EventArgs e)
         {
-            alertas.Clear();
-            lvAlertas.Items.Clear();
+            alerts.Clear();
+            lvAlerts.Items.Clear();
 
             /*APAGA O FICHEIRO QUE GUARDA OS ALERTAS*/
 
@@ -250,12 +250,20 @@ namespace ALERTS_APPLICATION
                 try
                 {
                     File.Delete(FILE_PATH);
+                    Console.WriteLine("ALERT CONFIG FILE READING SUCCESSFULL");
+
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Error deleting file => " + ex.Message);
+                    Console.WriteLine("ERROR_READING_FILE => " + ex.Message);
+
                 }
             }
+        }
+
+        private void btnLimparAlertas_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
