@@ -218,11 +218,12 @@ namespace ALERTS_APPLICATION
             try
             {
                 File.WriteAllText(FILE_PATH, json);
-                Console.WriteLine
+                Console.WriteLine("ALERT CONFIG FILE WRITING SUCCESSFULL");
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                Console.WriteLine("ERROR_WRITING_FILE => " + ex.Message);
+
             }
 
 
@@ -250,12 +251,12 @@ namespace ALERTS_APPLICATION
                 try
                 {
                     File.Delete(FILE_PATH);
-                    Console.WriteLine("ALERT CONFIG FILE READING SUCCESSFULL");
+                    Console.WriteLine("ALERT CONFIG FILE DELETING SUCCESSFULL");
 
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("ERROR_READING_FILE => " + ex.Message);
+                    Console.WriteLine("ERROR_DELETING_FILE => " + ex.Message);
 
                 }
             }
