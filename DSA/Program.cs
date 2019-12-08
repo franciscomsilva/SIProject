@@ -23,15 +23,18 @@ namespace DSA
             Menus menu = new Menus();
             DataController sqlData = DataController.Instance;
             #endregion
-             LocationController.Instance.AddLocation("Biblioteca");
-            UserController.Instance.AddUser(new User("Teste User ", "123"));
-            Console.WriteLine(JsonConvert.SerializeObject(UserController.Instance.GetAllUsers()));
-
-             /*    while (true)
+            foreach (var t in SensorController.Instance.GetSensorReadingTypes(1))
+            {
+                Console.WriteLine(t);
+            }
+            
+                 /*while (true)
                      {
+
                          if (sqlLogin.isLogged)
-                { 
-                        menu.MainMenu();
+                         {
+
+                    menu.MainMenu();
                          }
                          else
                          {
@@ -39,8 +42,7 @@ namespace DSA
                         menu.LoginMenu();
                          }
                      } 
-
-                    */
+                     */
                 
         }
     }

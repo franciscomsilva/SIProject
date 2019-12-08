@@ -72,7 +72,7 @@ namespace DSA.Controllers
                 Console.WriteLine(LoginController.Instance.LoggedId);
                 SqlConnection sql = new SqlConnection(connectionString);
                 sql.Open();
-                SqlCommand sqlCommand = new SqlCommand("INSERT INTO t_sensors VALUES(@user_id,@location_id,0,@date_creation)", sql);
+                SqlCommand sqlCommand = new SqlCommand("INSERT INTO t_sensors VALUES(@user_id,0,1,@date_creation,@location_id)", sql);
                 sqlCommand.Parameters.AddWithValue("@user_id",LoginController.Instance.LoggedId);
                sqlCommand.Parameters.AddWithValue("@location_id", location_id);
                 sqlCommand.Parameters.AddWithValue("@date_creation",DateTime.Now.ToShortDateString());
@@ -186,28 +186,30 @@ namespace DSA.Controllers
             {
                 SqlConnection sql = new SqlConnection(connectionString);
                 sql.Open();
+             
                 SqlCommand sqlCommand = new SqlCommand("INSERT INTO t_sensor_reading_types VALUES(@measure_name,@measure_type,@sensor_id,@timestamp,@min_value,@max_value)", sql);
-                sqlCommand.Parameters.AddWithValue("@measure");
-                sqlCommand.Parameters.AddWithValue();
-                sqlCommand.Parameters.AddWithValue();
-                sqlCommand.Parameters.AddWithValue();
-                sqlCommand.Parameters.AddWithValue();
-                sqlCommand.Parameters.AddWithValue();
-                SqlDataReader reader = sqlCommand.ExecuteReader();
-
-                while (reader.Read())
+                sqlCommand.Parameters.AddWithValue("@measure_name",measure_name);
+                sqlCommand.Parameters.AddWithValue("@measure_type",measure_type);
+                sqlCommand.Parameters.AddWithValue("@sensor_id",sensor_id);
+                sqlCommand.Parameters.AddWithValue("@timestamp",DateTime.Now);
+                if (min_value != null)
                 {
-                    Sensor sensor = new Sensor
-                    {
-                        id = (int)reader["id"],
-                        user_id = (int)reader["user_id"],
-                        personal = (bool)reader["personal"],
-                        valid = (bool)reader["valid"],
-                        date_creation = (string)reader["date"]
+                    sqlCommand.Parameters.AddWithValue("@min_value", min_value);
+                }
+                else
+                {
+                    sqlCommand.Parameters.AddWithValue("@min_value", DBNull.Value);
+                }
+                if (max_value != null)
+                {
+                    sqlCommand.Parameters.AddWithValue("@max_value", max_value);
+                }
+                else
+                {
+                    sqlCommand.Parameters.AddWithValue("@max_value", DBNull.Value);
 
-                    };
-                    sensors.Add(sensor);
-                };
+                }
+                SqlDataReader reader = sqlCommand.ExecuteReader();
                 sql.Close();
             }
             catch (Exception e)
@@ -215,12 +217,8 @@ namespace DSA.Controllers
 
                 Console.WriteLine("Failed retrieving sensor list! Reason:" + e.Message);
                 Console.ReadKey();
-                return null;
+                return;
             }
-
-
-            return sensors;
-
         }
     }
 }
