@@ -9,6 +9,7 @@ namespace DSA.Controllers
 {
     class SensorController
     {
+        public dynamic finalValue { get; set; } = 0;
         static string connectionString = Properties.Resources.BDConnectString;
 
         private  SensorController()
@@ -228,7 +229,30 @@ namespace DSA.Controllers
             return measure_type;
 
         }
-        public void insertSensorData(int sensor_id,string reading_name,string value )
+        public void insertData(int location_id,int id_reading,string  data_value, bool valid)
+        {
+            try
+            {
+               
+                SqlConnection sql = new SqlConnection(connectionString);
+                sql.Open();
+                SqlCommand sqlCommand = new SqlCommand("INSERT INTO t_sensor_data VALUES(@location_id,@id_reading,@data_value,@valid)", sql);
+                sqlCommand.Parameters.AddWithValue("@location_id",location_id);
+                sqlCommand.Parameters.AddWithValue("@id_reading",id_reading);
+                sqlCommand.Parameters.AddWithValue("@data_value",data_value);
+                sqlCommand.Parameters.AddWithValue("@valid",valid);
+                sqlCommand.ExecuteNonQuery();
+
+                sql.Close();
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine("Failed inserting new data! Reason:" + e.Message);
+                Console.ReadKey();
+            }
+        } 
+        public void parseSensorData(int sensor_id,string reading_name,string value )
         {
             int locationId = GetSensorLocation(sensor_id);
             if (locationId==-1)
@@ -236,20 +260,51 @@ namespace DSA.Controllers
                 Console.WriteLine("Something went wrong and location was unretriavable!");
                 return;
             }
-            int reading_id = -1;
-            reading_id = GetReadingTypeId(sensor_id,reading_name);
-            if (reading_id==-1)
+            
+           ReadingType readingType= GetReadingType(sensor_id,reading_name);
+            if (readingType==null)
             {
-                Console.WriteLine("Something went wrong and reading id was unreatriavable!");
+                Console.WriteLine("Something went wrong and reading type was unretrievable!");
                 return;
             }
-           
+            //Ok, ja demos retrieve de MAJOR MAJOR id's, agora siga checkar se temos min, max values, tipo de valores e inserir no fim
+            try
+            {
+         
+
+                switch (readingType.MeasureType)
+                {
+                    case "float":  if (!float.TryParse(value,out finalValue)) {
+                            Console.WriteLine("Data Value is invalid for its type, registering as invalid!");
+                            insertData(locationId, readingType.Id, value, false);
+                        } break;
+                    case "int":
+                        if (!int.TryParse(value, out  finalValue))
+                        {
+                            Console.WriteLine("Data Value is invalid for its type, registering as invalid!");
+                            insertData(locationId, readingType.Id, value, false);
+                        }break;
+                    case "bool":
+                        if (!bool.TryParse(value, out  finalValue))
+                        {
+                            Console.WriteLine("Data Value is invalid for its type, registering as invalid!");
+                            insertData(locationId, readingType.Id, value, false);
+                        }
+                        break;
+                    case "string": var finalValue = value;break;
+                    default:Console.WriteLine("Uh Oh, Spaghetios!");break;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong parsing sensor data! Reason: " + e.Message);
+            }
 
 
         }
-        public int GetReadingTypeId(int sensor_id, string name)
+        public ReadingType GetReadingType(int sensor_id, string name)
         {
-            int id=-1;
+            ReadingType readingType= null;
             try
             {
                 SqlConnection sql = new SqlConnection(connectionString);
@@ -258,9 +313,18 @@ namespace DSA.Controllers
                 command.Parameters.AddWithValue("@id", sensor_id);
                 command.Parameters.AddWithValue("@name",name);
                 SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
+                if(reader.Read())
                 {
-                    id = (int)reader["id"];
+                     readingType = new ReadingType
+                    {
+                        Id = (int)reader["id"],
+                        MeasureType = (string)reader["measure_type"],
+                        SensorId = (int)reader["sensor_id"],
+                        Timestamp = (string)reader["timestamp"],
+                        MinValue = (string)reader["min_value"],
+                        MaxValue = (string)reader["max_value"]
+                    };
+                    return readingType;
                 };
 
             }
@@ -268,7 +332,7 @@ namespace DSA.Controllers
             {
                 Console.WriteLine("Error fetching reading type!" + " Reason:" + e.Message);
             }
-            return id;
+            return readingType;
 
         }
         public void addReadingType(string measure_name,string measure_type, int sensor_id, [Optional] string min_value, [Optional] string max_value)

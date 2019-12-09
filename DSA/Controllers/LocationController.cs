@@ -29,6 +29,7 @@ namespace DSA.Controllers
         public Location GetLocation(string name)
         {
             Location location = null;
+           
 
             try
             {
@@ -66,7 +67,7 @@ namespace DSA.Controllers
             Location location = null;
             try
             {
-               
+             
                 SqlConnection sql = new SqlConnection(connectionString);
                 sql.Open();
                 SqlCommand sqlCommand = new SqlCommand("SELECT * FROM t_locations WHERE @id=id", sql);
@@ -77,8 +78,9 @@ namespace DSA.Controllers
                 {
                     location = new Location
                     {
-                        id=(int)reader["id"],
-                        location_name = (string)reader["location_name"]
+                        id = (int)reader["id"],
+                        location_name = (string)reader["location_name"],
+                        gps_coords = (string)reader["gps_coords"]
                     };
                 }
                 if (location==null)
