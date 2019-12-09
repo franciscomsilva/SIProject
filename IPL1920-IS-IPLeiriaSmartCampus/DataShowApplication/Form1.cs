@@ -1,4 +1,5 @@
 ﻿using System;
+using Models;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,17 +18,13 @@ namespace DataShowApplication {
 
         private void Form1_Load(object sender, EventArgs e) {
             flowLayoutPanelSensorsInfo.Controls.Add(new InfoBinarySensor());
-            flowLayoutPanelSensorsInfo.Controls.Add(new InfoBinarySensor());
-            flowLayoutPanelSensorsInfo.Controls.Add(new InfoHumiditySensor());
-            flowLayoutPanelSensorsInfo.Controls.Add(new InfoHumiditySensor());
-            flowLayoutPanelSensorsInfo.Controls.Add(new InfoTemperatureSensor());
-            flowLayoutPanelSensorsInfo.Controls.Add(new InfoTemperatureSensor());
-
             //add alerts list
             listBoxAlerts.Items.Clear();
-            /*foreach(Alert alert in alerts) {
+            /*
+            foreach(Alert alert in alerts) {
                 listBoxAlerts.Items.Add(alert);
-            }*/
+            }
+            */
         }
     }
 }

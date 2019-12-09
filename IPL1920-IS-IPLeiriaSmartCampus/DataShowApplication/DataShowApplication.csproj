@@ -46,19 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BinarySensorData.cs" />
+    <Compile Include="DSSensorData.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="HumiditySensorData.cs" />
-    <Compile Include="InfoHumiditySensor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="InfoHumiditySensor.Designer.cs">
-      <DependentUpon>InfoHumiditySensor.cs</DependentUpon>
     </Compile>
     <Compile Include="InfoBinarySensor.cs">
       <SubType>UserControl</SubType>
@@ -66,24 +59,56 @@
     <Compile Include="InfoBinarySensor.Designer.cs">
       <DependentUpon>InfoBinarySensor.cs</DependentUpon>
     </Compile>
+    <Compile Include="InfoHumBatSensor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InfoHumBatSensor.Designer.cs">
+      <DependentUpon>InfoHumBatSensor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InfoHumSensor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InfoHumSensor.Designer.cs">
+      <DependentUpon>InfoHumSensor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InfoBinaryBatSensor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InfoBinaryBatSensor.Designer.cs">
+      <DependentUpon>InfoBinaryBatSensor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InfoTempBatSensor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InfoTempBatSensor.Designer.cs">
+      <DependentUpon>InfoTempBatSensor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ISensorView.cs" />
-    <Compile Include="InfoTemperatureSensor.cs">
+    <Compile Include="InfoTempSensor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="InfoTemperatureSensor.Designer.cs">
-      <DependentUpon>InfoTemperatureSensor.cs</DependentUpon>
+    <Compile Include="InfoTempSensor.Designer.cs">
+      <DependentUpon>InfoTempSensor.cs</DependentUpon>
     </Compile>
-    <Compile Include="TemperatureSensorData.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="InfoHumiditySensor.resx">
-      <DependentUpon>InfoHumiditySensor.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="InfoBinarySensor.resx">
       <DependentUpon>InfoBinarySensor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InfoHumBatSensor.resx">
+      <DependentUpon>InfoHumBatSensor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InfoHumSensor.resx">
+      <DependentUpon>InfoHumSensor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InfoBinaryBatSensor.resx">
+      <DependentUpon>InfoBinaryBatSensor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InfoTempBatSensor.resx">
+      <DependentUpon>InfoTempBatSensor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -94,8 +119,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="InfoTemperatureSensor.resx">
-      <DependentUpon>InfoTemperatureSensor.cs</DependentUpon>
+    <EmbeddedResource Include="InfoTempSensor.resx">
+      <DependentUpon>InfoTempSensor.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -109,6 +134,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{06263645-F456-4CE7-B74C-58CFC49926B0}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

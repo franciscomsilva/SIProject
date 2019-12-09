@@ -10,3 +10,12 @@ C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\DataShowApplicationSolutio
 C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\DataShowApplicationSolution\DataShowApplication\obj\Debug\DataShowApplication.InfoHumiditySensor.resources
 C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\DataShowApplicationSolution\DataShowApplication\obj\Debug\DataShowApplication.InfoBinarySensor.resources
 C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\DataShowApplicationSolution\DataShowApplication\obj\Debug\DataShowApplication.InfoTemperatureSensor.resources
+C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\DataShowApplication\obj\Debug\DataShowApplication.csprojAssemblyReference.cache
+C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\DataShowApplication\obj\Debug\DataShowApplication.Form1.resources
+C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\DataShowApplication\obj\Debug\DataShowApplication.InfoHumiditySensor.resources
+C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\DataShowApplication\obj\Debug\DataShowApplication.InfoBinarySensor.resources
+C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\DataShowApplication\obj\Debug\DataShowApplication.Properties.Resources.resources
+C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\DataShowApplication\obj\Debug\DataShowApplication.InfoTemperatureSensor.resources
+C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\DataShowApplication\obj\Debug\DataShowApplication.csproj.GenerateResource.cache
+C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\DataShowApplication\obj\Debug\DataShowApplication.exe
+C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\DataShowApplication\obj\Debug\DataShowApplication.pdb

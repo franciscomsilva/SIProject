@@ -7,24 +7,14 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-     public class Parameter
+    public class Parameter
     {
-
         public string Condition { get; set; }
-
         public ReadingType ReadingType { get; set; }
-
         public decimal Value { get; set; }
-
         public override string ToString()
         {
             return Condition + ReadingType + Value;
         }
-
-
-
     }
-
-
-
 }

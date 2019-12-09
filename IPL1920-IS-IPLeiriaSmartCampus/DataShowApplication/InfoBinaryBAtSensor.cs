@@ -7,16 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Models;
+
 
 namespace DataShowApplication {
-    public partial class InfoHumiditySensor : UserControl, ISensorView<HumiditySensorData> {
-        public InfoHumiditySensor() {
+    public partial class InfoBinarySensor : UserControl, ISensorView<BinarySensorData> {
+        public InfoBinarySensor() {
             InitializeComponent();
         }
 
-        public void update(HumiditySensorData data) {
-            lblInfoSensor.Text = data.sensor;
-            lblInfoHumidity.Text = data.humidity.ToString();
+        public void update(BinarySensorData data) {
+            lblInfoSensor.Text = data.SensorName();
+            lblInfoTemperature.Text = data.Temperature.ToString();
+            lblInfoHumidity.Text = data.Humidity.ToString();
             lblInfoBaterry.Text = data.baterry.ToString();
             lblInfoDate.Text = data.date.ToString();
         }

@@ -8,16 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
 namespace DataShowApplication {
-    public partial class InfoBinarySensor : UserControl, ISensorView<BinarySensorData> {
-        public InfoBinarySensor() {
+    public partial class InfoHumSensor : UserControl, ISensorView<HumiditySensorData> {
+        public InfoHumSensor() {
             InitializeComponent();
         }
 
-        public void update(BinarySensorData data) {
+        public void update(HumiditySensorData data) {
             lblInfoSensor.Text = data.sensor;
-            lblInfoTemperature.Text = data.temperature.ToString();
             lblInfoHumidity.Text = data.humidity.ToString();
             lblInfoBaterry.Text = data.baterry.ToString();
             lblInfoDate.Text = data.date.ToString();
