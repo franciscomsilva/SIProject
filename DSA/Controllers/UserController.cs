@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Models;
+using Newtonsoft.Json;
 using System;
 using System.Buffers.Text;
 using System.Collections.Generic;
@@ -47,10 +48,10 @@ namespace DSA.Controllers
                 {
                     user = new User
                     {
-                        id = (int)reader["id"],
-                        name = (string)reader["name"],
-                        password = Encoding.UTF8.GetString((byte[])reader["password"]),
-                        isAdmin = (bool)reader["isAdmin"]
+                        Id = (int)reader["id"],
+                        Name = (string)reader["name"],
+                        Password = Encoding.UTF8.GetString((byte[])reader["password"]),
+                        IsAdmin = (bool)reader["isAdmin"]
                     };
                 }
             }catch(Exception e)
@@ -76,9 +77,9 @@ namespace DSA.Controllers
                 {
                     User user = new User
                     {
-                        id = (int)reader["id"],
-                        name = (string)reader["name"],
-                        password = Encoding.UTF8.GetString((byte[])reader["password"])
+                        Id = (int)reader["id"],
+                        Name = (string)reader["name"],
+                        Password = Encoding.UTF8.GetString((byte[])reader["password"])
 
                     };
                     users.Add(user);
@@ -98,17 +99,17 @@ namespace DSA.Controllers
         }
         public void AddUser(User user)
         {
-            Console.WriteLine(user.password);
+            Console.WriteLine(user.Password);
             try
             {
                 SqlConnection sql = new SqlConnection(connectionString);
                 sql.Open();
                 SqlCommand sqlCommand = new SqlCommand("INSERT INTO t_users VALUES(@name,0,@password,@token)", sql);
-                sqlCommand.Parameters.AddWithValue("@name", user.name);
+                sqlCommand.Parameters.AddWithValue("@name", user.Name);
                 sqlCommand.Parameters.AddWithValue("@token", generateUserToken()); 
                 using (SHA256 sha = SHA256.Create())
                 {
-                    byte[] hashedPassword =sha.ComputeHash(Encoding.UTF8.GetBytes(user.password));
+                    byte[] hashedPassword =sha.ComputeHash(Encoding.UTF8.GetBytes(user.Password));
                     Console.WriteLine("Hash: "+ hashedPassword.ToString());
                     sqlCommand.Parameters.AddWithValue("@password", hashedPassword);
                 }

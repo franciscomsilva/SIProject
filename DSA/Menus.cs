@@ -64,7 +64,7 @@ namespace DSA
         {
             char key;
             Console.WriteLine("\n****************************************Main Menu*********************************************");
-            Console.WriteLine("Hello there "+UserController.Instance.GetUser(LoginController.Instance.LoggedId).name+" what do you wish to do today?");
+            Console.WriteLine("Hello there "+UserController.Instance.GetUser(LoginController.Instance.LoggedId).Name+" what do you wish to do today?");
             Console.WriteLine("\tChoose an option: ");
             Console.WriteLine("\t\t(1)User Operations");
             Console.WriteLine("\t\t(2)Sensor Operations");

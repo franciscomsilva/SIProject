@@ -30,13 +30,14 @@ namespace DSA
         }
         public bool isAdmin()
         {
-            if (UserController.Instance.GetUser(LoginController.Instance.LoggedId).isAdmin)
+            if (UserController.Instance.GetUser(LoginController.Instance.LoggedId).IsAdmin)
             {
                 return true;
             }
    
                 return false;
         }
+        
         public void cleanTable(string table_name)
         {
             //TODO: Admin perms only

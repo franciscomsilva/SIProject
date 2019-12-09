@@ -1,5 +1,5 @@
 ﻿using DSA.Controllers;
-using DSA.Models;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -42,14 +42,14 @@ namespace DSA
             topics.Add("alerts/readingType");
             foreach (Sensor sensor in SensorController.Instance.GetAllSensors()) //todos os canais de raw data
             {
-                sensorsReadings = SensorController.Instance.GetSensorReadingTypes(sensor.id);
+                sensorsReadings = SensorController.Instance.GetSensorReadingTypes(sensor.Id);
                 foreach (string reading in sensorsReadings)
                 {
-                    topics.Add( $"sensor_data/{sensor.id}/{reading}");
+                    topics.Add( $"sensor_data/{sensor.Id}/{reading}");
                 }
             }
             foreach(Alert alert in AlertController.Instance.GetAllAlerts())
-                topics.Add ($"alerts_data/{alert.id}");
+                topics.Add ($"alerts_data/{ alert.Id }");
             
 
             if (mClient!=null && mClient.IsConnected )
@@ -93,7 +93,7 @@ namespace DSA
             //----------------------------------------DADOS DE SENSORES----------------------------------------------------------//
             if (topics[0].Equals("sensor_data"))
             {
-
+                SensorController.Instance.insertSensorData(int.Parse(topics[1]), topics[2],Encoding.UTF8.GetString(e.Message));
             }
             //---------------------------------------Bootup alerts--------------------------------------------------------------//
             if (topics[0].Equals("alerts"))

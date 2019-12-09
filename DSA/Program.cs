@@ -1,6 +1,6 @@
 ﻿using DSA.Controllers;
 using System;
-using DSA.Models;
+using Models;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using Newtonsoft.Json;
@@ -23,12 +23,9 @@ namespace DSA
             Menus menu = new Menus();
             DataController sqlData = DataController.Instance;
             #endregion
-            foreach (var t in SensorController.Instance.GetSensorReadingTypes(1))
-            {
-                Console.WriteLine(t);
-            }
+
             
-                 /*while (true)
+                 while (true)
                      {
 
                          if (sqlLogin.isLogged)
@@ -42,7 +39,7 @@ namespace DSA
                         menu.LoginMenu();
                          }
                      } 
-                     */
+                     
                 
         }
     }

@@ -1,4 +1,4 @@
-﻿using DSA.Models;
+﻿using Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -46,11 +46,11 @@ namespace DSA.Controllers
                 {
                     sensor = new Sensor
                     {
-                        id=(int)reader["id"],
-                        user_id=(int)reader["user_id"],
-                        personal=(bool)reader["personal"],
-                        valid=(bool)reader["valid"],
-                        date_creation=(string)reader["date"]
+                        Id=(int)reader["id"],
+                        UserID=(int)reader["user_id"],
+                        Personal = (bool)reader["personal"],
+                        Valid=(bool)reader["valid"],
+                        CreatedAt=(string)reader["date"]
                     };
                 }
             }
@@ -62,6 +62,30 @@ namespace DSA.Controllers
             
 
             return sensor;
+        }
+        public int GetSensorLocation(int sensor_id)
+        {
+            int location_id=-1;
+            try
+            {
+                SqlConnection sql = new SqlConnection(connectionString);
+                sql.Open();
+                SqlCommand command = new SqlCommand("SELECT * FROM t_sensors WHERE id=@id", sql);
+                command.Parameters.AddWithValue("@id",sensor_id);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    location_id = (int)reader["location_id"];
+                };
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error fetching sensor with id " + sensor_id + " Reason:" + e.Message);
+            }
+
+            return location_id;
+
         }
         public void AddSensor(int location_id)
         {
@@ -131,11 +155,11 @@ namespace DSA.Controllers
                 {
                     Sensor sensor = new Sensor
                     {
-                        id = (int)reader["id"],
-                        user_id = (int)reader["user_id"],
-                        personal =(bool)reader["personal"],
-                        valid = (bool)reader["valid"],
-                        date_creation=(string)reader["date"] 
+                        Id = (int)reader["id"],
+                        UserID = (int)reader["user_id"],
+                        Personal =(bool)reader["personal"],
+                        Valid = (bool)reader["valid"],
+                        CreatedAt=(string)reader["date"] 
 
                     };
                     sensors.Add(sensor);
@@ -178,6 +202,74 @@ namespace DSA.Controllers
 
 
             return sensorsReadings;
+        }
+        public string GetReadingType(int index)
+        {
+            string measure_type="";
+            try
+            {
+                SqlConnection sql = new SqlConnection(connectionString);
+                sql.Open();
+                SqlCommand command = new SqlCommand("SELECT * FROM t_sensor_reading_types WHERE id=@id ", sql);
+                command.Parameters.AddWithValue("@id", index);
+
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    measure_type = (string)reader["measure_name"];
+                };
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error fetching reading type!" + " Reason:" + e.Message);
+            }
+
+            return measure_type;
+
+        }
+        public void insertSensorData(int sensor_id,string reading_name,string value )
+        {
+            int locationId = GetSensorLocation(sensor_id);
+            if (locationId==-1)
+            {
+                Console.WriteLine("Something went wrong and location was unretriavable!");
+                return;
+            }
+            int reading_id = -1;
+            reading_id = GetReadingTypeId(sensor_id,reading_name);
+            if (reading_id==-1)
+            {
+                Console.WriteLine("Something went wrong and reading id was unreatriavable!");
+                return;
+            }
+           
+
+
+        }
+        public int GetReadingTypeId(int sensor_id, string name)
+        {
+            int id=-1;
+            try
+            {
+                SqlConnection sql = new SqlConnection(connectionString);
+                sql.Open();
+                SqlCommand command = new SqlCommand("SELECT * FROM t_sensor_reading_types WHERE sensor_id=@id AND measure_name=@name", sql);
+                command.Parameters.AddWithValue("@id", sensor_id);
+                command.Parameters.AddWithValue("@name",name);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    id = (int)reader["id"];
+                };
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error fetching reading type!" + " Reason:" + e.Message);
+            }
+            return id;
+
         }
         public void addReadingType(string measure_name,string measure_type, int sensor_id, [Optional] string min_value, [Optional] string max_value)
         {

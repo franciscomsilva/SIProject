@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DSA.Models
+namespace Models
 {
-    class Location
+    public class Location
     {
         public int id { get; set; }
         public string location_name { get; set; }
-           
+        public string gps_coords { get; set; }
         public Location()
         {
 

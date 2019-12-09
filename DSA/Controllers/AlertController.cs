@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Text;
+using Models;
 
 namespace DSA.Controllers
 {
@@ -39,11 +40,11 @@ namespace DSA.Controllers
                 {
                     Alert alert = new Alert
                     {
-                        id=(int)reader["id"],
-                        user_id=(int)reader["user_id"],
-                        description=(string)reader["description"],
-                        enabled=(bool)reader["enabled"],
-                        created_at=(string)reader["created_at"]
+                        Id=(int)reader["id"],
+                        UserID=(int)reader["user_id"],
+                        Description=(string)reader["description"],
+                        Enabled=(bool)reader["enabled"],
+                        CreatedAt=(string)reader["created_at"]
 
                     };
                     alerts.Add(alert);
