@@ -50,7 +50,7 @@
             this.tableLayoutSensors.Controls.Add(this.lblInfoBaterry, 1, 2);
             this.tableLayoutSensors.Controls.Add(this.lblInfoDate, 1, 3);
             this.tableLayoutSensors.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutSensors.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutSensors.Location = new System.Drawing.Point(15, 15);
             this.tableLayoutSensors.Name = "tableLayoutSensors";
             this.tableLayoutSensors.RowCount = 4;
             this.tableLayoutSensors.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
@@ -58,7 +58,7 @@
             this.tableLayoutSensors.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutSensors.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutSensors.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutSensors.Size = new System.Drawing.Size(300, 200);
+            this.tableLayoutSensors.Size = new System.Drawing.Size(285, 185);
             this.tableLayoutSensors.TabIndex = 2;
             // 
             // lblSensor
@@ -67,9 +67,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSensor.AutoSize = true;
+            this.lblSensor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSensor.Location = new System.Drawing.Point(3, 0);
             this.lblSensor.Name = "lblSensor";
-            this.lblSensor.Size = new System.Drawing.Size(114, 50);
+            this.lblSensor.Size = new System.Drawing.Size(108, 46);
             this.lblSensor.TabIndex = 0;
             this.lblSensor.Text = "Sensor";
             this.lblSensor.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -80,9 +81,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblHumidity.AutoSize = true;
-            this.lblHumidity.Location = new System.Drawing.Point(3, 50);
+            this.lblHumidity.Location = new System.Drawing.Point(3, 46);
             this.lblHumidity.Name = "lblHumidity";
-            this.lblHumidity.Size = new System.Drawing.Size(114, 50);
+            this.lblHumidity.Size = new System.Drawing.Size(108, 46);
             this.lblHumidity.TabIndex = 1;
             this.lblHumidity.Text = "Humidity";
             this.lblHumidity.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -93,9 +94,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblBattery.AutoSize = true;
-            this.lblBattery.Location = new System.Drawing.Point(3, 100);
+            this.lblBattery.Location = new System.Drawing.Point(3, 92);
             this.lblBattery.Name = "lblBattery";
-            this.lblBattery.Size = new System.Drawing.Size(114, 50);
+            this.lblBattery.Size = new System.Drawing.Size(108, 46);
             this.lblBattery.TabIndex = 3;
             this.lblBattery.Text = "Battery";
             this.lblBattery.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -106,9 +107,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblUpdate.AutoSize = true;
-            this.lblUpdate.Location = new System.Drawing.Point(3, 150);
+            this.lblUpdate.Location = new System.Drawing.Point(3, 138);
             this.lblUpdate.Name = "lblUpdate";
-            this.lblUpdate.Size = new System.Drawing.Size(114, 50);
+            this.lblUpdate.Size = new System.Drawing.Size(108, 47);
             this.lblUpdate.TabIndex = 4;
             this.lblUpdate.Text = "Last Update at";
             this.lblUpdate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -119,9 +120,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblInfoSensor.AutoSize = true;
-            this.lblInfoSensor.Location = new System.Drawing.Point(123, 0);
+            this.lblInfoSensor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInfoSensor.Location = new System.Drawing.Point(117, 0);
             this.lblInfoSensor.Name = "lblInfoSensor";
-            this.lblInfoSensor.Size = new System.Drawing.Size(174, 50);
+            this.lblInfoSensor.Size = new System.Drawing.Size(165, 46);
             this.lblInfoSensor.TabIndex = 5;
             this.lblInfoSensor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -131,9 +133,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblInfoHumidity.AutoSize = true;
-            this.lblInfoHumidity.Location = new System.Drawing.Point(123, 50);
+            this.lblInfoHumidity.Location = new System.Drawing.Point(117, 46);
             this.lblInfoHumidity.Name = "lblInfoHumidity";
-            this.lblInfoHumidity.Size = new System.Drawing.Size(174, 50);
+            this.lblInfoHumidity.Size = new System.Drawing.Size(165, 46);
             this.lblInfoHumidity.TabIndex = 6;
             this.lblInfoHumidity.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -143,9 +145,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblInfoBaterry.AutoSize = true;
-            this.lblInfoBaterry.Location = new System.Drawing.Point(123, 100);
+            this.lblInfoBaterry.Location = new System.Drawing.Point(117, 92);
             this.lblInfoBaterry.Name = "lblInfoBaterry";
-            this.lblInfoBaterry.Size = new System.Drawing.Size(174, 50);
+            this.lblInfoBaterry.Size = new System.Drawing.Size(165, 46);
             this.lblInfoBaterry.TabIndex = 8;
             this.lblInfoBaterry.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -155,9 +157,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblInfoDate.AutoSize = true;
-            this.lblInfoDate.Location = new System.Drawing.Point(123, 150);
+            this.lblInfoDate.Location = new System.Drawing.Point(117, 138);
             this.lblInfoDate.Name = "lblInfoDate";
-            this.lblInfoDate.Size = new System.Drawing.Size(174, 50);
+            this.lblInfoDate.Size = new System.Drawing.Size(165, 47);
             this.lblInfoDate.TabIndex = 9;
             this.lblInfoDate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -167,7 +169,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutSensors);
             this.Name = "InfoHumiditySensor";
-            this.Size = new System.Drawing.Size(300, 200);
+            this.Padding = new System.Windows.Forms.Padding(15);
+            this.Size = new System.Drawing.Size(315, 215);
             this.tableLayoutSensors.ResumeLayout(false);
             this.tableLayoutSensors.PerformLayout();
             this.ResumeLayout(false);

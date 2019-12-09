@@ -10,13 +10,24 @@ using System.Windows.Forms;
 
 namespace DataShowApplication {
     public partial class Form1 : Form {
+
         public Form1() {
             InitializeComponent();
         }
 
         private void Form1_Load(object sender, EventArgs e) {
-            InfoSensorBinary infoSensorBinary = new InfoSensorBinary();
-            flowLayoutPanel1.Controls.Add(infoSensorBinary);
+            flowLayoutPanelSensorsInfo.Controls.Add(new InfoBinarySensor());
+            flowLayoutPanelSensorsInfo.Controls.Add(new InfoBinarySensor());
+            flowLayoutPanelSensorsInfo.Controls.Add(new InfoHumiditySensor());
+            flowLayoutPanelSensorsInfo.Controls.Add(new InfoHumiditySensor());
+            flowLayoutPanelSensorsInfo.Controls.Add(new InfoTemperatureSensor());
+            flowLayoutPanelSensorsInfo.Controls.Add(new InfoTemperatureSensor());
+
+            //add alerts list
+            listBoxAlerts.Items.Clear();
+            /*foreach(Alert alert in alerts) {
+                listBoxAlerts.Items.Add(alert);
+            }*/
         }
     }
 }
