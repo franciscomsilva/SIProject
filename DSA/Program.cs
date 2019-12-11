@@ -24,8 +24,8 @@ namespace DSA
             DataController sqlData = DataController.Instance;
             #endregion
 
-            
-                 while (true)
+
+                while (true)
                      {
 
                          if (sqlLogin.isLogged)

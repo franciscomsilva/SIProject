@@ -9,7 +9,7 @@ namespace DSA.Controllers
 {
     class SensorController
     {
-        public dynamic finalValue { get; set; } = 0;
+ 
         static string connectionString = Properties.Resources.BDConnectString;
 
         private  SensorController()
@@ -94,7 +94,6 @@ namespace DSA.Controllers
             //Assume-se que o sensor é criado a partir do momento em que se chama a função therefore o timestamp e atribuido agora
             try
             {
-                Console.WriteLine(LoginController.Instance.LoggedId);
                 SqlConnection sql = new SqlConnection(connectionString);
                 sql.Open();
                 SqlCommand sqlCommand = new SqlCommand("INSERT INTO t_sensors VALUES(@user_id,0,1,@date_creation,@location_id)", sql);
@@ -113,20 +112,44 @@ namespace DSA.Controllers
                 Console.ReadKey();
             }
         }
-        public List<string> getAllReadingTypes()
+        public List<ReadingType> GetAllReadingTypes()
         {
-            List<string> readingTypes = new List<string>();
+            List<ReadingType> readingTypes = new List<ReadingType>();
             
             try
             {
                 SqlConnection sql = new SqlConnection(connectionString);
                 sql.Open();
-                SqlCommand sqlCommand = new SqlCommand("SELECT DISTINCT measure_name FROM t_sensor_reading_types", sql);
+                SqlCommand sqlCommand = new SqlCommand("SELECT * FROM t_sensor_reading_types", sql);
                 SqlDataReader reader = sqlCommand.ExecuteReader();
 
                 while (reader.Read())
                 {
-                    readingTypes.Add((string)reader["measure_name"]);
+                    ReadingType reading = new ReadingType
+                    {
+                        MeasureName = (string)reader["measure_name"],
+                        MeasureType = (string)reader["measure_type"],
+                        SensorId = (int)reader["sensor_id"],
+                        Timestamp = (string)reader["timestamp"]
+                    };
+                    if (reader["min_value"]==DBNull.Value)
+                    {
+                        reading.MinValue = null;
+                    }
+                    else
+                    {
+                        reading.MinValue = (string)reader["min_value"];
+                    }              
+                    
+                    if (reader["max_value"]==DBNull.Value)
+                    {
+                        reading.MaxValue = null;
+                    }
+                    else
+                    {
+                        reading.MaxValue = (string)reader["max_value"];
+                    }
+                    readingTypes.Add(reading);
                 };
                 sql.Close();
             }
@@ -254,6 +277,7 @@ namespace DSA.Controllers
         } 
         public void parseSensorData(int sensor_id,string reading_name,string value )
         {
+            dynamic finalValue = "";
             int locationId = GetSensorLocation(sensor_id);
             if (locationId==-1)
             {
@@ -272,28 +296,53 @@ namespace DSA.Controllers
             {
          
 
-                switch (readingType.MeasureType)
+                switch (readingType.MeasureType.ToUpper())
                 {
-                    case "float":  if (!float.TryParse(value,out finalValue)) {
+                    case "FLOAT":  if (!float.TryParse(value, out var finalValue1))
+                        {
                             Console.WriteLine("Data Value is invalid for its type, registering as invalid!");
                             insertData(locationId, readingType.Id, value, false);
+                            return;
+                        }
+                        else {
+                            if (finalValue1>float.Parse(readingType.MaxValue) || finalValue1<float.Parse(readingType.MinValue))
+                            {
+                                Console.WriteLine("Data Value is not within its set values!");
+                                insertData(locationId, readingType.Id, value, false);
+                                return;
+                            }
                         } break;
-                    case "int":
-                        if (!int.TryParse(value, out  finalValue))
+                    case "INT":
+                        if (!int.TryParse(value, out var finalValue2))
                         {
                             Console.WriteLine("Data Value is invalid for its type, registering as invalid!");
                             insertData(locationId, readingType.Id, value, false);
-                        }break;
-                    case "bool":
-                        if (!bool.TryParse(value, out  finalValue))
+                            return;
+                        }
+                        else
+                        {    
+                                if (finalValue2 > int.Parse(readingType.MaxValue) || finalValue2 < int.Parse(readingType.MinValue))
+                                {
+                                    Console.WriteLine("Data Value is not within its set values!");
+                                    insertData(locationId, readingType.Id, value, false);
+                                return;
+                                }
+                            }break;
+                    case "BOOL":
+                        if (!bool.TryParse(value, out var finalValue3))
                         {
                             Console.WriteLine("Data Value is invalid for its type, registering as invalid!");
                             insertData(locationId, readingType.Id, value, false);
+                            return;
                         }
                         break;
-                    case "string": var finalValue = value;break;
+                    case "STRING": var finalValue4 = value;break;
                     default:Console.WriteLine("Uh Oh, Spaghetios!");break;
                 }
+                //--------------------------------------------Valores Aceitaveis Agora Vem Inserção na BD------------------------------------------------//
+                Console.WriteLine("Data is valid, registering as valid");
+                insertData(locationId, readingType.Id, value, true);
+
             }
             catch (Exception e)
             {
@@ -313,17 +362,25 @@ namespace DSA.Controllers
                 command.Parameters.AddWithValue("@id", sensor_id);
                 command.Parameters.AddWithValue("@name",name);
                 SqlDataReader reader = command.ExecuteReader();
-                if(reader.Read())
+                if (reader.Read())
                 {
-                     readingType = new ReadingType
+                    readingType = new ReadingType
                     {
                         Id = (int)reader["id"],
                         MeasureType = (string)reader["measure_type"],
                         SensorId = (int)reader["sensor_id"],
-                        Timestamp = (string)reader["timestamp"],
-                        MinValue = (string)reader["min_value"],
-                        MaxValue = (string)reader["max_value"]
+                        Timestamp = (string)reader["timestamp"]
                     };
+                    switch (readingType.MeasureType.ToUpper()) {
+                        case "INT":
+                  readingType.MaxValue = reader["max_value"] != DBNull.Value ? (string)reader["max_value"] : int.MaxValue.ToString();
+                    readingType.MinValue = reader["min_value"] == DBNull.Value ? int.MinValue.ToString() : (string)reader["min_value"];
+                            break;
+                        case "FLOAT" :
+                            readingType.MaxValue = reader["max_value"] != DBNull.Value ? (string)reader["max_value"] : float.MaxValue.ToString();
+                            readingType.MinValue = reader["min_value"] == DBNull.Value ? float.MinValue.ToString() : (string)reader["min_value"];
+                            break;
+                    }
                     return readingType;
                 };
 
@@ -335,9 +392,15 @@ namespace DSA.Controllers
             return readingType;
 
         }
+      
         public void addReadingType(string measure_name,string measure_type, int sensor_id, [Optional] string min_value, [Optional] string max_value)
         {
-
+          
+            if (GetSensorReadingTypes(sensor_id).Contains(measure_type))
+            {
+                Console.WriteLine("That sensor already contains that reading type!");
+                return;
+            }
             try
             {
                 SqlConnection sql = new SqlConnection(connectionString);

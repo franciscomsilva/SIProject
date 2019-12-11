@@ -23,6 +23,40 @@ namespace DSA.Controllers
                 return instance;
             }
         }
+        public int LoginAlerts(string name, string password)
+        {
+            int id = 0;
+            string passwordDB = null;
+            //isAdmin para apoiar a Api e permitir operações mais sensíves deste lado
+            try
+            {
+                SqlConnection sql = new SqlConnection(connectionString);
+                sql.Open();
+                SqlCommand command = new SqlCommand("SELECT * FROM t_users WHERE name=@name", sql);
+                command.Parameters.AddWithValue("@name", name);
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+
+                    passwordDB = Convert.ToBase64String((byte[])reader["password"]);
+                }
+                if (password.Equals(passwordDB))
+                {
+                    id = (int)reader["id"];
+                 
+                }
+                else
+                {
+
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return id;
+        }
 
         public bool isLogged { get; set; }
         public int LoggedId { get; set; }

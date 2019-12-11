@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Text;
 using Newtonsoft.Json;
+using System.Runtime.InteropServices;
 
 namespace DSA.Controllers
 {
@@ -116,7 +117,12 @@ namespace DSA.Controllers
                     {
                         id = (int)reader["id"],
                         location_name = (string)reader["location_name"]
+ 
                     };
+                    if (DBNull.Value==reader["location_name"])
+                    {
+                        location.gps_coords = (string)reader["gps_coords"];
+                    }
                     locations.Add(location);
                 };
                 sql.Close();
@@ -131,13 +137,21 @@ namespace DSA.Controllers
 
             return locations;
         }
-        public void AddLocation(string name)
+        public void AddLocation(string name,[Optional] string coords )
         {
             try
             {
                 SqlConnection sql = new SqlConnection(connectionString);
                 sql.Open();
-                SqlCommand sqlCommand = new SqlCommand("INSERT INTO t_locations VALUES(@name)", sql);
+                SqlCommand sqlCommand = new SqlCommand("INSERT INTO t_locations VALUES(@name,@coords)", sql);
+                if (coords==null)
+                {
+                    sqlCommand.Parameters.AddWithValue("@coords",DBNull.Value);
+                }
+                else
+                {
+                    sqlCommand.Parameters.AddWithValue("@coords",coords);
+                }
                 sqlCommand.Parameters.AddWithValue("@name", name);
                 sqlCommand.ExecuteNonQuery();
 

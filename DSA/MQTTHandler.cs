@@ -7,11 +7,13 @@ using System.Text;
 using uPLibrary.Networking.M2Mqtt;
 using Newtonsoft.Json;
 using uPLibrary.Networking.M2Mqtt.Messages;
+using Newtonsoft.Json.Linq;
 
 namespace DSA
 {
     class MQTTHandler
     {
+    
         private MQTTHandler()
         {
         }
@@ -27,6 +29,8 @@ namespace DSA
                 return instance;
             }
         }
+       
+        int i = 1;
         MqttClient mClient = null;
         List<string> topics = new List<string>();
    
@@ -40,6 +44,8 @@ namespace DSA
             }
             List<String> sensorsReadings;
             topics.Add("alerts/readingType");
+            topics.Add("alerts/login");
+            
             foreach (Sensor sensor in SensorController.Instance.GetAllSensors()) //todos os canais de raw data
             {
                 sensorsReadings = SensorController.Instance.GetSensorReadingTypes(sensor.Id);
@@ -57,7 +63,7 @@ namespace DSA
                 Console.WriteLine("Mqtt was connected to the broker already!");
             }
             Console.WriteLine("Connecting...");
-            mClient = new MqttClient("127.0.0.1");
+            mClient = new MqttClient("51.83.77.113");
             
             mClient.Connect(Guid.NewGuid().ToString());
             if (!mClient.IsConnected)
@@ -85,7 +91,7 @@ namespace DSA
             mClient.Publish(topic,Encoding.UTF8.GetBytes(message));
         }
         private void MClient_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
-        {
+        {   
             //Acerca desta função: Nós vamos ter de separar os dados incoming apropriadamente para poderem ser parsed pelo controlador apropriado e reenviados para clean data, ou para poder
             //realizar operações non-sensor data related(IE ajudar o boot do alerts etc)
             string[] topics = e.Topic.Split("/");
@@ -93,23 +99,41 @@ namespace DSA
             //----------------------------------------DADOS DE SENSORES----------------------------------------------------------//
             if (topics[0].Equals("sensor_data"))
             {
-                SensorController.Instance.insertSensorData(int.Parse(topics[1]), topics[2],Encoding.UTF8.GetString(e.Message));
+                SensorController.Instance.parseSensorData(int.Parse(topics[1]), topics[2],Encoding.UTF8.GetString(e.Message));
             }
             //---------------------------------------Bootup alerts--------------------------------------------------------------//
             if (topics[0].Equals("alerts"))
             {
-                if (Encoding.UTF8.GetString(e.Message).Equals("Request"))
+                if (topics[1].Equals("login") )
                 {
-                    List<string> readingTypes = SensorController.Instance.getAllReadingTypes();
-                    publishData("alerts/readingType", JsonConvert.SerializeObject(readingTypes.ToArray()));
-                }
+                    i++;
+                    if (i %2 ==0)
+                    {
 
+
+                        JObject tou = JObject.Parse(Encoding.UTF8.GetString(e.Message));
+                        string userId = LoginController.Instance.LoginAlerts((string)tou["username"], (string)tou["password"]).ToString();
+                        
+                        publishData("alerts/login", "userID:" + userId);
+
+                    }
+            }
+            else
+            {
+                if (Encoding.UTF8.GetString(e.Message).ToLower().Equals("Request".ToLower()))
+                {
+
+                    publishData("alerts/readingType", JsonConvert.SerializeObject(SensorController.Instance.GetAllReadingTypes()));
+                }
+            }
             }
             //----------------------------------------------Dados de alerts------------------------------------------------------//
             if (topics[0].Equals("alerts_data"))
             {
 
             }
+            //-----------------------------------------Login Alerts----------------------//
+
             
         }
     }
