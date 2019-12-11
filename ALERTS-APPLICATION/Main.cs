@@ -41,6 +41,7 @@ namespace ALERTS_APPLICATION
 
         private void Main_Load(object sender, EventArgs e)
         {
+            Console.WriteLine("STARTING_MAIN_FORM");
 
             parameters = new List<Parameter>();
             alerts = new List<Alert>();

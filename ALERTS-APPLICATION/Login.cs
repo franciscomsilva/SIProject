@@ -28,7 +28,8 @@ namespace ALERTS_APPLICATION
             /*CHECKS IF USER IS LOGGED IN ALREADY*/
             if(LoginController.Instance.checkUserLogin() != -1)
             {
-                new Main().Show();
+                Main main = new Main();
+                main.Show();
                 this.Close();
             }
 
@@ -51,19 +52,28 @@ namespace ALERTS_APPLICATION
             LoginController.Instance.login(txtUsername.Text, txtPassword.Text);
 
 
-            int userID = LoginController.Instance.checkUserLogin();
 
-            if(userID == -1)
+           while (MQTTHandler.Instance.UserID == -1) { }
+
+
+            int userID = MQTTHandler.Instance.UserID;
+
+
+            if (userID == 0)
             {
                 lblErrors.Text = "Wrong username/password combination!";
                 lblErrors.Visible = true;
                 txtPassword.Clear();
+
+                MQTTHandler.Instance.UserID = -1;
                 return;
             }
 
-            new Main().Show();
 
+            Main main = new Main();
+            main.Show();
             this.Close();
+          
             
         }
 

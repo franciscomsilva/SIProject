@@ -85,10 +85,17 @@ namespace ALERTS_APPLICATION
 
 
                 /* CALLS LOGIN TO PERSIST USER ID*/
-                if (data[1].Equals("login") && Encoding.UTF8.GetString(e.Message).ToLower().Contains("userID:"))
+                if (data[1].Equals("login") && Encoding.UTF8.GetString(e.Message).Contains("userID:"))
                 {
-                    this.UserID = int.Parse(Encoding.UTF8.GetString(e.Message));
-                    // LoginController.Instance.saveUserID(this.UserID); 
+
+                int user;
+                if(int.TryParse(Encoding.UTF8.GetString(e.Message).Split(':')[1],out user))
+                {
+                    this.UserID = user;
+                }
+
+                Console.WriteLine("USEREEERIIDDDDD=> " + this.UserID);
+                    LoginController.Instance.saveUserID(this.UserID); 
                 }
 
                 /*RECEIVE READING TYPES*/

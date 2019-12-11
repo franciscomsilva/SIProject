@@ -53,6 +53,11 @@ namespace ALERTS_APPLICATION.Controller
 
         public int saveUserID(int userID)
         {
+            if(userID <= 0)
+            {
+                return -1;
+            }
+
             try
             {
 
