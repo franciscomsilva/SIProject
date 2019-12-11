@@ -1,4 +1,3 @@
-# TODO Error responses and validation of dates
 openapi: 3.0.2
 info:
   description: "Documentation for IPLeiria SmartCampus' API"
@@ -16,7 +15,7 @@ tags:
 - name: "readings"
   description: "Readings of a sensor or location"
 - name: "alerts"
-  description: "User generated alerts (TODO: Filter by sensor/location?)"
+  description: "User generated alerts"
 security:
 - api_key: []
 components:
@@ -33,6 +32,11 @@ components:
         version:
           type: "string"
           example: "1.0.0"
+    ApiError:
+      type: "object"
+      properties:
+        error:
+          type: "string"
           
     Location:
       type: "object"
@@ -43,6 +47,9 @@ components:
         name:
           type: "string"
           example: "1º piso da biblioteca"
+        gps_coords:
+          type: "string"
+          example: "35.89421911 139.94637467"
           
     Sensor:
       type: "object"
@@ -86,6 +93,7 @@ components:
         type:
           type: "string"
           example: "float"
+          description: "Must be `float`, `int`, `string` or `boolean`"
         min_value:
           type: "string"
           example: "-20"
@@ -123,10 +131,17 @@ components:
           format: "date-time"
           example: "2019-12-02T11:29:50.00Z"
     Alert:
-      # TODO Add sensor and location?
       type: "object"
       properties:
         id:
+          type: "number"
+          format: "integer"
+          example: 1
+        sensor_id:
+          type: "number"
+          format: "integer"
+          example: 1
+        location_id:
           type: "number"
           format: "integer"
           example: 1
@@ -196,6 +211,34 @@ paths:
       responses:
         "401":
           description: "Unauthorized"
+        "400":
+          description: "Invalid data"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Invalid location:
+                  value:
+                    error: "Invalid location"
+                Description too long:
+                  value:
+                    error: "Description too long; must be less than 140 characters"
+                Empty fields:
+                  value:
+                    error: "No fields were provided"
+                Field name too long:
+                  value:
+                    error: "Field name too long; must be less than 32 characters"
+                Invalid field type:
+                  value:
+                    error: "Invalid field type; type must be float, int, string or boolean"
+                Invalid field range (min_value):
+                  value:
+                    error: "Invalid field range; min_value must be less than max_value"
+                Invalid field range (max_value):
+                  value:
+                    error: "Invalid field range; max_value must be greater than min_value"
         "200":
           description: "Success"
           content:
@@ -230,6 +273,18 @@ paths:
       responses:
         "401":
           description: "Unauthorized"
+        "404":
+          description: "Sensor not found"
+        "400":
+          description: "Invalid data"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Invalid sensor:
+                  value:
+                    error: "Invalid sensor"
         "200":
           description: "Success"
           content:
@@ -253,6 +308,52 @@ paths:
                 type: "array"
                 items:
                   $ref: '#/components/schemas/Location'
+    post:
+      tags:
+      - "locations"
+      summary: "Add a new location"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties:
+                name:
+                  type: "string"
+                  example: "1º piso da biblioteca"
+                gps_coords:
+                  type: "string"
+                  nullable: true
+                  example: "35.89421911 139.94637467"
+      responses:
+        "401":
+          description: "Unauthorized"
+        "400":
+          description: "Invalid data"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Name too long:
+                  value:
+                    error: "Name too long; must be less than 255 characters"
+                Duplicate name:
+                  value:
+                    error: "Duplicate name; must be unique"
+                Invalid GPS coords:
+                  value:
+                    error: "Invalid GPS coords"
+        "200":
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+              example:
+                id: 1
+                name: "1º piso da biblioteca"
+                gps_coords: "35.89421911 139.94637467"
   /locations/{id}:
     get:
       tags:
@@ -268,6 +369,18 @@ paths:
       responses:
         "401":
           description: "Unauthorized"
+        "404":
+          description: "Location not found"
+        "400":
+          description: "Invalid data"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Invalid location:
+                  value:
+                    error: "Invalid location"
         "200":
           description: "Success"
           content:
@@ -301,6 +414,25 @@ paths:
       responses:
         "401":
           description: "Unauthorized"
+        "400":
+          description: "Invalid data"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Invalid sensor:
+                  value:
+                    error: "Invalid sensor"
+                Invalid location:
+                  value:
+                    error: "Invalid location"
+                Invalid field name:
+                  value:
+                    error: "Invalid field name; the field isn't recognized by the sensor"
+                Invalid field value:
+                  value:
+                    error: "Invalid field value; the provided field can't be casted to the correct type"
         "200":
           description: "Success"
           content:
@@ -322,6 +454,18 @@ paths:
       responses:
         "401":
           description: "Unauthorized"
+        "404":
+          description: "Reading not found"
+        "400":
+          description: "Invalid data"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Invalid reading:
+                  value:
+                    error: "Invalid reading"
         "204":
           description: "Success"
   /readings/sensor/{id}:
@@ -352,6 +496,18 @@ paths:
       responses:
         "401":
           description: "Unauthorized"
+        "404":
+          description: "Sensor not found"
+        "400":
+          description: "Invalid data"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Invalid sensor:
+                  value:
+                    error: "Invalid sensor"
         "200":
           description: "Success"
           content:
@@ -375,6 +531,18 @@ paths:
       responses:
         "401":
           description: "Unauthorized"
+        "404":
+          description: "Sensor not found"
+        "400":
+          description: "Invalid data"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Invalid sensor:
+                  value:
+                    error: "Invalid sensor"
         "200":
           description: "Success"
           content:
@@ -410,6 +578,18 @@ paths:
       responses:
         "401":
           description: "Unauthorized"
+        "404":
+          description: "Location not found"
+        "400":
+          description: "Invalid data"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Invalid location:
+                  value:
+                    error: "Invalid location"
         "200":
           description: "Success"
           content:
@@ -433,6 +613,18 @@ paths:
       responses:
         "401":
           description: "Unauthorized"
+        "404":
+          description: "Location not found"
+        "400":
+          description: "Invalid data"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Invalid location:
+                  value:
+                    error: "Invalid location"
         "200":
           description: "Success"
           content:
@@ -462,6 +654,102 @@ paths:
       responses:
         "401":
           description: "Unauthorized"
+        "200":
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Alert"
+  /alerts/sensor/{id}:
+    get:
+      tags:
+      - "alerts"
+      summary: "Get triggered user generated alerts for a sensor"
+      description: "This endpoint supports getting the readings between a time interval by providing a `start_date` and/or a `end_date`."
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Sensor ID"
+        required: true
+        schema:
+          type: "integer"
+      - name: "start_date"
+        in: "query"
+        description: "Start date (ex: 2019-12-02T11:29:50.00Z)"
+        schema:
+          type: "string"
+          format: "date-time"
+      - name: "end_date"
+        in: "query"
+        description: "End date (ex: 2019-12-02T11:29:50.00Z)"
+        schema:
+          type: "string"
+          format: "date-time"
+      responses:
+        "401":
+          description: "Unauthorized"
+        "404":
+          description: "Sensor not found"
+        "400":
+          description: "Invalid data"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Invalid sensor:
+                  value:
+                    error: "Invalid sensor"
+        "200":
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Alert"
+  /alerts/location/{id}:
+    get:
+      tags:
+      - "alerts"
+      summary: "Get triggered user generated alerts for a location"
+      description: "This endpoint supports getting the readings between a time interval by providing a `start_date` and/or a `end_date`."
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Location ID"
+        required: true
+        schema:
+          type: "integer"
+      - name: "start_date"
+        in: "query"
+        description: "Start date (ex: 2019-12-02T11:29:50.00Z)"
+        schema:
+          type: "string"
+          format: "date-time"
+      - name: "end_date"
+        in: "query"
+        description: "End date (ex: 2019-12-02T11:29:50.00Z)"
+        schema:
+          type: "string"
+          format: "date-time"
+      responses:
+        "401":
+          description: "Unauthorized"
+        "404":
+          description: "Location not found"
+        "400":
+          description: "Invalid data"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                Invalid location:
+                  value:
+                    error: "Invalid location"
         "200":
           description: "Success"
           content:
