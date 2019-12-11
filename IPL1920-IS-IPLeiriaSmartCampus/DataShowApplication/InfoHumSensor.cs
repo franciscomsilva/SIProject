@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Models;
 
 namespace DataShowApplication {
     public partial class InfoHumSensor : UserControl, ISensorView<HumiditySensorData> {
@@ -15,10 +16,10 @@ namespace DataShowApplication {
         }
 
         public void update(HumiditySensorData data) {
-            lblInfoSensor.Text = data.sensor;
-            lblInfoHumidity.Text = data.humidity.ToString();
-            lblInfoBaterry.Text = data.baterry.ToString();
-            lblInfoDate.Text = data.date.ToString();
+            //lblInfoSensor.Text = data.sensor;
+            //lblInfoHumidity.Text = data.humidity.ToString();
+            //lblInfoBaterry.Text = data.baterry.ToString();
+            //lblInfoDate.Text = data.date.ToString();
         }
     }
 }

@@ -9,6 +9,8 @@ namespace Models
     public class HumiditySensorData : SensorData
     {
         public float Temperature { get; set; }
+        public DateTime TemperatureTimestamp { get; set; }
         public int Battery { get; set; }
+        public DateTime BatteryTimestamp { get; set; }
     }
 }

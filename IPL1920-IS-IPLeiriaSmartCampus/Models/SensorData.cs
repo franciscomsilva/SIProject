@@ -10,7 +10,6 @@ namespace Models
     {
         public int SensorId { get; set; }
         public int LocationId { get; set; }
-        public bool Valid { get; set; }
         public DateTime Date { get; set; }
     }
 }

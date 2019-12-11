@@ -9,5 +9,6 @@ namespace Models
     public class TempSensorData : SensorData
     {
         public float Temperature { get; set; }
+        public DateTime TemperatureTimestamp { get; set; }
     }
 }

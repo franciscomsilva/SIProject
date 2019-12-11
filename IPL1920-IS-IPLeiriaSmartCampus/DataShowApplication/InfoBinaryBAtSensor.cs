@@ -17,11 +17,11 @@ namespace DataShowApplication {
         }
 
         public void update(BinarySensorData data) {
-            lblInfoSensor.Text = data.SensorName();
-            lblInfoTemperature.Text = data.Temperature.ToString();
-            lblInfoHumidity.Text = data.Humidity.ToString();
-            lblInfoBaterry.Text = data.baterry.ToString();
-            lblInfoDate.Text = data.date.ToString();
+            //lblInfoSensor.Text = data.SensorName();
+            //lblInfoTemperature.Text = data.Temperature.ToString();
+            //lblInfoHumidity.Text = data.Humidity.ToString();
+            //lblInfoBaterry.Text = data.baterry.ToString();
+            //lblInfoDate.Text = data.date.ToString();
         }
     }
 }

@@ -9,6 +9,10 @@ namespace DataShowApplication
 {
     class DSSensorData<T> where T : SensorData
     {
-        public Sensor Sensor;
+        public Sensor Sensor {
+            get {
+                return Sensor;
+            }
+        }
     }
 }

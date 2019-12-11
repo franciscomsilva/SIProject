@@ -47,6 +47,7 @@
     <Compile Include="BinarySensorData.cs" />
     <Compile Include="HumBatSensorData.cs" />
     <Compile Include="HumSensorData.cs" />
+    <Compile Include="Location.cs" />
     <Compile Include="Parameter.cs" />
     <Compile Include="ReadingType.cs" />
     <Compile Include="Sensor.cs" />
