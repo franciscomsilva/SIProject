@@ -10,7 +10,6 @@ C:\Users\Francisco Silva\Desktop\SIProject\IPL1920-IS-IPLeiriaSmartCampus\Models
 C:\Users\Francisco Silva\Desktop\SIProject\IPL1920-IS-IPLeiriaSmartCampus\Models\obj\Debug\Models.pdb
 C:\Users\ADMIN\Desktop\3o ano\1o sem\teste\SIProject\IPL1920-IS-IPLeiriaSmartCampus\Models\bin\Debug\Models.dll
 C:\Users\ADMIN\Desktop\3o ano\1o sem\teste\SIProject\IPL1920-IS-IPLeiriaSmartCampus\Models\bin\Debug\Models.pdb
-C:\Users\ADMIN\Desktop\3o ano\1o sem\teste\SIProject\IPL1920-IS-IPLeiriaSmartCampus\Models\obj\Debug\Models.csprojAssemblyReference.cache
 C:\Users\ADMIN\Desktop\3o ano\1o sem\teste\SIProject\IPL1920-IS-IPLeiriaSmartCampus\Models\obj\Debug\Models.csproj.CoreCompileInputs.cache
 C:\Users\ADMIN\Desktop\3o ano\1o sem\teste\SIProject\IPL1920-IS-IPLeiriaSmartCampus\Models\obj\Debug\Models.dll
 C:\Users\ADMIN\Desktop\3o ano\1o sem\teste\SIProject\IPL1920-IS-IPLeiriaSmartCampus\Models\obj\Debug\Models.pdb
