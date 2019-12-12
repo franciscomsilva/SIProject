@@ -1,6 +1,7 @@
 ﻿using Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,20 +9,46 @@ using System.Xml;
 
 namespace ALERTS_APPLICATION
 { 
-    public abstract class XMLHandler
+    public  class XMLHandler
     {
         private static string FILE_PATH = "alerts_config.xml";
+        private static XMLHandler instance = null;
+        private XmlDocument document;
+        private XmlNode alertsXML;
 
-        public static void save(List<Alert> alerts)
+
+        private XMLHandler()
         {
-            XmlDocument document = new XmlDocument();
+            document = new XmlDocument();
+
+            if (File.Exists(FILE_PATH))
+            {
+                document.Load(FILE_PATH);
+                alertsXML = document.SelectSingleNode("/alerts");
+            }
+            else
+            {
+                alertsXML = document.CreateNode(XmlNodeType.Element, "alerts", "");
+                document.AppendChild(alertsXML);
+            }
+        }
+
+        public static XMLHandler Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new XMLHandler();
+                }
+                return instance;
+            }
+        }
 
 
-
-            XmlNode alertsXML = document.CreateNode(XmlNodeType.Element, "alerts", "");
-
-            document.AppendChild(alertsXML);
-
+        public void save(List<Alert> alerts)
+        {
+     
             XmlElement sensorID = null;
             XmlElement parameters = null;
             XmlElement enabled = null;
@@ -100,7 +127,6 @@ namespace ALERTS_APPLICATION
             }
 
 
-
             try
             {
                 document.Save(FILE_PATH);
@@ -110,6 +136,38 @@ namespace ALERTS_APPLICATION
             {
                 Console.WriteLine("ERROR_SAVING_FILE => " + ex.Message);
             }
+
+        }
+
+
+        public bool update(Alert alert)
+        {
+            if(alert == null)
+            {
+                return false;
+            }
+
+            XmlElement element = null;
+            int sensorID = alert.SensorID;
+
+            string xPath = $"/alerts/sensorID[@id='{sensorID}']/alert[last()]";
+
+            element = (XmlElement)document.SelectSingleNode(xPath);
+            
+            if(element == null)
+            {
+                return false;
+            }
+
+            XmlElement id = document.CreateElement("id");
+
+            id.InnerText = alert.Id.ToString();
+
+            element.AppendChild(id);
+
+            document.Save(FILE_PATH);
+
+            return true;
 
         }
 

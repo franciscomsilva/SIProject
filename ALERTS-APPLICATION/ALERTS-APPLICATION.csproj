@@ -56,7 +56,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\AlertController.cs" />
     <Compile Include="Controller\LoginController.cs" />
+    <Compile Include="Controller\ParameterController.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>

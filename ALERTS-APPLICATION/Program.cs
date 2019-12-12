@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ALERTS_APPLICATION.Controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,14 @@ namespace ALERTS_APPLICATION
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Login());
+
+         /*   if(LoginController.Instance.checkUserLogin() != -1)
+            {
+                Application.Run(new Main());
+                return;
+            }*/
+
+            Application.Run(new Main());
         }
     }
 }

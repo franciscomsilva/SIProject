@@ -4,7 +4,6 @@ C:\Users\Francisco Silva\Desktop\SIProject\DSA\bin\Debug\netcoreapp3.0\DSA.runti
 C:\Users\Francisco Silva\Desktop\SIProject\DSA\bin\Debug\netcoreapp3.0\DSA.runtimeconfig.dev.json
 C:\Users\Francisco Silva\Desktop\SIProject\DSA\bin\Debug\netcoreapp3.0\DSA.dll
 C:\Users\Francisco Silva\Desktop\SIProject\DSA\bin\Debug\netcoreapp3.0\DSA.pdb
-C:\Users\Francisco Silva\Desktop\SIProject\DSA\obj\Debug\netcoreapp3.0\DSA.csprojAssemblyReference.cache
 C:\Users\Francisco Silva\Desktop\SIProject\DSA\obj\Debug\netcoreapp3.0\DSA.AssemblyInfoInputs.cache
 C:\Users\Francisco Silva\Desktop\SIProject\DSA\obj\Debug\netcoreapp3.0\DSA.AssemblyInfo.cs
 C:\Users\Francisco Silva\Desktop\SIProject\DSA\obj\Debug\netcoreapp3.0\DSA.dll

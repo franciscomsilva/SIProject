@@ -25,17 +25,10 @@ namespace ALERTS_APPLICATION
 
         private void Login_Load(object sender, EventArgs e)
         {
-            /*CHECKS IF USER IS LOGGED IN ALREADY*/
-            if(LoginController.Instance.checkUserLogin() != -1)
-            {
-                Main main = new Main();
-                main.Show();
-                this.Close();
-            }
-
             lblErrors.Visible = false;
 
-            
+           
+
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -51,13 +44,9 @@ namespace ALERTS_APPLICATION
 
             LoginController.Instance.login(txtUsername.Text, txtPassword.Text);
 
-
-
            while (MQTTHandler.Instance.UserID == -1) { }
 
-
             int userID = MQTTHandler.Instance.UserID;
-
 
             if (userID == 0)
             {
@@ -69,11 +58,10 @@ namespace ALERTS_APPLICATION
                 return;
             }
 
-
             Main main = new Main();
             main.Show();
-            this.Close();
-          
+
+            this.Visible = false;
             
         }
 

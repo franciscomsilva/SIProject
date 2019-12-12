@@ -14,6 +14,7 @@ namespace ALERTS_APPLICATION
         private MqttClient mClient = null;
         public List<string> topics = new List<string>();
         private static MQTTHandler instance = null;
+        private int i = 2;
         
 
         public List<ReadingType> ReadingTypes { get; set; }
@@ -25,6 +26,7 @@ namespace ALERTS_APPLICATION
             this.UserID = -1;
             this.topics.Add("alerts/login");
             this.topics.Add("alerts/readingType");
+            this.topics.Add("alerts_data/new_alert");
             ConnectAndSubscribe();
         }
         public static MQTTHandler Instance
@@ -79,33 +81,42 @@ namespace ALERTS_APPLICATION
         }
         private void MClient_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
         {
-            
+
             string[] data = e.Topic.Split('/');
             Console.WriteLine(Encoding.UTF8.GetString(e.Message));
 
 
-                /* CALLS LOGIN TO PERSIST USER ID*/
-                if (data[1].Equals("login") && Encoding.UTF8.GetString(e.Message).Contains("userID:"))
-                {
+            /* CALLS LOGIN TO PERSIST USER ID*/
+            if (data[1].Equals("login") && Encoding.UTF8.GetString(e.Message).Contains("userID:"))
+            {
 
                 int user;
-                if(int.TryParse(Encoding.UTF8.GetString(e.Message).Split(':')[1],out user))
+                if (int.TryParse(Encoding.UTF8.GetString(e.Message).Split(':')[1], out user))
                 {
                     this.UserID = user;
                 }
 
-                Console.WriteLine("USEREEERIIDDDDD=> " + this.UserID);
-                    LoginController.Instance.saveUserID(this.UserID); 
-                }
+                LoginController.Instance.saveUserID(this.UserID);
+            }
 
-                /*RECEIVE READING TYPES*/
-                if (data[1].Equals("readingType") && !Encoding.UTF8.GetString(e.Message).ToLower().Equals("request"))
+            /*RECEIVE READING TYPES*/
+            if (data[1].Equals("readingType") && !Encoding.UTF8.GetString(e.Message).ToLower().Equals("request"))
+            {
+
+                this.ReadingTypes = JsonConvert.DeserializeObject<List<ReadingType>>(Encoding.UTF8.GetString(e.Message));
+
+            }
+
+            /*RECEIVES ALERT WITH ID*/
+            if (data[1].Equals("new_alert") ) {
+                i++;
+                if (i % 2 == 0)
                 {
 
-                    this.ReadingTypes = JsonConvert.DeserializeObject<List<ReadingType>>(Encoding.UTF8.GetString(e.Message));
-                    
+                    AlertController.Instance.update(JsonConvert.DeserializeObject<Alert>(Encoding.UTF8.GetString(e.Message)));
+                    i++;
                 }
-
+            }
             
 
 
@@ -125,6 +136,19 @@ namespace ALERTS_APPLICATION
         public void getReadingTypes()
         {
             publishData("alerts/readingType", "request");
+        }
+
+        public void sendAlert(Alert alert)
+        {
+            if(alert == null)
+            {
+                return;
+            }
+
+            string json = JsonConvert.SerializeObject(alert);
+
+            publishData("alerts_data/new_alert", json);
+
         }
         
     }

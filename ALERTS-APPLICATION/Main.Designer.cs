@@ -92,7 +92,7 @@ namespace ALERTS_APPLICATION
             this.btnCleanAlerts.TabIndex = 19;
             this.btnCleanAlerts.Text = "CLEAN ALERTS";
             this.btnCleanAlerts.UseVisualStyleBackColor = true;
-            this.btnCleanAlerts.Click += new System.EventHandler(this.btnLimparAlertas_Click);
+            this.btnCleanAlerts.Click += new System.EventHandler(this.btnLimparAlerts_Click);
             // 
             // lvAlerts
             // 

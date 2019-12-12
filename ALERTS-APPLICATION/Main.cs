@@ -17,21 +17,18 @@ namespace ALERTS_APPLICATION
 {
     public partial class Main : Form
     {
+        private List<Alert> alerts;
         private List<Parameter> parameters;
         private ErrorProvider errorProvider;
-        private List<Alert> alerts;
         private List<ReadingType> readingTypes;
         private int userID;
 
-        private static string FILE_PATH = "alerts_config.xml";
+        
 
 
         public Main()
         {
             InitializeComponent();
-
-
-
         }
 
         public void setReadingTypes(List<ReadingType> readingTypes)
@@ -47,21 +44,17 @@ namespace ALERTS_APPLICATION
             alerts = new List<Alert>();
             MQTTHandler.Instance.getReadingTypes();
 
-            while (MQTTHandler.Instance.ReadingTypes == null){}
-            
+           while (MQTTHandler.Instance.ReadingTypes == null)
+           {
+                
+           }
+
             this.readingTypes = MQTTHandler.Instance.ReadingTypes;
 
             /*GETS USER ID*/
             this.userID = LoginController.Instance.checkUserLogin();
 
-       /*    if(this.userID == -1)
-            {
-               
-
-                this.Close();
-            }
-            */
-       
+            
 
             cbReadingType.DataSource = this.readingTypes;
             cbReadingType.ValueMember = "MeasureName";
@@ -96,33 +89,10 @@ namespace ALERTS_APPLICATION
             errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.BlinkIfDifferentError;
 
 
-            /*VERIFICA SE O FICHEIRO COM AS CONFIGURAÇÕES DOS ALERTAS EXISTEM*/
-            if (File.Exists(FILE_PATH))
-            {
-                try
-                {
-                    string json = File.ReadAllText(FILE_PATH);
-                    alerts = JsonConvert.DeserializeObject<List<Alert>>(json);
+            /*LOAD ALERTS TO LIST*/
+            loadAlertsToList();
 
-                    Console.WriteLine("ALERT CONFIG FILE READING SUCCESSFULL");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("ERROR_READING_FILE => " + ex.Message);
-                }
-
-                ListViewItem item = null;
-
-
-                /*CARREGA O ALERTAS NA LISTA*/
-                foreach (Alert alertI in alerts)
-                {
-                    item = new ListViewItem(new string[] { alertI.Parameters.Count.ToString(), alertI.Description, alertI.CreatedAt, alertI.Enabled.ToString() });
-                    lvAlerts.Items.Add(item);
-                }
-
-
-            }
+     
         }
 
 
@@ -155,7 +125,7 @@ namespace ALERTS_APPLICATION
             lvParameters.Items.Clear();
             foreach (Parameter parameterI in parameters)
             {
-                item = new ListViewItem(new string[] { parameterI.Condition,"boas", parameterI.Value.ToString() });
+                item = new ListViewItem(new string[] { parameterI.Condition,parameter.ReadingType.ToString(), parameterI.Value.ToString() });
                 lvParameters.Items.Add(item);
             }
 
@@ -194,15 +164,7 @@ namespace ALERTS_APPLICATION
 
 
             /*CRIAR O ALERTA*/
-            Alert alert = new Alert
-            {
-              //  Parameters = parameters,
-                Description = txtAlertDescription.Text,
-                UserID = 1,
-                Enabled = true,
-                SensorID = Convert.ToInt32(nrSensorID.Value),
-                CreatedAt = DateTime.UtcNow.ToShortDateString()
-            };
+            Alert alert = AlertController.Instance.create(txtAlertDescription.Text,Convert.ToInt32(nrSensorID.Value),this.parameters);
 
             saveAlert(alert);
 
@@ -231,20 +193,9 @@ namespace ALERTS_APPLICATION
                 return;
             }
 
-            alerts.Add(alert);
+            AlertController.Instance.save(alert);
 
-            /*ATUALIZA LISTA*/
-            ListViewItem item = null;
-            lvAlerts.Items.Clear();
-
-            XMLHandler.save(this.alerts);
-
-            foreach(Alert alertI in this.alerts)
-            {
-                item = new ListViewItem(new string[] { alertI.Parameters.Count.ToString(), alertI.Description, alertI.CreatedAt, alertI.Enabled.ToString() });
-                lvAlerts.Items.Add(item);
-            }
-
+            loadAlertsToList();
           
         }
 
@@ -264,26 +215,31 @@ namespace ALERTS_APPLICATION
             lvAlerts.Items.Clear();
 
             /*APAGA O FICHEIRO QUE GUARDA OS ALERTAS*/
+            AlertController.Instance.clean();
+        }
 
-            if (File.Exists(FILE_PATH))
+        private void loadAlertsToList()
+        {
+            lvAlerts.Items.Clear();
+
+            /*LOADS ALERTS DATA*/
+            ListViewItem item = null;
+
+            this.alerts = AlertController.Instance.load();
+
+            if (this.alerts == null)
             {
-                try
-                {
-                    File.Delete(FILE_PATH);
-                    Console.WriteLine("ALERT CONFIG FILE DELETING SUCCESSFULL");
+                this.alerts = new List<Alert>();
+            }
 
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("ERROR_DELETING_FILE => " + ex.Message);
 
-                }
+            /*CARREGA O ALERTAS NA LISTA*/
+            foreach (Alert alertI in alerts)
+            {
+                item = new ListViewItem(new string[] { alertI.Parameters.Count.ToString(), alertI.Description, alertI.CreatedAt, alertI.Enabled.ToString() });
+                lvAlerts.Items.Add(item);
             }
         }
 
-        private void btnLimparAlertas_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
