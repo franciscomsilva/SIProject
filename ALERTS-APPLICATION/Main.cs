@@ -12,16 +12,20 @@ using System.Windows.Forms;
 using Models;
 using System.Xml;
 using ALERTS_APPLICATION.Controller;
+using System.Threading;
 
 namespace ALERTS_APPLICATION
 {
     public partial class Main : Form
     {
         private List<Alert> alerts;
+        private List<GeneratedAlert> generatedAlerts;
         private List<Parameter> parameters;
         private ErrorProvider errorProvider;
         private List<ReadingType> readingTypes;
         private int userID;
+        private int size = 0;
+        private Thread t;
 
         
 
@@ -40,8 +44,10 @@ namespace ALERTS_APPLICATION
         {
             Console.WriteLine("STARTING_MAIN_FORM");
 
-            parameters = new List<Parameter>();
-            alerts = new List<Alert>();
+            this.parameters = new List<Parameter>();
+            this.alerts = new List<Alert>();
+
+            /*READS SAVED ALERTS*/
             MQTTHandler.Instance.getReadingTypes();
 
             DateTime startTime = DateTime.Now;
@@ -86,6 +92,9 @@ namespace ALERTS_APPLICATION
 
 
             errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.BlinkIfDifferentError;
+
+            /*CREATES THREAD TO CHECK FOR NEW GENERATED ALERTS*/
+            t = new Thread(checkGeneratedAlerts);
 
 
             /*LOAD ALERTS TO LIST*/
@@ -196,6 +205,25 @@ namespace ALERTS_APPLICATION
           
         }
 
+        public void checkGeneratedAlerts()
+        { 
+            while (true)
+            {
+                if(AlertController.Instance.generatedAlerts.Count > size)
+                {
+                    this.generatedAlerts = AlertController.Instance.generatedAlerts;
+                    size = this.generatedAlerts.Count;
+
+                    /*ENVIA A FUNCAO PARA ATUALIZAR A UI PARA A THREAD RESPONSAVEL*/
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        loadGeneratedAlertsToList();
+                    });
+                }
+
+            }
+        }
+
         private void lvParameters_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -222,12 +250,7 @@ namespace ALERTS_APPLICATION
             /*LOADS ALERTS DATA*/
             ListViewItem item = null;
 
-            this.alerts = AlertController.Instance.load();
-
-            if (this.alerts == null)
-            {
-                this.alerts = new List<Alert>();
-            }
+            this.alerts = AlertController.Instance.getAllAlerts();
 
 
             /*CARREGA O ALERTAS NA LISTA*/
@@ -238,5 +261,23 @@ namespace ALERTS_APPLICATION
             }
         }
 
+        private void loadGeneratedAlertsToList()
+        {
+            lvGeneratedAlerts.Items.Clear();
+
+            /*LOADS ALERTS DATA*/
+            ListViewItem item = null;
+
+            Alert alert = null;
+
+            /*CARREGA O ALERTAS NA LISTA*/
+            foreach (GeneratedAlert generatedAlert in this.generatedAlerts)
+            {
+                alert = AlertController.Instance.getAlert(generatedAlert.alert_id);
+
+                item = new ListViewItem(new string[] {alert.Id.ToString(),alert.Description,generatedAlert.timestamp });
+                lvGeneratedAlerts.Items.Add(item);
+            }
+        }
     }
 }

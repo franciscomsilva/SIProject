@@ -9,24 +9,11 @@
         </parameter>
       </parameters>
       <enabled>True</enabled>
-      <description>Es gay</description>
-      <createdAt>12/12/2019 12:01:15</createdAt>
+      <description>Ola</description>
+      <createdAt>12/12/2019 11:13:56</createdAt>
       <userID>1</userID>
-      <id>13</id>
-    </alert>
-	<alert>
-      <parameters>
-        <parameter>
-          <condition>=</condition>
-          <readingType />
-          <value>1</value>
-        </parameter>
-      </parameters>
-      <enabled>True</enabled>
-      <description>Es gay</description>
-      <createdAt>12/12/2019 12:01:15</createdAt>
-      <userID>1</userID>
-      <id>13</id>
+	<sensorID>1</sensorID>
+	<id>0</id>
     </alert>
   </sensorID>
 </alerts>

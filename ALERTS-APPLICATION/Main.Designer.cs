@@ -37,6 +37,8 @@ namespace ALERTS_APPLICATION
             this.lblConfiguredAlerts = new System.Windows.Forms.Label();
             this.generatedAlertsTab = new System.Windows.Forms.TabPage();
             this.addAlertTab = new System.Windows.Forms.TabPage();
+            this.nrSensorID = new System.Windows.Forms.NumericUpDown();
+            this.lblSensorID = new System.Windows.Forms.Label();
             this.lvParameters = new System.Windows.Forms.ListView();
             this.nrParameterValue = new System.Windows.Forms.NumericUpDown();
             this.lblParameterValue = new System.Windows.Forms.Label();
@@ -51,13 +53,13 @@ namespace ALERTS_APPLICATION
             this.lblConfigureAlert = new System.Windows.Forms.Label();
             this.lblAlertDescription = new System.Windows.Forms.Label();
             this.txtAlertDescription = new System.Windows.Forms.TextBox();
-            this.lblSensorID = new System.Windows.Forms.Label();
-            this.nrSensorID = new System.Windows.Forms.NumericUpDown();
+            this.lvGeneratedAlerts = new System.Windows.Forms.ListView();
             this.tabControl1.SuspendLayout();
             this.alertsTab.SuspendLayout();
+            this.generatedAlertsTab.SuspendLayout();
             this.addAlertTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nrParameterValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nrSensorID)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nrParameterValue)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -117,6 +119,7 @@ namespace ALERTS_APPLICATION
             // 
             // generatedAlertsTab
             // 
+            this.generatedAlertsTab.Controls.Add(this.lvGeneratedAlerts);
             this.generatedAlertsTab.Location = new System.Drawing.Point(4, 22);
             this.generatedAlertsTab.Name = "generatedAlertsTab";
             this.generatedAlertsTab.Padding = new System.Windows.Forms.Padding(3);
@@ -149,6 +152,32 @@ namespace ALERTS_APPLICATION
             this.addAlertTab.TabIndex = 1;
             this.addAlertTab.Text = "Add";
             this.addAlertTab.UseVisualStyleBackColor = true;
+            // 
+            // nrSensorID
+            // 
+            this.nrSensorID.Location = new System.Drawing.Point(116, 97);
+            this.nrSensorID.Maximum = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            this.nrSensorID.Minimum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            -2147483648});
+            this.nrSensorID.Name = "nrSensorID";
+            this.nrSensorID.Size = new System.Drawing.Size(120, 20);
+            this.nrSensorID.TabIndex = 17;
+            // 
+            // lblSensorID
+            // 
+            this.lblSensorID.AutoSize = true;
+            this.lblSensorID.Location = new System.Drawing.Point(28, 104);
+            this.lblSensorID.Name = "lblSensorID";
+            this.lblSensorID.Size = new System.Drawing.Size(54, 13);
+            this.lblSensorID.TabIndex = 16;
+            this.lblSensorID.Text = "Sensor ID";
             // 
             // lvParameters
             // 
@@ -294,31 +323,14 @@ namespace ALERTS_APPLICATION
             this.txtAlertDescription.Size = new System.Drawing.Size(448, 20);
             this.txtAlertDescription.TabIndex = 0;
             // 
-            // lblSensorID
+            // lvGeneratedAlerts
             // 
-            this.lblSensorID.AutoSize = true;
-            this.lblSensorID.Location = new System.Drawing.Point(28, 104);
-            this.lblSensorID.Name = "lblSensorID";
-            this.lblSensorID.Size = new System.Drawing.Size(54, 13);
-            this.lblSensorID.TabIndex = 16;
-            this.lblSensorID.Text = "Sensor ID";
-            // 
-            // nrSensorID
-            // 
-            this.nrSensorID.Location = new System.Drawing.Point(116, 97);
-            this.nrSensorID.Maximum = new decimal(new int[] {
-            60,
-            0,
-            0,
-            0});
-            this.nrSensorID.Minimum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            -2147483648});
-            this.nrSensorID.Name = "nrSensorID";
-            this.nrSensorID.Size = new System.Drawing.Size(120, 20);
-            this.nrSensorID.TabIndex = 17;
+            this.lvGeneratedAlerts.HideSelection = false;
+            this.lvGeneratedAlerts.Location = new System.Drawing.Point(27, 77);
+            this.lvGeneratedAlerts.Name = "lvGeneratedAlerts";
+            this.lvGeneratedAlerts.Size = new System.Drawing.Size(1273, 531);
+            this.lvGeneratedAlerts.TabIndex = 19;
+            this.lvGeneratedAlerts.UseCompatibleStateImageBehavior = false;
             // 
             // Main
             // 
@@ -332,10 +344,11 @@ namespace ALERTS_APPLICATION
             this.tabControl1.ResumeLayout(false);
             this.alertsTab.ResumeLayout(false);
             this.alertsTab.PerformLayout();
+            this.generatedAlertsTab.ResumeLayout(false);
             this.addAlertTab.ResumeLayout(false);
             this.addAlertTab.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nrParameterValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nrSensorID)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nrParameterValue)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -366,6 +379,7 @@ namespace ALERTS_APPLICATION
         private System.Windows.Forms.TabPage generatedAlertsTab;
         private System.Windows.Forms.NumericUpDown nrSensorID;
         private System.Windows.Forms.Label lblSensorID;
+        private System.Windows.Forms.ListView lvGeneratedAlerts;
     }
 }
 

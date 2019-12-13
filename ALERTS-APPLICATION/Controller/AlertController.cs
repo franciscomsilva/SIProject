@@ -15,16 +15,15 @@ namespace ALERTS_APPLICATION.Controller
         private static AlertController instance = null;
         private static string FILE_PATH = "alerts_config.xml";
         private List<Alert> alerts;
+        public  List<GeneratedAlert> generatedAlerts;
 
 
         private AlertController() {
+            this.alerts = new List<Alert>();
+
             this.alerts = load();
 
-            if(this.alerts == null)
-            {
-                this.alerts = new List<Alert>();
-            }
-        
+            this.generatedAlerts = new List<GeneratedAlert>();
         }
 
         public static AlertController Instance
@@ -38,29 +37,53 @@ namespace ALERTS_APPLICATION.Controller
                 return instance;
             }
         }
-        //TODO MUDAR O LOAD
+
+        public List<Alert> getAllAlerts()
+        {
+            return this.alerts;
+        }
+
         public List<Alert> load()
         {
 
             /*VERIFICA SE O FICHEIRO COM AS CONFIGURAÇÕES DOS ALERTAS EXISTEM*/
             if (File.Exists(FILE_PATH))
             {
-                try
+                XmlNodeList nodeList = XMLHandler.Instance.getAllAlerts();
+                Alert alert = null;
+                List<Parameter> parameters = new List<Parameter>();
+                Parameter parameter = null;
+
+                foreach (XmlNode node in nodeList)
                 {
-                    string json = File.ReadAllText(FILE_PATH);
-                    this.alerts = JsonConvert.DeserializeObject<List<Alert>>(json);
+                    alert = new Alert
+                    {
+                        CreatedAt = node.ChildNodes.Item(3).InnerText,
+                        Description = node.ChildNodes.Item(2).InnerText,
+                        Enabled = bool.Parse(node.ChildNodes.Item(1).InnerText),
+                        Id = int.Parse(node.ChildNodes.Item(5).InnerText),
+                        SensorID = int.Parse(node.ChildNodes.Item(6).InnerText),
+                        UserID = int.Parse(node.ChildNodes.Item(4).InnerText)
 
-                    Console.WriteLine("ALERT CONFIG FILE READING SUCCESSFULL");
+                    };
+                    XmlNode parametersXML = node.ChildNodes.Item(0);
+                    foreach (XmlNode parameterI in parametersXML.ChildNodes)
+                    {
+                        parameter = new Parameter
+                        {
+                            Condition = parameterI.ChildNodes.Item(0).InnerText,
+                            Value = decimal.Parse(parameterI.ChildNodes.Item(2).InnerText)
+                        };
+                        parameters.Add(parameter);
+                    }
+
+                    alert.Parameters = parameters;
+
+                    this.alerts.Add(alert);
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("ERROR_READING_FILE => " + ex.Message);
-                }
-
-
                 return this.alerts;
             }
-            return null;
+            return new List<Alert>();
         }
 
         public Alert create(string description,int sensorID,List<Parameter> parameters)
@@ -76,7 +99,7 @@ namespace ALERTS_APPLICATION.Controller
                 Enabled = true,
                 SensorID = sensorID,
                 CreatedAt = DateTime.Now.ToString(),
-                Parameters = new LinkedList<Parameter>(parameters)
+                Parameters = new List<Parameter>(parameters)
             };
 
             return alert;
@@ -146,46 +169,56 @@ namespace ALERTS_APPLICATION.Controller
                 return;
             
             List<Alert> alertsSensor = new List<Alert>();
+            Alert alert = null;
             int id;
 
             /*PARSE DATA*/
             foreach (XmlNode node in data)
             {
-                id = int.Parse(node.ChildNodes.Item(6).InnerText);
+                id = int.Parse(node.ChildNodes.Item(5).InnerText);
 
-                alertsSensor.Add(getAlert(id));
+                alert = getAlert(id);
+
+                if(alert != null)
+                {
+                    alertsSensor.Add(alert);
+
+                }
             }
 
             foreach(Alert i in alertsSensor)
             {
                 foreach(Parameter parameter in i.Parameters)
                 {
-                    switch (parameter.Condition)
+                    if (parameter.Condition.ToLower().Equals(parameter.ReadingType.MeasureName))
                     {
-                        case "=":
-                            if(parameter.Value == value)
-                            {
-                                //generate alert,send alert ID
+                        switch (parameter.Condition)
+                        {
+                            case "=":
+                                if (parameter.Value == value)
+                                {
+                                    //generate alert,send alert ID
 
-                            }
-                            break;
+                                }
+                                break;
 
-                        case "<":
-                            if (parameter.Value < value)
-                            {
-                                //generate alert;
+                            case "<":
+                                if (parameter.Value < value)
+                                {
+                                    //generate alert;
 
-                            }
-                            break;
+                                }
+                                break;
 
 
-                        case ">":
-                            if (parameter.Value > value)
-                            {
-                                //generate alert;
+                            case ">":
+                                if (parameter.Value > value)
+                                {
+                                    //generate alert;
 
-                            }
-                            break;
+                                }
+                                break;
+                        }
                     }
                 }
             }
@@ -196,8 +229,17 @@ namespace ALERTS_APPLICATION.Controller
 
         public void generateAlert(int alertID)
         {
-            
-            
+            /*CREATE GENERATED ALERT*/
+            GeneratedAlert generatedAlert = new GeneratedAlert
+            {
+                alert_id = alertID,
+                timestamp = DateTime.Now.ToString()
+            };
+
+            generatedAlerts.Add(generatedAlert);
+
+            sendGeneratedAlert(generatedAlert);
+
         }
 
         public Alert getAlert(int id)
@@ -210,6 +252,16 @@ namespace ALERTS_APPLICATION.Controller
                 }
             }
             return null;
+        }
+
+        public void sendGeneratedAlert(GeneratedAlert alert)
+        {
+            if(alert == null)
+            {
+                return;
+            }
+
+            MQTTHandler.Instance.sendGeneratedAlert(alert);
         }
 
     }

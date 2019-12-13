@@ -60,6 +60,7 @@ namespace ALERTS_APPLICATION
             XmlElement condition = null;
             XmlElement readingType = null;
             XmlElement value = null;
+            XmlElement sensorIDElement = null;
 
             /*CARREGA O ALERTAS NA LISTA*/
             foreach (Alert alertI in alerts)
@@ -89,12 +90,12 @@ namespace ALERTS_APPLICATION
                     condition = document.CreateElement("condition");
                     readingType = document.CreateElement("readingType");
                     value = document.CreateElement("value");
+                    sensorIDElement = document.CreateElement("sensorID");
 
 
                     condition.InnerText = i.Condition;
                     //readingType.InnerText = i.ReadingType.ToString(); ;
                     value.InnerText = i.Value.ToString();
-
 
                     parameter.AppendChild(condition);
                     parameter.AppendChild(readingType);
@@ -110,12 +111,15 @@ namespace ALERTS_APPLICATION
                 description.InnerText = alertI.Description;
                 createdAt.InnerText = alertI.CreatedAt;
                 userID.InnerText = alertI.UserID.ToString();
+                sensorIDElement.InnerText = alertI.SensorID.ToString();
+
 
                 alertEl.AppendChild(parameters);
                 alertEl.AppendChild(enabled);
                 alertEl.AppendChild(description);
                 alertEl.AppendChild(createdAt);
                 alertEl.AppendChild(userID);
+                alertEl.AppendChild(sensorIDElement);
 
 
                 sensorID.AppendChild(alertEl);
@@ -187,6 +191,17 @@ namespace ALERTS_APPLICATION
 
             return null;
         } 
+
+        public XmlNodeList getAllAlerts()
+        {
+            /*GETS ALL ALERTS FROM FILE*/
+            string xpath = "//alert";
+
+            return document.SelectNodes(xpath);
+
+
+        }
+
 
     }
 }

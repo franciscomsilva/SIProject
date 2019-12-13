@@ -28,6 +28,7 @@ namespace ALERTS_APPLICATION
             this.topics.Add("alerts/readingType");
             this.topics.Add("alerts_data/new_alert");
             this.topics.Add("clean_data/1");
+            this.topics.Add("alerts_data");
             ConnectAndSubscribe();
         }
         public static MQTTHandler Instance
@@ -54,7 +55,7 @@ namespace ALERTS_APPLICATION
             }
 
             Console.WriteLine("CONNECTING TO BROKER...");
-            mClient = new MqttClient("mqtt.fmsilva.pt");
+            mClient = new MqttClient("127.0.0.1");
 
             mClient.Connect(Guid.NewGuid().ToString());
             if (!mClient.IsConnected)
@@ -99,38 +100,39 @@ namespace ALERTS_APPLICATION
 
             }
 
-
-
-
-            /* CALLS LOGIN TO PERSIST USER ID*/
-            if (data[1].Equals("login") && Encoding.UTF8.GetString(e.Message).Contains("userID:"))
+            if (data.Length > 1)
             {
-
-                int user;
-                if (int.TryParse(Encoding.UTF8.GetString(e.Message).Split(':')[1], out user))
+                /* CALLS LOGIN TO PERSIST USER ID*/
+                if (data[1].Equals("login") && Encoding.UTF8.GetString(e.Message).Contains("userID:"))
                 {
-                    this.UserID = user;
+
+                    int user;
+                    if (int.TryParse(Encoding.UTF8.GetString(e.Message).Split(':')[1], out user))
+                    {
+                        this.UserID = user;
+                    }
+
+                    LoginController.Instance.saveUserID(this.UserID);
                 }
 
-                LoginController.Instance.saveUserID(this.UserID);
-            }
-
-            /*RECEIVE READING TYPES*/
-            if (data[1].Equals("readingType") && !Encoding.UTF8.GetString(e.Message).ToLower().Equals("request"))
-            {
-
-                this.ReadingTypes = JsonConvert.DeserializeObject<List<ReadingType>>(Encoding.UTF8.GetString(e.Message));
-
-            }
-
-            /*RECEIVES ALERT WITH ID*/
-            if (data[1].Equals("new_alert") ) {
-                i++;
-                if (i % 2 == 0)
+                /*RECEIVE READING TYPES*/
+                if (data[1].Equals("readingType") && !Encoding.UTF8.GetString(e.Message).ToLower().Equals("request"))
                 {
 
-                    AlertController.Instance.update(JsonConvert.DeserializeObject<Alert>(Encoding.UTF8.GetString(e.Message)));
+                    this.ReadingTypes = JsonConvert.DeserializeObject<List<ReadingType>>(Encoding.UTF8.GetString(e.Message));
+
+                }
+
+                /*RECEIVES ALERT WITH ID*/
+                if (data[1].Equals("new_alert"))
+                {
                     i++;
+                    if (i % 2 == 0)
+                    {
+
+                        AlertController.Instance.update(JsonConvert.DeserializeObject<Alert>(Encoding.UTF8.GetString(e.Message)));
+                        i++;
+                    }
                 }
             }
 
@@ -166,6 +168,21 @@ namespace ALERTS_APPLICATION
             publishData("alerts_data/new_alert", json);
 
         }
-        
+
+        public void sendGeneratedAlert(GeneratedAlert alert)
+        {
+
+            if (alert == null)
+            {
+                return;
+            }
+
+            string json = JsonConvert.SerializeObject(alert);
+
+            publishData("alerts_data", json);
+
+
+        }
+
     }
 }
