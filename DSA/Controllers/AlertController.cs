@@ -12,7 +12,31 @@ namespace DSA.Controllers
         {
         }
         private static AlertController instance = null;
+        public void AddAlert(Alert alert)
+        {
 
+            try
+            {
+                SqlConnection sql = new SqlConnection(connectionString);
+                sql.Open();
+                SqlCommand sqlCommand = new SqlCommand("INSERT INTO t_alerts VALUES(@user_id,@enabled,@description,@created_At,@sensor_id)", sql);
+                sqlCommand.Parameters.AddWithValue("@user_id",alert.UserID);
+                sqlCommand.Parameters.AddWithValue("@enabled",alert.Enabled);
+                sqlCommand.Parameters.AddWithValue("@description",alert.Description);
+                sqlCommand.Parameters.AddWithValue("@created_at",alert.CreatedAt);
+                sqlCommand.Parameters.AddWithValue("@sensor_id",alert.SensorID);
+                sqlCommand.ExecuteNonQuery();
+
+                sql.Close();
+                Console.WriteLine("Alert created successfully!");
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine("Failed creating a new alert! Reason:" + e.Message);
+                Console.ReadKey();
+            }
+        }
         public static AlertController Instance
         {
             get
@@ -42,6 +66,7 @@ namespace DSA.Controllers
                     {
                         Id=(int)reader["id"],
                         UserID=(int)reader["user_id"],
+                        SensorID = (int)reader["sensor_id"],
                         Description=(string)reader["description"],
                         Enabled=(bool)reader["enabled"],
                         CreatedAt=(string)reader["created_at"]

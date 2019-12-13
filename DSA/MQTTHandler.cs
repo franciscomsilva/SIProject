@@ -30,7 +30,8 @@ namespace DSA
             }
         }
        
-        int i = 1;
+        int iLogin = 1;
+        int iAlert = 1;
         MqttClient mClient = null;
         List<string> topics = new List<string>();
    
@@ -45,7 +46,9 @@ namespace DSA
             List<String> sensorsReadings;
             topics.Add("alerts/readingType");
             topics.Add("alerts/login");
-            
+            topics.Add("alerts_data/new_alert");
+
+
             foreach (Sensor sensor in SensorController.Instance.GetAllSensors()) //todos os canais de raw data
             {
                 sensorsReadings = SensorController.Instance.GetSensorReadingTypes(sensor.Id);
@@ -73,7 +76,7 @@ namespace DSA
             }
             for (int h = 0; h < topics.Count; h++)
             {
-                Console.WriteLine("Connecting to topic number "+h+":"+topics[h]);
+                Console.WriteLine("Connecting to topic: "+topics[h]);
                mClient.Subscribe(new string[] { topics[h] },new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
                 Console.WriteLine("Connected sucessfully!");
             }
@@ -106,8 +109,8 @@ namespace DSA
             {
                 if (topics[1].Equals("login") )
                 {
-                    i++;
-                    if (i %2 ==0)
+                    iLogin++;
+                    if (iLogin %2 ==0)
                     {
 
 
@@ -130,7 +133,21 @@ namespace DSA
             //----------------------------------------------Dados de alerts------------------------------------------------------//
             if (topics[0].Equals("alerts_data"))
             {
+                
+                if (topics[1].Equals("new_alert") )
+                {
+                    iAlert++;
+                    if (iAlert%2==0)
+                    { 
+                        Alert alert = JsonConvert.DeserializeObject<Alert>(Encoding.UTF8.GetString(e.Message));
+                        AlertController.Instance.AddAlert(alert);
+                        alert = AlertController.Instance.GetAllAlerts()[AlertController.Instance.GetAllAlerts().Count - 1];
+                        publishData("alerts_data/new_alert", JsonConvert.SerializeObject(alert));
+                    }
+                }
+                else{ //ALERTAS GERADOS WUHUUUUUUUUUU
 
+                }
             }
             //-----------------------------------------Login Alerts----------------------//
 

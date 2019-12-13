@@ -4,6 +4,7 @@ using Models;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace DSA
 {
@@ -25,22 +26,25 @@ namespace DSA
             #endregion
 
 
-                while (true)
-                     {
+                  while (true)
+                        {
 
-                         if (sqlLogin.isLogged)
-                         {
+                            if (sqlLogin.isLogged)
+                            {
 
-                    menu.MainMenu();
-                         }
-                         else
-                         {
+                       menu.MainMenu();
+                            }
+                            else
+                            {
 
-                        menu.LoginMenu();
-                         }
-                     } 
-                     
-                
+                           menu.LoginMenu();
+                            }
+                        } 
+
+                   
+
+
+
         }
     }
 }
