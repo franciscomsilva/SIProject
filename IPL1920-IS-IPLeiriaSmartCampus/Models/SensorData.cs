@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    class SensorData
+    public class SensorData
     {
         public int sensor_id { get; set; }
         public int location_id { get; set; }
