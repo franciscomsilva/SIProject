@@ -49,6 +49,7 @@
     <Compile Include="ReadingType.cs" />
     <Compile Include="Sensor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SensorData.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
