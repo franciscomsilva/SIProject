@@ -171,5 +171,22 @@ namespace ALERTS_APPLICATION
 
         }
 
+        private bool checkIfFileExists()
+        {
+            return File.Exists(FILE_PATH);
+        }
+
+        public XmlNodeList getAlerts(int sensorID)
+        {
+        
+            string xpath = $"/alerts/sensorID[@id='{sensorID}']/alert";
+
+            if (checkIfFileExists()){
+                return document.SelectNodes(xpath);
+            }
+
+            return null;
+        } 
+
     }
 }

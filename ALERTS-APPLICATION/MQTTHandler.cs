@@ -27,6 +27,7 @@ namespace ALERTS_APPLICATION
             this.topics.Add("alerts/login");
             this.topics.Add("alerts/readingType");
             this.topics.Add("alerts_data/new_alert");
+            this.topics.Add("clean_data/1");
             ConnectAndSubscribe();
         }
         public static MQTTHandler Instance
@@ -83,7 +84,22 @@ namespace ALERTS_APPLICATION
         {
 
             string[] data = e.Topic.Split('/');
+            int sensorID = 0;
             Console.WriteLine(Encoding.UTF8.GetString(e.Message));
+
+
+
+            if (data[0].Equals("clean_data"))
+            {
+                sensorID = int.Parse(data[1]);
+
+                AlertController.Instance.checkAlert(sensorID);
+
+                sensorID = 0;
+
+            }
+
+
 
 
             /* CALLS LOGIN TO PERSIST USER ID*/
@@ -117,7 +133,7 @@ namespace ALERTS_APPLICATION
                     i++;
                 }
             }
-            
+
 
 
 

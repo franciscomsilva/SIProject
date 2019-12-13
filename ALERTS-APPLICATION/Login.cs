@@ -44,10 +44,22 @@ namespace ALERTS_APPLICATION
 
             LoginController.Instance.login(txtUsername.Text, txtPassword.Text);
 
-           while (MQTTHandler.Instance.UserID == -1) { }
+            DateTime startTime = DateTime.Now;
+
+            while (MQTTHandler.Instance.UserID == -1 && DateTime.Now.Subtract(startTime).Seconds <= 5) { }
 
             int userID = MQTTHandler.Instance.UserID;
 
+            if(userID == -1)
+            {
+
+                lblErrors.Text = "Error connecting to database!";
+                lblErrors.Visible = true;
+                txtPassword.Clear();
+
+                MQTTHandler.Instance.UserID = -1;
+                return;
+            }
             if (userID == 0)
             {
                 lblErrors.Text = "Wrong username/password combination!";

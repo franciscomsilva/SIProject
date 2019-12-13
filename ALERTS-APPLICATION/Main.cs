@@ -44,10 +44,9 @@ namespace ALERTS_APPLICATION
             alerts = new List<Alert>();
             MQTTHandler.Instance.getReadingTypes();
 
-           while (MQTTHandler.Instance.ReadingTypes == null)
-           {
-                
-           }
+            DateTime startTime = DateTime.Now;
+            while (MQTTHandler.Instance.ReadingTypes == null && DateTime.Now.Subtract(startTime).Seconds <= 5)
+            { }
 
             this.readingTypes = MQTTHandler.Instance.ReadingTypes;
 
@@ -180,8 +179,6 @@ namespace ALERTS_APPLICATION
             lvParameters.Items.Clear();
 
             parameters.Clear();
-
-
 
         }
 

@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace ALERTS_APPLICATION.Controller
 {
@@ -134,6 +135,41 @@ namespace ALERTS_APPLICATION.Controller
                 return;
             }
             Console.WriteLine("UPDATED_ALERT_ID");
+
+        }
+
+        public void checkAlert(int sensorID)
+        {
+            XmlNodeList data = XMLHandler.Instance.getAlerts(sensorID);
+
+            if(data == null)
+            {
+                return;
+            }
+            List<Alert> alerts = new List<Alert>();
+            List<Parameter> parameters = new List<Parameter>();
+            Alert alert = new Alert();
+            Parameter parameter = null;
+
+            /*PARSE DATA*/
+            foreach(XmlNode node in data)
+            {
+               string boas = node.ChildNodes.Item(1).InnerText;
+
+
+                 alert = new Alert
+                 {
+                     Enabled = bool.Parse(node.ChildNodes.Item(2).InnerText)
+                 };
+
+
+            }
+
+
+        }
+
+        public void generateAlert()
+        {
 
         }
 
