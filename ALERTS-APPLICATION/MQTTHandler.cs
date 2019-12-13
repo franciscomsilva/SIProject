@@ -93,7 +93,7 @@ namespace ALERTS_APPLICATION
             {
                 sensorID = int.Parse(data[1]);
 
-                AlertController.Instance.checkAlert(sensorID);
+                AlertController.Instance.checkAlert(sensorID,new ReadingType(),1);
 
                 sensorID = 0;
 

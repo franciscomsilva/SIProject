@@ -138,39 +138,78 @@ namespace ALERTS_APPLICATION.Controller
 
         }
 
-        public void checkAlert(int sensorID)
+        public void checkAlert(int sensorID,ReadingType readingType,int value)
         {
             XmlNodeList data = XMLHandler.Instance.getAlerts(sensorID);
 
             if(data == null)
-            {
                 return;
-            }
-            List<Alert> alerts = new List<Alert>();
-            List<Parameter> parameters = new List<Parameter>();
-            Alert alert = new Alert();
-            Parameter parameter = null;
+            
+            List<Alert> alertsSensor = new List<Alert>();
+            int id;
 
             /*PARSE DATA*/
-            foreach(XmlNode node in data)
+            foreach (XmlNode node in data)
             {
-               string boas = node.ChildNodes.Item(1).InnerText;
+                id = int.Parse(node.ChildNodes.Item(6).InnerText);
 
-
-                 alert = new Alert
-                 {
-                     Enabled = bool.Parse(node.ChildNodes.Item(2).InnerText)
-                 };
-
-
+                alertsSensor.Add(getAlert(id));
             }
+
+            foreach(Alert i in alertsSensor)
+            {
+                foreach(Parameter parameter in i.Parameters)
+                {
+                    switch (parameter.Condition)
+                    {
+                        case "=":
+                            if(parameter.Value == value)
+                            {
+                                //generate alert,send alert ID
+
+                            }
+                            break;
+
+                        case "<":
+                            if (parameter.Value < value)
+                            {
+                                //generate alert;
+
+                            }
+                            break;
+
+
+                        case ">":
+                            if (parameter.Value > value)
+                            {
+                                //generate alert;
+
+                            }
+                            break;
+                    }
+                }
+            }
+
 
 
         }
 
-        public void generateAlert()
+        public void generateAlert(int alertID)
         {
+            
+            
+        }
 
+        public Alert getAlert(int id)
+        {
+            foreach(Alert i in this.alerts)
+            {
+                if(i.Id == id)
+                {
+                    return i;
+                }
+            }
+            return null;
         }
 
     }
