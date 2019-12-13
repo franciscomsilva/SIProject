@@ -47,6 +47,12 @@ namespace ALERTS_APPLICATION
             this.parameters = new List<Parameter>();
             this.alerts = new List<Alert>();
 
+            lvAlerts.HideSelection = false;
+            lvAlerts.FullRowSelect = true;
+
+            lvGeneratedAlerts.HideSelection = false;
+            lvGeneratedAlerts.FullRowSelect = true;
+
             /*READS SAVED ALERTS*/
             MQTTHandler.Instance.getReadingTypes();
 
@@ -73,10 +79,13 @@ namespace ALERTS_APPLICATION
             lvParameters.Columns.Add("Value");
 
             lvAlerts.View = View.Details;
-            lvAlerts.Columns.Add("Number Of Parameters");
+            lvAlerts.Columns.Add("ID");
+            lvAlerts.Columns.Add("SensorID");
             lvAlerts.Columns.Add("Description");
             lvAlerts.Columns.Add("Creation Date");
             lvAlerts.Columns.Add("Enabled");
+            lvAlerts.Columns.Add("Number Of Parameters");
+
 
 
 
@@ -256,7 +265,7 @@ namespace ALERTS_APPLICATION
             /*CARREGA O ALERTAS NA LISTA*/
             foreach (Alert alertI in alerts)
             {
-                item = new ListViewItem(new string[] { alertI.Parameters.Count.ToString(), alertI.Description, alertI.CreatedAt, alertI.Enabled.ToString() });
+                item = new ListViewItem(new string[] {alertI.Id.ToString(),alertI.SensorID.ToString() ,alertI.Description, alertI.CreatedAt, alertI.Enabled.ToString(), alertI.Parameters.Count.ToString() });
                 lvAlerts.Items.Add(item);
             }
         }
@@ -277,6 +286,17 @@ namespace ALERTS_APPLICATION
 
                 item = new ListViewItem(new string[] {alert.Id.ToString(),alert.Description,generatedAlert.timestamp });
                 lvGeneratedAlerts.Items.Add(item);
+
+            }
+        }
+
+        private void btnDisableAlert_Click(object sender, EventArgs e)
+        {
+            if(lvAlerts.SelectedIndices.Count > 0)
+            {
+                ListViewItem item = lvAlerts.SelectedItems[0];
+                AlertController.Instance.disableAlert(int.Parse(item.SubItems[0].Text), int.Parse(item.SubItems[1].Text));
+                loadAlertsToList();
             }
         }
     }

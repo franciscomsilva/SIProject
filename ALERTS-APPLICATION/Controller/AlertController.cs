@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Xml;
 
 namespace ALERTS_APPLICATION.Controller
@@ -45,6 +46,7 @@ namespace ALERTS_APPLICATION.Controller
 
         public List<Alert> load()
         {
+            this.alerts = new List<Alert>();
 
             /*VERIFICA SE O FICHEIRO COM AS CONFIGURAÇÕES DOS ALERTAS EXISTEM*/
             if (File.Exists(FILE_PATH))
@@ -264,5 +266,12 @@ namespace ALERTS_APPLICATION.Controller
             MQTTHandler.Instance.sendGeneratedAlert(alert);
         }
 
+        public void disableAlert(int alertID,int sensorID)
+        {
+            XMLHandler.Instance.updateEnabled(alertID,sensorID);
+            load();
+            /* TODO : SEND TO CHANNEL USING MQQTTHANDLER*/
+
+        }
     }
 }

@@ -36,6 +36,7 @@ namespace ALERTS_APPLICATION
             this.lvAlerts = new System.Windows.Forms.ListView();
             this.lblConfiguredAlerts = new System.Windows.Forms.Label();
             this.generatedAlertsTab = new System.Windows.Forms.TabPage();
+            this.lvGeneratedAlerts = new System.Windows.Forms.ListView();
             this.addAlertTab = new System.Windows.Forms.TabPage();
             this.nrSensorID = new System.Windows.Forms.NumericUpDown();
             this.lblSensorID = new System.Windows.Forms.Label();
@@ -53,7 +54,7 @@ namespace ALERTS_APPLICATION
             this.lblConfigureAlert = new System.Windows.Forms.Label();
             this.lblAlertDescription = new System.Windows.Forms.Label();
             this.txtAlertDescription = new System.Windows.Forms.TextBox();
-            this.lvGeneratedAlerts = new System.Windows.Forms.ListView();
+            this.btnDisableAlert = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.alertsTab.SuspendLayout();
             this.generatedAlertsTab.SuspendLayout();
@@ -75,6 +76,7 @@ namespace ALERTS_APPLICATION
             // 
             // alertsTab
             // 
+            this.alertsTab.Controls.Add(this.btnDisableAlert);
             this.alertsTab.Controls.Add(this.btnCleanAlerts);
             this.alertsTab.Controls.Add(this.lvAlerts);
             this.alertsTab.Controls.Add(this.lblConfiguredAlerts);
@@ -100,6 +102,7 @@ namespace ALERTS_APPLICATION
             // 
             this.lvAlerts.HideSelection = false;
             this.lvAlerts.Location = new System.Drawing.Point(23, 110);
+            this.lvAlerts.MultiSelect = false;
             this.lvAlerts.Name = "lvAlerts";
             this.lvAlerts.Size = new System.Drawing.Size(1273, 531);
             this.lvAlerts.TabIndex = 18;
@@ -127,6 +130,15 @@ namespace ALERTS_APPLICATION
             this.generatedAlertsTab.TabIndex = 2;
             this.generatedAlertsTab.Text = "Generated Alerts";
             this.generatedAlertsTab.UseVisualStyleBackColor = true;
+            // 
+            // lvGeneratedAlerts
+            // 
+            this.lvGeneratedAlerts.HideSelection = false;
+            this.lvGeneratedAlerts.Location = new System.Drawing.Point(27, 77);
+            this.lvGeneratedAlerts.Name = "lvGeneratedAlerts";
+            this.lvGeneratedAlerts.Size = new System.Drawing.Size(1273, 531);
+            this.lvGeneratedAlerts.TabIndex = 19;
+            this.lvGeneratedAlerts.UseCompatibleStateImageBehavior = false;
             // 
             // addAlertTab
             // 
@@ -323,14 +335,15 @@ namespace ALERTS_APPLICATION
             this.txtAlertDescription.Size = new System.Drawing.Size(448, 20);
             this.txtAlertDescription.TabIndex = 0;
             // 
-            // lvGeneratedAlerts
+            // btnDisableAlert
             // 
-            this.lvGeneratedAlerts.HideSelection = false;
-            this.lvGeneratedAlerts.Location = new System.Drawing.Point(27, 77);
-            this.lvGeneratedAlerts.Name = "lvGeneratedAlerts";
-            this.lvGeneratedAlerts.Size = new System.Drawing.Size(1273, 531);
-            this.lvGeneratedAlerts.TabIndex = 19;
-            this.lvGeneratedAlerts.UseCompatibleStateImageBehavior = false;
+            this.btnDisableAlert.Location = new System.Drawing.Point(168, 79);
+            this.btnDisableAlert.Name = "btnDisableAlert";
+            this.btnDisableAlert.Size = new System.Drawing.Size(125, 23);
+            this.btnDisableAlert.TabIndex = 20;
+            this.btnDisableAlert.Text = "DISABLE ALERT";
+            this.btnDisableAlert.UseVisualStyleBackColor = true;
+            this.btnDisableAlert.Click += new System.EventHandler(this.btnDisableAlert_Click);
             // 
             // Main
             // 
@@ -380,6 +393,7 @@ namespace ALERTS_APPLICATION
         private System.Windows.Forms.NumericUpDown nrSensorID;
         private System.Windows.Forms.Label lblSensorID;
         private System.Windows.Forms.ListView lvGeneratedAlerts;
+        private System.Windows.Forms.Button btnDisableAlert;
     }
 }
 

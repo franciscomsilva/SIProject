@@ -202,6 +202,29 @@ namespace ALERTS_APPLICATION
 
         }
 
+        public bool updateEnabled(int alertID,int sensorID)
+        {
+            string xpath = $"//alert[id='{alertID}']";
+
+            XmlNode node = document.SelectSingleNode(xpath);
+
+            if(node == null)
+            {
+                return false;
+            }
+            
+            bool value = bool.Parse(node.ChildNodes.Item(1).InnerText);
+
+            value = value == false ? value = true : value = false;
+
+            node.ChildNodes.Item(1).InnerText = value.ToString();
+
+            document.Save(FILE_PATH);
+
+            return true;
+
+        }
+
 
     }
 }
