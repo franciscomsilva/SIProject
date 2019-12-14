@@ -94,7 +94,7 @@ namespace ALERTS_APPLICATION
 
 
                     condition.InnerText = i.Condition;
-                    //readingType.InnerText = i.ReadingType.ToString(); ;
+                    readingType.InnerText = i.ReadingType.MeasureName;
                     value.InnerText = i.Value.ToString();
 
                     parameter.AppendChild(condition);
@@ -202,7 +202,7 @@ namespace ALERTS_APPLICATION
 
         }
 
-        public bool updateEnabled(int alertID,int sensorID)
+        public bool updateEnabled(int alertID)
         {
             string xpath = $"//alert[id='{alertID}']";
 

@@ -163,7 +163,7 @@ namespace ALERTS_APPLICATION.Controller
 
         }
 
-        public void checkAlert(int sensorID,ReadingType readingType,int value)
+        public void checkAlert(int sensorID,SensorData sensorData)
         {
             XmlNodeList data = XMLHandler.Instance.getAlerts(sensorID);
 
@@ -173,6 +173,9 @@ namespace ALERTS_APPLICATION.Controller
             List<Alert> alertsSensor = new List<Alert>();
             Alert alert = null;
             int id;
+
+            string measure_name = sensorData.measure_name.ToLower(); ;
+            decimal value = decimal.Parse(sensorData.value);
 
             /*PARSE DATA*/
             foreach (XmlNode node in data)
@@ -192,7 +195,7 @@ namespace ALERTS_APPLICATION.Controller
             {
                 foreach(Parameter parameter in i.Parameters)
                 {
-                    if (parameter.Condition.ToLower().Equals(parameter.ReadingType.MeasureName))
+                    if (parameter.ReadingType.MeasureName.ToLower().Equals(measure_name) && i.Enabled)//IF READING TYPE EQUALS EX: HUMIDADE=HUMIDADE
                     {
                         switch (parameter.Condition)
                         {
@@ -200,7 +203,7 @@ namespace ALERTS_APPLICATION.Controller
                                 if (parameter.Value == value)
                                 {
                                     //generate alert,send alert ID
-
+                                    generateAlert(i.Id);
                                 }
                                 break;
 
@@ -208,6 +211,7 @@ namespace ALERTS_APPLICATION.Controller
                                 if (parameter.Value < value)
                                 {
                                     //generate alert;
+                                    generateAlert(i.Id);
 
                                 }
                                 break;
@@ -217,7 +221,7 @@ namespace ALERTS_APPLICATION.Controller
                                 if (parameter.Value > value)
                                 {
                                     //generate alert;
-
+                                    generateAlert(i.Id);
                                 }
                                 break;
                         }
@@ -266,11 +270,14 @@ namespace ALERTS_APPLICATION.Controller
             MQTTHandler.Instance.sendGeneratedAlert(alert);
         }
 
-        public void disableAlert(int alertID,int sensorID)
+        public void disableAlert(int alertID)
         {
-            XMLHandler.Instance.updateEnabled(alertID,sensorID);
+            /*UPDATES XML*/
+            XMLHandler.Instance.updateEnabled(alertID);
             load();
-            /* TODO : SEND TO CHANNEL USING MQQTTHANDLER*/
+
+            /* SEND TO CHANNEL USING MQQTTHANDLER*/
+            MQTTHandler.Instance.changeAlertState(alertID);
 
         }
     }

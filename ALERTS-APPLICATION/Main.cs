@@ -27,6 +27,9 @@ namespace ALERTS_APPLICATION
         private int size = 0;
         private Thread t;
 
+        //TODO: SELECT ALERT AND EDIT AND SEE THE PARAMETERS
+        //TODO: SECURE WAY TO STORE LOGIN
+        //TODO: IMPROVE UI
         
 
 
@@ -223,7 +226,7 @@ namespace ALERTS_APPLICATION
                     this.generatedAlerts = AlertController.Instance.generatedAlerts;
                     size = this.generatedAlerts.Count;
 
-                    /*ENVIA A FUNCAO PARA ATUALIZAR A UI PARA A THREAD RESPONSAVEL*/
+                    /*DELEGATES UI RESPONSIBLE THREAD TO UPDATE*/
                     this.Invoke((MethodInvoker)delegate
                     {
                         loadGeneratedAlertsToList();
@@ -295,7 +298,7 @@ namespace ALERTS_APPLICATION
             if(lvAlerts.SelectedIndices.Count > 0)
             {
                 ListViewItem item = lvAlerts.SelectedItems[0];
-                AlertController.Instance.disableAlert(int.Parse(item.SubItems[0].Text), int.Parse(item.SubItems[1].Text));
+                AlertController.Instance.disableAlert(int.Parse(item.SubItems[0].Text));
                 loadAlertsToList();
             }
         }

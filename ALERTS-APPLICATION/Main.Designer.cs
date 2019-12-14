@@ -32,6 +32,7 @@ namespace ALERTS_APPLICATION
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.alertsTab = new System.Windows.Forms.TabPage();
+            this.btnDisableAlert = new System.Windows.Forms.Button();
             this.btnCleanAlerts = new System.Windows.Forms.Button();
             this.lvAlerts = new System.Windows.Forms.ListView();
             this.lblConfiguredAlerts = new System.Windows.Forms.Label();
@@ -54,7 +55,6 @@ namespace ALERTS_APPLICATION
             this.lblConfigureAlert = new System.Windows.Forms.Label();
             this.lblAlertDescription = new System.Windows.Forms.Label();
             this.txtAlertDescription = new System.Windows.Forms.TextBox();
-            this.btnDisableAlert = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.alertsTab.SuspendLayout();
             this.generatedAlertsTab.SuspendLayout();
@@ -87,6 +87,16 @@ namespace ALERTS_APPLICATION
             this.alertsTab.TabIndex = 0;
             this.alertsTab.Text = "Alerts";
             this.alertsTab.UseVisualStyleBackColor = true;
+            // 
+            // btnDisableAlert
+            // 
+            this.btnDisableAlert.Location = new System.Drawing.Point(168, 79);
+            this.btnDisableAlert.Name = "btnDisableAlert";
+            this.btnDisableAlert.Size = new System.Drawing.Size(125, 23);
+            this.btnDisableAlert.TabIndex = 20;
+            this.btnDisableAlert.Text = "DISABLE/ENABLE";
+            this.btnDisableAlert.UseVisualStyleBackColor = true;
+            this.btnDisableAlert.Click += new System.EventHandler(this.btnDisableAlert_Click);
             // 
             // btnCleanAlerts
             // 
@@ -334,16 +344,6 @@ namespace ALERTS_APPLICATION
             this.txtAlertDescription.Name = "txtAlertDescription";
             this.txtAlertDescription.Size = new System.Drawing.Size(448, 20);
             this.txtAlertDescription.TabIndex = 0;
-            // 
-            // btnDisableAlert
-            // 
-            this.btnDisableAlert.Location = new System.Drawing.Point(168, 79);
-            this.btnDisableAlert.Name = "btnDisableAlert";
-            this.btnDisableAlert.Size = new System.Drawing.Size(125, 23);
-            this.btnDisableAlert.TabIndex = 20;
-            this.btnDisableAlert.Text = "DISABLE ALERT";
-            this.btnDisableAlert.UseVisualStyleBackColor = true;
-            this.btnDisableAlert.Click += new System.EventHandler(this.btnDisableAlert_Click);
             // 
             // Main
             // 

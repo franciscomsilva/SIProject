@@ -29,6 +29,7 @@ namespace ALERTS_APPLICATION
             this.topics.Add("alerts_data/new_alert");
             this.topics.Add("clean_data/1");
             this.topics.Add("alerts_data");
+            this.topics.Add("alerts/state");
             ConnectAndSubscribe();
         }
         public static MQTTHandler Instance
@@ -55,7 +56,7 @@ namespace ALERTS_APPLICATION
             }
 
             Console.WriteLine("CONNECTING TO BROKER...");
-            mClient = new MqttClient("127.0.0.1");
+            mClient = new MqttClient("mqtt.fmsilva.pt");
 
             mClient.Connect(Guid.NewGuid().ToString());
             if (!mClient.IsConnected)
@@ -94,7 +95,7 @@ namespace ALERTS_APPLICATION
             {
                 sensorID = int.Parse(data[1]);
 
-                AlertController.Instance.checkAlert(sensorID,new ReadingType(),1);
+                AlertController.Instance.checkAlert(sensorID,JsonConvert.DeserializeObject<SensorData>(Encoding.UTF8.GetString(e.Message)));
 
                 sensorID = 0;
 
@@ -181,6 +182,12 @@ namespace ALERTS_APPLICATION
 
             publishData("alerts_data", json);
 
+
+        }
+
+        public void changeAlertState(int alertID)
+        {
+            publishData("alerts/state", alertID.ToString());
 
         }
 
