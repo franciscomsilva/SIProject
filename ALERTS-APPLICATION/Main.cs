@@ -47,6 +47,7 @@ namespace ALERTS_APPLICATION
         {
             Console.WriteLine("STARTING_MAIN_FORM");
 
+
             this.parameters = new List<Parameter>();
             this.alerts = new List<Alert>();
 

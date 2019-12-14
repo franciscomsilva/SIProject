@@ -55,6 +55,7 @@ namespace ALERTS_APPLICATION
             this.lblConfigureAlert = new System.Windows.Forms.Label();
             this.lblAlertDescription = new System.Windows.Forms.Label();
             this.txtAlertDescription = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.alertsTab.SuspendLayout();
             this.generatedAlertsTab.SuspendLayout();
@@ -65,6 +66,9 @@ namespace ALERTS_APPLICATION
             // 
             // tabControl1
             // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.alertsTab);
             this.tabControl1.Controls.Add(this.generatedAlertsTab);
             this.tabControl1.Controls.Add(this.addAlertTab);
@@ -80,6 +84,7 @@ namespace ALERTS_APPLICATION
             this.alertsTab.Controls.Add(this.btnCleanAlerts);
             this.alertsTab.Controls.Add(this.lvAlerts);
             this.alertsTab.Controls.Add(this.lblConfiguredAlerts);
+            this.alertsTab.Dock = System.Windows.Forms.DockStyle.Fill;
             this.alertsTab.Location = new System.Drawing.Point(4, 22);
             this.alertsTab.Name = "alertsTab";
             this.alertsTab.Padding = new System.Windows.Forms.Padding(3);
@@ -110,6 +115,9 @@ namespace ALERTS_APPLICATION
             // 
             // lvAlerts
             // 
+            this.lvAlerts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvAlerts.HideSelection = false;
             this.lvAlerts.Location = new System.Drawing.Point(23, 110);
             this.lvAlerts.MultiSelect = false;
@@ -132,6 +140,7 @@ namespace ALERTS_APPLICATION
             // 
             // generatedAlertsTab
             // 
+            this.generatedAlertsTab.Controls.Add(this.label1);
             this.generatedAlertsTab.Controls.Add(this.lvGeneratedAlerts);
             this.generatedAlertsTab.Location = new System.Drawing.Point(4, 22);
             this.generatedAlertsTab.Name = "generatedAlertsTab";
@@ -143,6 +152,9 @@ namespace ALERTS_APPLICATION
             // 
             // lvGeneratedAlerts
             // 
+            this.lvGeneratedAlerts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvGeneratedAlerts.HideSelection = false;
             this.lvGeneratedAlerts.Location = new System.Drawing.Point(27, 77);
             this.lvGeneratedAlerts.Name = "lvGeneratedAlerts";
@@ -203,6 +215,9 @@ namespace ALERTS_APPLICATION
             // 
             // lvParameters
             // 
+            this.lvParameters.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvParameters.HideSelection = false;
             this.lvParameters.Location = new System.Drawing.Point(31, 317);
             this.lvParameters.Name = "lvParameters";
@@ -240,9 +255,10 @@ namespace ALERTS_APPLICATION
             // 
             // btnCreateAlert
             // 
-            this.btnCreateAlert.Location = new System.Drawing.Point(1077, 624);
+            this.btnCreateAlert.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCreateAlert.Location = new System.Drawing.Point(1093, 624);
             this.btnCreateAlert.Name = "btnCreateAlert";
-            this.btnCreateAlert.Size = new System.Drawing.Size(160, 40);
+            this.btnCreateAlert.Size = new System.Drawing.Size(171, 38);
             this.btnCreateAlert.TabIndex = 11;
             this.btnCreateAlert.Text = "CREATE ALERT";
             this.btnCreateAlert.UseVisualStyleBackColor = true;
@@ -345,6 +361,17 @@ namespace ALERTS_APPLICATION
             this.txtAlertDescription.Size = new System.Drawing.Size(448, 20);
             this.txtAlertDescription.TabIndex = 0;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.label1.Font = new System.Drawing.Font("Calibri", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(19, 13);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(323, 45);
+            this.label1.TabIndex = 20;
+            this.label1.Text = "GENERATED ALERTS";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -358,6 +385,7 @@ namespace ALERTS_APPLICATION
             this.alertsTab.ResumeLayout(false);
             this.alertsTab.PerformLayout();
             this.generatedAlertsTab.ResumeLayout(false);
+            this.generatedAlertsTab.PerformLayout();
             this.addAlertTab.ResumeLayout(false);
             this.addAlertTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nrSensorID)).EndInit();
@@ -394,6 +422,7 @@ namespace ALERTS_APPLICATION
         private System.Windows.Forms.Label lblSensorID;
         private System.Windows.Forms.ListView lvGeneratedAlerts;
         private System.Windows.Forms.Button btnDisableAlert;
+        private System.Windows.Forms.Label label1;
     }
 }
 
