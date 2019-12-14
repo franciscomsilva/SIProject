@@ -90,7 +90,10 @@ namespace ALERTS_APPLICATION
             lvAlerts.Columns.Add("Number Of Parameters");
 
 
-
+            lvGeneratedAlerts.View = View.Details;
+            lvGeneratedAlerts.Columns.Add("AlertID");
+            lvGeneratedAlerts.Columns.Add("Alert Description");
+            lvGeneratedAlerts.Columns.Add("Generated Timestamp");
 
             errorProvider = new ErrorProvider();
 
@@ -106,8 +109,8 @@ namespace ALERTS_APPLICATION
             errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.BlinkIfDifferentError;
 
             /*CREATES THREAD TO CHECK FOR NEW GENERATED ALERTS*/
-            t = new Thread(checkGeneratedAlerts);
-
+            t = new Thread(new ThreadStart(checkGeneratedAlerts));
+            t.Start();
 
             /*LOAD ALERTS TO LIST*/
             loadAlertsToList();

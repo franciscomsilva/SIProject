@@ -74,6 +74,7 @@ namespace ALERTS_APPLICATION.Controller
                         parameter = new Parameter
                         {
                             Condition = parameterI.ChildNodes.Item(0).InnerText,
+                            ReadingType = new ReadingType { MeasureName = parameterI.ChildNodes.Item(1).InnerText },
                             Value = decimal.Parse(parameterI.ChildNodes.Item(2).InnerText)
                         };
                         parameters.Add(parameter);
@@ -174,8 +175,8 @@ namespace ALERTS_APPLICATION.Controller
             Alert alert = null;
             int id;
 
-            string measure_name = sensorData.measure_name.ToLower(); ;
-            decimal value = decimal.Parse(sensorData.value);
+            string measure_name = sensorData.MeasureName.ToLower(); ;
+            decimal value = decimal.Parse(sensorData.Value);
 
             /*PARSE DATA*/
             foreach (XmlNode node in data)

@@ -95,7 +95,9 @@ namespace ALERTS_APPLICATION
             {
                 sensorID = int.Parse(data[1]);
 
-                AlertController.Instance.checkAlert(sensorID,JsonConvert.DeserializeObject<SensorData>(Encoding.UTF8.GetString(e.Message)));
+                SensorData sensorData = JsonConvert.DeserializeObject<SensorData>(Encoding.UTF8.GetString(e.Message));
+
+                AlertController.Instance.checkAlert(sensorID,sensorData);
 
                 sensorID = 0;
 

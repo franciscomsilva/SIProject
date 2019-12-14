@@ -8,7 +8,7 @@
           <value>50</value>
         </parameter>
       </parameters>
-      <enabled>True</enabled>
+      <enabled>False</enabled>
       <description>Ola</description>
       <createdAt>12/12/2019 11:13:56</createdAt>
       <userID>1</userID>
