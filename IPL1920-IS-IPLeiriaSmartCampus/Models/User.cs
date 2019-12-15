@@ -13,6 +13,22 @@ namespace Models
         public string Name { get; set; }
         public string Password { get; set; }
         public bool IsAdmin { get; set; }
-    
+        public User(string Username, string password)
+        {
+            this.Name = Username;
+            this.Password = password;
+        }
+        public User(int id, string Username, string password,bool isAdmin)
+        {
+            this.Name = Username;
+            this.Password = password;
+            this.IsAdmin = isAdmin;
+            this.Id = id;
+        }
+        public User()
+        {
+
+        }
+
     }
 }
