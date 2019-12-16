@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <Reference Include="Models">
-      <HintPath>..\IPL1920-IS-IPLeiriaSmartCampus\Models\bin\Release\Models.dll</HintPath>
+      <HintPath>..\..\teste\SIProject\IPL1920-IS-IPLeiriaSmartCampus\Models\bin\Debug\Models.dll</HintPath>
     </Reference>
   </ItemGroup>
 

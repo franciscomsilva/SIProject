@@ -27,6 +27,30 @@ namespace DSA.Controllers
                 return instance;
             }
         }
+        public int CheckIfLocationExists(string locationName)
+        {
+            int location_id=-1;
+            var t = LocationController.Instance.GetAllLocations().Count;
+            Location[] locations = LocationController.Instance.GetAllLocations().ToArray();
+            for (int i = 0; i<t; i++)
+            {
+                if (locations[i].location_name.Equals(locationName, StringComparison.CurrentCultureIgnoreCase)) //BiBLioTeCa=Biblioteca=BIBLIOTECA,you get it mas Biblioteca!=bibioteca 
+                {
+                    location_id = locations[i].id;
+                    break;
+                }
+
+}
+            if (location_id==-1)
+            {
+                //Ultima iteração, nenhuma outra string com o mesmo nome
+                LocationController.Instance.AddLocation(locationName);
+                location_id = LocationController.Instance.GetAllLocations()[LocationController.Instance.GetAllLocations().Count - 1].id;//Ultimo da lista
+                Console.WriteLine("Looks like that location didn't exist, we created it for you!");
+            }
+            return location_id;
+        
+        }
         public Location GetLocation(string name)
         {
             Location location = null;

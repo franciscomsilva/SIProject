@@ -23,11 +23,10 @@ namespace DSA.Controllers
                 return instance;
             }
         }
-        public int LoginAlerts(string name, string password)
+        public string[] LoginAlerts(string name, string password)
         {
-            int id = 0;
+            string[] result = new string[2];
             string passwordDB = null;
-            //isAdmin para apoiar a Api e permitir operações mais sensíves deste lado
             try
             {
                 SqlConnection sql = new SqlConnection(connectionString);
@@ -42,12 +41,13 @@ namespace DSA.Controllers
                 }
                 if (password.Equals(passwordDB))
                 {
-                    id = (int)reader["id"];
-                 
+                    result[0] = (string)reader["id"];
+                    result[1] = (string)reader["token"];
                 }
                 else
                 {
-
+                    result[0] = "-1";
+                    result[1] = "00000";
                 }
 
             }
@@ -55,7 +55,7 @@ namespace DSA.Controllers
             {
                 Console.WriteLine(e.Message);
             }
-            return id;
+            return result;
         }
 
         public bool isLogged { get; set; }
@@ -70,7 +70,7 @@ namespace DSA.Controllers
         public bool Login(int index, string password)
         {
             string passwordDB=null;
-            //isAdmin para apoiar a Api e permitir operações mais sensíves deste lado
+
             try
             {
                 SqlConnection sql = new SqlConnection(connectionString);

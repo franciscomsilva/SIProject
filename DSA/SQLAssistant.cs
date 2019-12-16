@@ -38,7 +38,7 @@ namespace DSA
                 return false;
         }
         
-        public void cleanTable(string table_name)
+        public void CleanTable(string table_name)
         {
             //TODO: Admin perms only
 
@@ -58,9 +58,13 @@ namespace DSA
                 Console.WriteLine($"Error cleaning {table_name}! Reason: " + e.Message);
             }
         }
-        public void reseedTable(string table_name)
+        public void StartDBListener()
         {
-            cleanTable(table_name); 
+
+        }
+        public void ReseedTable(string table_name)
+        {
+            CleanTable(table_name); 
 
             try
             {

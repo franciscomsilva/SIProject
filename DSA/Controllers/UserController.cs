@@ -97,6 +97,27 @@ namespace DSA.Controllers
 
             return users;
         }
+        public string GetUserToken(string token)
+        {
+            string userId = "-1";
+            try
+            {
+                SqlConnection sql = new SqlConnection(connectionString);
+                sql.Open();
+                SqlCommand command = new SqlCommand("SELECT * FROM t_users WHERE token=@token", sql);
+                command.Parameters.AddWithValue("@token", token);
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+                    userId = (string)reader["id"].ToString();  
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error retrieving user! Reason: " + e.Message);
+            }
+            return userId;
+        }
         public void AddUser(User user)
         {
             Console.WriteLine(user.Password);

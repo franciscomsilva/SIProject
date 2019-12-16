@@ -127,6 +127,7 @@ namespace DSA
             switch (key)
             {
                 case '1':addSensorMenu(); break;
+                case '2':return;   
             }
         }
         public void  addSensorMenu()
@@ -135,24 +136,19 @@ namespace DSA
             int location_id = -1; 
             Console.WriteLine("Where is the sensor?");
            string locationName= Console.ReadLine();
-            var t = LocationController.Instance.GetAllLocations().Count;
-            Location[] locations = LocationController.Instance.GetAllLocations().ToArray();
-            for (int i = 0; i < t; i++)
+            if (String.IsNullOrWhiteSpace(locationName))
             {
-                if (locations[i].location_name.Equals(locationName,StringComparison.CurrentCultureIgnoreCase)) //BiBLioTeCa=Biblioteca=BIBLIOTECA,you get it mas Biblioteca!=bibioteca 
+                while (true)
                 {
-                    location_id = locations[i].id;
-                    break;
+                    Console.WriteLine("Insert location name: ");
+                    locationName = Console.ReadLine();
+                    if (!String.IsNullOrWhiteSpace(locationName))
+                    {
+                        break;
+                    }
                 }
-
             }
-            if (location_id==-1)
-            {
-                //Ultima iteração, nenhuma outra string com o mesmo nome
-                LocationController.Instance.AddLocation(locationName);
-                location_id = LocationController.Instance.GetAllLocations()[LocationController.Instance.GetAllLocations().Count - 1].id;//Ultimo da lista
-                Console.WriteLine("Looks like that location didn't exist, we created it for you!");
-            }
+            location_id = LocationController.Instance.CheckIfLocationExists(locationName);
             int keyValue;
             char key;
             while (true) {

@@ -32,6 +32,7 @@ namespace DSA
        
         int iLogin = 1;
         int iAlert = 1;
+        int iUserID = 1;
         MqttClient mClient = null;
         List<string> topics = new List<string>();
    
@@ -47,6 +48,9 @@ namespace DSA
             topics.Add("alerts/readingType");
             topics.Add("alerts/login");
             topics.Add("alerts_data/new_alert");
+            topics.Add("alerts/state");
+            topics.Add("alerts_data/data");
+            topics.Add("alerts/login/userID");
 
 
             foreach (Sensor sensor in SensorController.Instance.GetAllSensors()) //todos os canais de raw data
@@ -57,16 +61,13 @@ namespace DSA
                     topics.Add( $"sensor_data/{sensor.Id}/{reading}");
                 }
             }
-            foreach(Alert alert in AlertController.Instance.GetAllAlerts())
-                topics.Add ($"alerts_data/{ alert.Id }");
-            
 
             if (mClient!=null && mClient.IsConnected )
             {
                 Console.WriteLine("Mqtt was connected to the broker already!");
             }
             Console.WriteLine("Connecting...");
-            mClient = new MqttClient("51.83.77.113");
+            mClient = new MqttClient("mqtt.fmsilva.pt");
             
             mClient.Connect(Guid.NewGuid().ToString());
             if (!mClient.IsConnected)
@@ -83,6 +84,7 @@ namespace DSA
             mClient.MqttMsgPublishReceived += MClient_MqttMsgPublishReceived;
             
         }
+
         //TODO:funcao de bootup alerts/readingType
         public void publishData(string topic,string message)
         {
@@ -98,36 +100,58 @@ namespace DSA
             //Acerca desta função: Nós vamos ter de separar os dados incoming apropriadamente para poderem ser parsed pelo controlador apropriado e reenviados para clean data, ou para poder
             //realizar operações non-sensor data related(IE ajudar o boot do alerts etc)
             string[] topics = e.Topic.Split("/");
-            Console.WriteLine(Encoding.UTF8.GetString(e.Message));
+            //Console.WriteLine(Encoding.UTF8.GetString(e.Message));
             //----------------------------------------DADOS DE SENSORES----------------------------------------------------------//
             if (topics[0].Equals("sensor_data"))
             {
-                SensorController.Instance.parseSensorData(int.Parse(topics[1]), topics[2],Encoding.UTF8.GetString(e.Message));
+                Console.WriteLine("Just received data from sensor number " + topics[1] + ", analyzing it!");
+                DataController.Instance.parseSensorData(int.Parse(topics[1]), topics[2],Encoding.UTF8.GetString(e.Message));
             }
             //---------------------------------------Bootup alerts--------------------------------------------------------------//
             if (topics[0].Equals("alerts"))
-            {
-                if (topics[1].Equals("login") )
+            { 
+                if (topics[1].Equals("login")) //Login alerts so responde every other time, assim nao responde a mensagem da DSA e (consequentemente) nao 
+                                               //rebenta
                 {
-                    iLogin++;
-                    if (iLogin %2 ==0)
+                    if (topics.Length == 3 && topics[2].Equals("userID")) //redundante mas para escablidade
                     {
-
-
-                        JObject tou = JObject.Parse(Encoding.UTF8.GetString(e.Message));
-                        string userId = LoginController.Instance.LoginAlerts((string)tou["username"], (string)tou["password"]).ToString();
+                        Console.WriteLine("Received a request to check a token and return a user id from alerts!");
+                        iUserID++;
+                        if (iUserID%2==0)
+                        {
+                            string id = UserController.Instance.GetUserToken(Encoding.UTF8.GetString(e.Message));
+                            publishData("alerts/login/userID", id);
+                        }
+                    }
+                    else
+                    {
                         
-                        publishData("alerts/login", "userID:" + userId);
+                        iLogin++;
+                        if (iLogin % 2 == 0)
+                        {
+                            Console.WriteLine("Received a request to login by alerts!");
+                            JObject tou = JObject.Parse(Encoding.UTF8.GetString(e.Message));
+                            string[] results = LoginController.Instance.LoginAlerts((string)tou["username"], (string)tou["password"]);
+                            publishData("alerts/login", "userID:" + results[0] + ":token:" + results[1]);
 
+                        }
                     }
             }
             else
             {
-                if (Encoding.UTF8.GetString(e.Message).ToLower().Equals("Request".ToLower()))
-                {
-
-                    publishData("alerts/readingType", JsonConvert.SerializeObject(SensorController.Instance.GetAllReadingTypes()));
-                }
+                    if (topics[1].Equals("state"))
+                    {
+                        Console.WriteLine("Received a request to toggle the alert with id equal to " + Encoding.UTF8.GetString(e.Message));
+                        AlertController.Instance.ToggleAlert(Encoding.UTF8.GetString(e.Message));
+                    }
+                    else // O resto
+                    {
+                        if (Encoding.UTF8.GetString(e.Message).ToLower().Equals("Request".ToLower()))
+                        {
+                            Console.WriteLine("Alerts requested reading types!");
+                            publishData("alerts/readingType", JsonConvert.SerializeObject(SensorController.Instance.GetAllReadingTypes()));
+                        }
+                    }
             }
             }
             //----------------------------------------------Dados de alerts------------------------------------------------------//
@@ -138,7 +162,8 @@ namespace DSA
                 {
                     iAlert++;
                     if (iAlert%2==0)
-                    { 
+                    {
+                        Console.WriteLine("Registering a new alert as requested by alerts!");
                         Alert alert = JsonConvert.DeserializeObject<Alert>(Encoding.UTF8.GetString(e.Message));
                         AlertController.Instance.AddAlert(alert);
                         alert = AlertController.Instance.GetAllAlerts()[AlertController.Instance.GetAllAlerts().Count - 1];
@@ -146,10 +171,11 @@ namespace DSA
                     }
                 }
                 else{ //ALERTAS GERADOS WUHUUUUUUUUUU
-
+                    Console.WriteLine("Registering a generated alert in the database");
+                    AlertController.Instance.SaveGeneratedAlert(JsonConvert.DeserializeObject<GeneratedAlert>(Encoding.UTF8.GetString(e.Message)));
                 }
             }
-            //-----------------------------------------Login Alerts----------------------//
+            
 
             
         }
