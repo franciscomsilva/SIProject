@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{06263645-F456-4CE7-B74C-58CFC49926B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalAPI", "..\GlobalAPI\GlobalAPI.csproj", "{0CC0BB4E-8873-40F0-88F3-452FB7C108EB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalAPI", "GlobalAPI\GlobalAPI.csproj", "{0CC0BB4E-8873-40F0-88F3-452FB7C108EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
