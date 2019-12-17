@@ -29,9 +29,7 @@ namespace ALERTS_APPLICATION
         private string[] conditions = { "<", ">", "=", "<>" };
 
         //TODO: SELECT ALERT AND EDIT AND SEE THE PARAMETERS
-        //TODO: SECURE WAY TO STORE LOGIN
         //TODO: IMPROVE UI
-        //TODO: PERMIT <> CONDITION
         
 
 
@@ -65,6 +63,8 @@ namespace ALERTS_APPLICATION
             DateTime startTime = DateTime.Now;
             while (MQTTHandler.Instance.ReadingTypes == null && DateTime.Now.Subtract(startTime).Seconds <= 5)
             { }
+
+           
 
             this.readingTypes = MQTTHandler.Instance.ReadingTypes;
 
@@ -114,9 +114,20 @@ namespace ALERTS_APPLICATION
 
             errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.BlinkIfDifferentError;
 
+
+            if (this.readingTypes == null)
+            {
+                errorProvider.SetError(cbReadingType, "Reading Type could not be read from Database");
+            }
+
             /*CREATES THREAD TO CHECK FOR NEW GENERATED ALERTS*/
             t = new Thread(new ThreadStart(checkGeneratedAlerts));
             t.Start();
+
+            /*CREATES THREAD TO CHECK FOR CHANGES IN ALERTS*/
+            t = new Thread(new ThreadStart(checkAlertsChanges));
+            t.Start();
+
 
             /*LOAD ALERTS TO LIST*/
             loadAlertsToList();
@@ -128,7 +139,12 @@ namespace ALERTS_APPLICATION
 
         private void btnAdicionar_Click(object sender, EventArgs e)
         {
+            if(cbReadingType.Items.Count <= 0)
+            {
 
+                errorProvider.SetError(cbReadingType, "Cannot insert parameter without reading type!");
+                return;
+            }
 
             string condition = cbParameterCondition.SelectedItem.ToString();
 
@@ -136,11 +152,18 @@ namespace ALERTS_APPLICATION
 
 
 
-            decimal value = nrParameterValue.Value;
+            string value = nrParameterValue.Value.ToString();
+            string value2;
+            string finalValue;
 
             if (condition.Equals("<>"))
             {
-
+                value2 = nrParameterValue2.Value.ToString();
+                finalValue = value + ":" + value2;
+            }
+            else
+            {
+                finalValue = value;
             }
 
 
@@ -148,7 +171,7 @@ namespace ALERTS_APPLICATION
             {
                 Condition = condition,
                 ReadingType = (ReadingType)cbReadingType.SelectedItem,
-                Value = value
+                Value = finalValue
             };
 
             parameters.Add(parameter);
@@ -249,6 +272,25 @@ namespace ALERTS_APPLICATION
                     this.Invoke((MethodInvoker)delegate
                     {
                         loadGeneratedAlertsToList();
+                    });
+                }
+
+            }
+        }
+
+        public void checkAlertsChanges()
+        {
+            while (true)
+            {
+                if (AlertController.Instance.alerts.Count > size)
+                {
+                    this.alerts = AlertController.Instance.alerts;
+                    size = this.alerts.Count;
+
+                    /*DELEGATES UI RESPONSIBLE THREAD TO UPDATE*/
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        loadAlertsToList();
                     });
                 }
 

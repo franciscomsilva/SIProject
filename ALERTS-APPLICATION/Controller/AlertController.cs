@@ -15,7 +15,7 @@ namespace ALERTS_APPLICATION.Controller
     {
         private static AlertController instance = null;
         private static string FILE_PATH = "alerts_config.xml";
-        private List<Alert> alerts;
+        public List<Alert> alerts;
         public  List<GeneratedAlert> generatedAlerts;
 
 
@@ -75,7 +75,7 @@ namespace ALERTS_APPLICATION.Controller
                         {
                             Condition = parameterI.ChildNodes.Item(0).InnerText,
                             ReadingType = new ReadingType { MeasureName = parameterI.ChildNodes.Item(1).InnerText },
-                            Value = decimal.Parse(parameterI.ChildNodes.Item(2).InnerText)
+                            Value = parameterI.ChildNodes.Item(2).InnerText
                         };
                         parameters.Add(parameter);
                     }
@@ -117,20 +117,7 @@ namespace ALERTS_APPLICATION.Controller
         public void clean()
         {
             this.alerts.Clear();
-            if (File.Exists(FILE_PATH))
-            {
-                try
-                {
-                    File.Delete(FILE_PATH);
-                    Console.WriteLine("ALERT CONFIG FILE DELETING SUCCESSFULL");
-
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("ERROR_DELETING_FILE => " + ex.Message);
-
-                }
-            }
+            XMLHandler.Instance.deleteFile();
         }
 
         public bool save(Alert alert)
@@ -184,6 +171,10 @@ namespace ALERTS_APPLICATION.Controller
 
             string measure_name = sensorData.MeasureName.ToLower(); ;
             decimal value = decimal.Parse(sensorData.Value);
+            decimal parameterValue = 0;
+            decimal value2 = 0;
+            decimal value3 = 0;
+            string[] values;
 
             /*PARSE DATA*/
             foreach (XmlNode node in data)
@@ -203,12 +194,22 @@ namespace ALERTS_APPLICATION.Controller
             {
                 foreach(Parameter parameter in i.Parameters)
                 {
+                    if (parameter.Condition.Equals("<>"))
+                    {
+                        values = parameter.Value.Split(':');
+                        value2 = decimal.Parse(values[0]);
+                        value3 = decimal.Parse(values[1]);
+                    }
+                    else
+                    {
+                        parameterValue = decimal.Parse(parameter.Value);
+                    }
                     if (parameter.ReadingType.MeasureName.ToLower().Equals(measure_name) && i.Enabled)//IF READING TYPE EQUALS EX: HUMIDADE=HUMIDADE
                     {
                         switch (parameter.Condition)
                         {
                             case "=":
-                                if (parameter.Value == value)
+                                if (parameterValue == value)
                                 {
                                     //generate alert,send alert ID
                                     generateAlert(i.Id);
@@ -216,7 +217,7 @@ namespace ALERTS_APPLICATION.Controller
                                 break;
 
                             case "<":
-                                if (value < parameter.Value)
+                                if (value < parameterValue)
                                 {
                                     //generate alert;
                                     generateAlert(i.Id);
@@ -226,13 +227,18 @@ namespace ALERTS_APPLICATION.Controller
 
 
                             case ">":
-                                if (value > parameter.Value)
+                                if (value > parameterValue)
                                 {
                                     //generate alert;
                                     generateAlert(i.Id);
                                 }
                                 break;
                             case "<>":
+                                if(value > value2 && value < value3)
+                                {
+                                    generateAlert(i.Id);
+                                }
+
                                 break;
 
                         }

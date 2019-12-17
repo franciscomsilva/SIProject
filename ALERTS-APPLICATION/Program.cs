@@ -18,12 +18,6 @@ namespace ALERTS_APPLICATION
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-         /*   if(LoginController.Instance.checkUserLogin() != -1)
-            {
-                Application.Run(new Main());
-                return;
-            }*/
-
             Application.Run(new Login());
         }
     }

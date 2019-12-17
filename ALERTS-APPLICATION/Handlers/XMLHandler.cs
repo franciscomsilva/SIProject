@@ -178,7 +178,7 @@ namespace ALERTS_APPLICATION
         }
 
 
-        private void deleteFile()
+        public void deleteFile()
         {
             if (File.Exists(FILE_PATH))
             {
@@ -187,7 +187,12 @@ namespace ALERTS_APPLICATION
                     File.Delete(FILE_PATH);
                     Console.WriteLine("ALERT CONFIG FILE DELETING SUCCESSFULL");
 
+
+                    document = new XmlDocument();
+                    alertsXML = document.CreateNode(XmlNodeType.Element, "alerts", "");
+                    document.AppendChild(alertsXML);
                 }
+
                 catch (Exception ex)
                 {
                     Console.WriteLine("ERROR_DELETING_FILE => " + ex.Message);
