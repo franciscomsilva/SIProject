@@ -14,7 +14,7 @@ namespace Models
 
         public ReadingType ReadingType { get; set; }
 
-        public decimal Value { get; set; }
+        public string Value { get; set; }
 
         public override string ToString()
         {
