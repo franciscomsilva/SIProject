@@ -232,6 +232,9 @@ namespace ALERTS_APPLICATION.Controller
                                     generateAlert(i.Id);
                                 }
                                 break;
+                            case "<>":
+                                break;
+
                         }
                     }
                 }

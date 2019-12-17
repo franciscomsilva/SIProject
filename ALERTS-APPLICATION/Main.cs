@@ -26,6 +26,7 @@ namespace ALERTS_APPLICATION
         private int userID;
         private int size = 0;
         private Thread t;
+        private string[] conditions = { "<", ">", "=", "<>" };
 
         //TODO: SELECT ALERT AND EDIT AND SEE THE PARAMETERS
         //TODO: SECURE WAY TO STORE LOGIN
@@ -75,6 +76,9 @@ namespace ALERTS_APPLICATION
             cbReadingType.DataSource = this.readingTypes;
             cbReadingType.ValueMember = "MeasureName";
 
+            cbParameterCondition.DataSource = this.conditions;
+            nrParameterValue2.Visible = false;
+            lblTo.Visible = false;
 
             cbParameterCondition.SelectedIndex = 0;
 
@@ -134,6 +138,12 @@ namespace ALERTS_APPLICATION
 
             decimal value = nrParameterValue.Value;
 
+            if (condition.Equals("<>"))
+            {
+
+            }
+
+
             Parameter parameter = new Parameter
             {
                 Condition = condition,
@@ -150,11 +160,15 @@ namespace ALERTS_APPLICATION
             lvParameters.Items.Clear();
             foreach (Parameter parameterI in parameters)
             {
-                item = new ListViewItem(new string[] { parameterI.Condition,parameter.ReadingType.ToString(), parameterI.Value.ToString() });
+                item = new ListViewItem(new string[] { parameterI.Condition,parameter.ReadingType.MeasureName, parameterI.Value.ToString() });
                 lvParameters.Items.Add(item);
             }
 
-
+            cbParameterCondition.SelectedIndex = 0;
+            cbReadingType.SelectedIndex = 0;
+            nrParameterValue.Value= 0;
+            nrParameterValue2.Value = 0;
+            
 
         }
 
@@ -306,6 +320,35 @@ namespace ALERTS_APPLICATION
                 AlertController.Instance.disableAlert(int.Parse(item.SubItems[0].Text));
                 loadAlertsToList();
             }
+        }
+
+        private void addAlertTab_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbParameterCondition_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbParameterCondition.SelectedItem.Equals("<>")){
+                nrParameterValue2.Visible = true;
+                lblTo.Visible = true;
+
+            }
+            else
+            {
+                nrParameterValue2.Visible = false;
+                lblTo.Visible = false;
+            }
+        }
+
+        private void label2_Click_2(object sender, EventArgs e)
+        {
+
+        }
+
+        private void nrParameterValue2_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
