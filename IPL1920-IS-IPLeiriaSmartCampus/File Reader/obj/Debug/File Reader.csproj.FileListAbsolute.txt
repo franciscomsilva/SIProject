@@ -1,0 +1,6 @@
+C:\Users\Francisco Silva\Desktop\SIProject\IPL1920-IS-IPLeiriaSmartCampus\File Reader\bin\Debug\File Reader.exe.config
+C:\Users\Francisco Silva\Desktop\SIProject\IPL1920-IS-IPLeiriaSmartCampus\File Reader\bin\Debug\File Reader.exe
+C:\Users\Francisco Silva\Desktop\SIProject\IPL1920-IS-IPLeiriaSmartCampus\File Reader\bin\Debug\File Reader.pdb
+C:\Users\Francisco Silva\Desktop\SIProject\IPL1920-IS-IPLeiriaSmartCampus\File Reader\obj\Debug\File Reader.csprojAssemblyReference.cache
+C:\Users\Francisco Silva\Desktop\SIProject\IPL1920-IS-IPLeiriaSmartCampus\File Reader\obj\Debug\File Reader.exe
+C:\Users\Francisco Silva\Desktop\SIProject\IPL1920-IS-IPLeiriaSmartCampus\File Reader\obj\Debug\File Reader.pdb
