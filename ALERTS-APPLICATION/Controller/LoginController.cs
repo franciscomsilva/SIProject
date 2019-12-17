@@ -13,10 +13,13 @@ namespace ALERTS_APPLICATION.Controller
 
         private static LoginController instance = null;
         private static string FILE_PATH = "user.config";
+        public int UserID { get; set; }
+        public string UserTOKEN { get; set; }
+
         private LoginController()
 
         {
-
+            this.UserID = -1;
         }
 
 
@@ -45,30 +48,27 @@ namespace ALERTS_APPLICATION.Controller
             }
 
 
-            MQTTHandler.Instance.login(username, hashedBase64);
 
-            saveUserID(MQTTHandler.Instance.UserID);
+            MQTTHandler.Instance.login(username, hashedBase64);
 
         }
 
-        public int saveUserID(int userID)
+        public int saveUserIDToken(int userID,string token)
         {
-            if(userID <= 0)
-            {
-                return -1;
-            }
-
             try
             {
 
-                File.WriteAllText(FILE_PATH, userID.ToString());
+                File.WriteAllText(FILE_PATH, token);
 
-                Console.WriteLine("SAVED_USERID_FILE => " );
+                this.UserID = userID;
+
+                Console.WriteLine("SAVED_USERID");
+                Console.WriteLine("SAVED_USERTOKEN_FILE ");
 
             }
             catch (Exception ex)
             {
-                Console.WriteLine("ERROR_SAVING_USERID_FILE => " + ex.Message);
+                Console.WriteLine("ERROR_SAVING_USERTOKEN_FILE => " + ex.Message);
             }
 
 
@@ -79,28 +79,23 @@ namespace ALERTS_APPLICATION.Controller
 
         public int checkUserLogin()
         {
-            try
+
+            return this.UserID;
+
+
+        }
+
+
+        public void checkTokenSaved()
+        {
+            if (File.Exists(FILE_PATH))
             {
-
-                if (!File.Exists(FILE_PATH))
-                {
-                    return -1;
-                }
-
-                string userID = File.ReadAllText(FILE_PATH);
-
-                Console.WriteLine("READ_USERID_FILE => ");
+                string token = File.ReadAllText(FILE_PATH);
 
 
-                return int.Parse(userID);
+                MQTTHandler.Instance.sendToken(token);
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("ERROR_READING_USERID_FILE => " + ex.Message);
 
-            }
-            return -1;
-         
         }
 
 

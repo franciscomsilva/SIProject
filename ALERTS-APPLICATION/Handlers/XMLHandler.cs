@@ -1,4 +1,5 @@
-﻿using Models;
+﻿using ALERTS_APPLICATION.Controller;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -46,7 +47,7 @@ namespace ALERTS_APPLICATION
         }
 
 
-        public void save(List<Alert> alerts)
+        public void save(Alert alertI)
         {
      
             XmlElement sensorID = null;
@@ -62,10 +63,11 @@ namespace ALERTS_APPLICATION
             XmlElement value = null;
             XmlElement sensorIDElement = null;
 
+   
+
+
             /*CARREGA O ALERTAS NA LISTA*/
-            foreach (Alert alertI in alerts)
-            {
-               
+          
 
                 sensorID = (XmlElement)document.SelectSingleNode($"/alerts/sensorID[@id='{alertI.SensorID.ToString()}']");
 
@@ -128,7 +130,7 @@ namespace ALERTS_APPLICATION
 
                 sensorID = null;
 
-            }
+            
 
 
             try
@@ -173,6 +175,25 @@ namespace ALERTS_APPLICATION
 
             return true;
 
+        }
+
+
+        private void deleteFile()
+        {
+            if (File.Exists(FILE_PATH))
+            {
+                try
+                {
+                    File.Delete(FILE_PATH);
+                    Console.WriteLine("ALERT CONFIG FILE DELETING SUCCESSFULL");
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("ERROR_DELETING_FILE => " + ex.Message);
+
+                }
+            }
         }
 
         private bool checkIfFileExists()

@@ -63,8 +63,8 @@ namespace ALERTS_APPLICATION.Controller
                         CreatedAt = node.ChildNodes.Item(3).InnerText,
                         Description = node.ChildNodes.Item(2).InnerText,
                         Enabled = bool.Parse(node.ChildNodes.Item(1).InnerText),
-                        Id = int.Parse(node.ChildNodes.Item(5).InnerText),
-                        SensorID = int.Parse(node.ChildNodes.Item(6).InnerText),
+                        Id = int.Parse(node.ChildNodes.Item(6).InnerText),
+                        SensorID = int.Parse(node.ChildNodes.Item(5).InnerText),
                         UserID = int.Parse(node.ChildNodes.Item(4).InnerText)
 
                     };
@@ -83,6 +83,7 @@ namespace ALERTS_APPLICATION.Controller
                     alert.Parameters = parameters;
 
                     this.alerts.Add(alert);
+                    parameters = new List<Parameter>();
                 }
                 return this.alerts;
             }
@@ -93,6 +94,11 @@ namespace ALERTS_APPLICATION.Controller
         {
             /*GETS USER ID*/
             int userID = LoginController.Instance.checkUserLogin();
+
+            if(userID == -1)
+            {
+                return null;
+            }
 
             Alert alert = new Alert
             {
@@ -110,7 +116,7 @@ namespace ALERTS_APPLICATION.Controller
 
         public void clean()
         {
-
+            this.alerts.Clear();
             if (File.Exists(FILE_PATH))
             {
                 try
@@ -137,7 +143,7 @@ namespace ALERTS_APPLICATION.Controller
             this.alerts.Add(alert);
 
             /*SAVES IN XML FILE*/
-            XMLHandler.Instance.save(this.alerts);
+            XMLHandler.Instance.save(alert);
 
             /*SENDS TO BROKER*/
             MQTTHandler.Instance.sendAlert(alert);
@@ -160,6 +166,7 @@ namespace ALERTS_APPLICATION.Controller
                 Console.WriteLine("ERROR_UPDATING_ALERT_ID");
                 return;
             }
+            load();
             Console.WriteLine("UPDATED_ALERT_ID");
 
         }
@@ -181,7 +188,7 @@ namespace ALERTS_APPLICATION.Controller
             /*PARSE DATA*/
             foreach (XmlNode node in data)
             {
-                id = int.Parse(node.ChildNodes.Item(5).InnerText);
+                id = int.Parse(node.ChildNodes.Item(6).InnerText);
 
                 alert = getAlert(id);
 
@@ -209,7 +216,7 @@ namespace ALERTS_APPLICATION.Controller
                                 break;
 
                             case "<":
-                                if (parameter.Value < value)
+                                if (value < parameter.Value)
                                 {
                                     //generate alert;
                                     generateAlert(i.Id);
@@ -219,7 +226,7 @@ namespace ALERTS_APPLICATION.Controller
 
 
                             case ">":
-                                if (parameter.Value > value)
+                                if (value > parameter.Value)
                                 {
                                     //generate alert;
                                     generateAlert(i.Id);

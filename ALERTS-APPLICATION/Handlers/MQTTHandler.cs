@@ -15,21 +15,22 @@ namespace ALERTS_APPLICATION
         public List<string> topics = new List<string>();
         private static MQTTHandler instance = null;
         private int i = 2;
+        private string[] loginArray;
+        private string userID;
         
 
         public List<ReadingType> ReadingTypes { get; set; }
-        public int UserID { get; set; }
+        public string UserToken { get; set; }
 
 
         private MQTTHandler()
         {
-            this.UserID = -1;
             this.topics.Add("alerts/login");
             this.topics.Add("alerts/readingType");
             this.topics.Add("alerts_data/new_alert");
-            this.topics.Add("clean_data/1");
-            this.topics.Add("alerts_data");
+            this.topics.Add("clean_data/4");
             this.topics.Add("alerts/state");
+            this.topics.Add("alerts/login/userID");
             ConnectAndSubscribe();
         }
         public static MQTTHandler Instance
@@ -105,17 +106,13 @@ namespace ALERTS_APPLICATION
 
             if (data.Length > 1)
             {
+               
                 /* CALLS LOGIN TO PERSIST USER ID*/
                 if (data[1].Equals("login") && Encoding.UTF8.GetString(e.Message).Contains("userID:"))
                 {
+                    loginArray = Encoding.UTF8.GetString(e.Message).Split(':');
 
-                    int user;
-                    if (int.TryParse(Encoding.UTF8.GetString(e.Message).Split(':')[1], out user))
-                    {
-                        this.UserID = user;
-                    }
-
-                    LoginController.Instance.saveUserID(this.UserID);
+                    LoginController.Instance.saveUserIDToken(int.Parse(loginArray[1]), loginArray[3]);
                 }
 
                 /*RECEIVE READING TYPES*/
@@ -139,12 +136,15 @@ namespace ALERTS_APPLICATION
                 }
             }
 
-
-
-
-
-
-
+            if(data.Length > 2 && e.Message.Length == 1)
+            {
+                /*LOGIN USERID*/
+                if (data[2].Equals("userID"))
+                {
+                    userID = Encoding.UTF8.GetString(e.Message);
+                    LoginController.Instance.UserID = int.Parse(userID);
+                }
+            }
         }
 
         public void login(string username, string password)
@@ -182,7 +182,7 @@ namespace ALERTS_APPLICATION
 
             string json = JsonConvert.SerializeObject(alert);
 
-            publishData("alerts_data", json);
+            publishData("alerts_data/data", json);
 
 
         }
@@ -191,6 +191,11 @@ namespace ALERTS_APPLICATION
         {
             publishData("alerts/state", alertID.ToString());
 
+        }
+
+        public void sendToken(string token)
+        {
+            publishData("alerts/login/userID", token);
         }
 
     }

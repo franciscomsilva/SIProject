@@ -24,7 +24,7 @@ namespace ALERTS_APPLICATION
                 return;
             }*/
 
-            Application.Run(new Main());
+            Application.Run(new Login());
         }
     }
 }

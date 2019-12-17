@@ -27,7 +27,25 @@ namespace ALERTS_APPLICATION
         {
             lblErrors.Visible = false;
 
-           
+            LoginController.Instance.checkTokenSaved();
+
+            DateTime startTime = DateTime.Now;
+
+            while (LoginController.Instance.UserID == -1 && DateTime.Now.Subtract(startTime).Seconds <= 5) { }
+
+            if(LoginController.Instance.UserID > 0)
+            {
+                Main main = new Main();
+                main.Show();
+
+                BeginInvoke(new MethodInvoker(delegate
+                {
+                    Hide();
+                })); 
+            }
+
+            lblErrors.Text = "Error connecting to database!";
+            lblErrors.Visible = true;
 
         }
 
@@ -46,9 +64,9 @@ namespace ALERTS_APPLICATION
 
             DateTime startTime = DateTime.Now;
 
-            while (MQTTHandler.Instance.UserID == -1 && DateTime.Now.Subtract(startTime).Seconds <= 5) { }
+            while (LoginController.Instance.UserID == -1 && DateTime.Now.Subtract(startTime).Seconds <= 5) { }
 
-            int userID = MQTTHandler.Instance.UserID;
+            int userID = LoginController.Instance.UserID;
 
             if(userID == -1)
             {
@@ -57,7 +75,6 @@ namespace ALERTS_APPLICATION
                 lblErrors.Visible = true;
                 txtPassword.Clear();
 
-                MQTTHandler.Instance.UserID = -1;
                 return;
             }
             if (userID == 0)
@@ -65,8 +82,8 @@ namespace ALERTS_APPLICATION
                 lblErrors.Text = "Wrong username/password combination!";
                 lblErrors.Visible = true;
                 txtPassword.Clear();
+                LoginController.Instance.UserID = -1;
 
-                MQTTHandler.Instance.UserID = -1;
                 return;
             }
 
