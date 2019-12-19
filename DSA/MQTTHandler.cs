@@ -45,6 +45,7 @@ namespace DSA
                 return;
             }
             List<String> sensorsReadings;
+            topics.Add("dataShow/start");
             topics.Add("alerts/readingType");
             topics.Add("alerts/login");
             topics.Add("alerts_data/new_alert");
@@ -105,7 +106,7 @@ namespace DSA
             if (topics[0].Equals("sensor_data"))
             {
                 Console.WriteLine("Just received data from sensor number " + topics[1] + ", analyzing it!");
-                DataController.Instance.parseSensorData(int.Parse(topics[1]), topics[2],Encoding.UTF8.GetString(e.Message));
+                DataController.Instance.ParseSensorData(int.Parse(topics[1]), topics[2],Encoding.UTF8.GetString(e.Message));
             }
             //---------------------------------------Bootup alerts--------------------------------------------------------------//
             if (topics[0].Equals("alerts"))
@@ -115,10 +116,11 @@ namespace DSA
                 {
                     if (topics.Length == 3 && topics[2].Equals("userID")) //redundante mas para escablidade
                     {
-                        Console.WriteLine("Received a request to check a token and return a user id from alerts!");
+                       
                         iUserID++;
                         if (iUserID%2==0)
                         {
+                            Console.WriteLine("Received a request to check a token and return a user id from alerts!");
                             string id = UserController.Instance.GetUserToken(Encoding.UTF8.GetString(e.Message));
                             publishData("alerts/login/userID", id);
                         }
@@ -174,6 +176,12 @@ namespace DSA
                     Console.WriteLine("Registering a generated alert in the database");
                     AlertController.Instance.SaveGeneratedAlert(JsonConvert.DeserializeObject<GeneratedAlert>(Encoding.UTF8.GetString(e.Message)));
                 }
+            }
+            if (topics[0].Equals("dataShow") && Encoding.UTF8.GetString(e.Message).ToLower().Equals("request"))
+            {
+                Console.WriteLine("Received a data retrieve request from data_show");
+                string value = DataController.Instance.BootUpDataShow();
+                publishData("dataShow/start",value);
             }
             
 

@@ -104,8 +104,8 @@ namespace DSA
                     Console.BackgroundColor = ConsoleColor.Black; 
                     Console.ForegroundColor = ConsoleColor.Black;
 
-                    string password = Console.ReadLine(); 
-
+                    string password = Console.ReadLine();
+                    Console.Clear();
                     Console.BackgroundColor = origBG; 
                     Console.ForegroundColor = origFG;
                     UserController.Instance.AddUser(new User(username, password));

@@ -28,16 +28,18 @@ namespace DSA.Controllers
 
             }
         }
-        public void BootUpDataShow()
-        {
-            //TODO Mariana necessita de todos os sensores/readingtypes e locations 
-        }
-        public void SendCleanData(string sensor_id, string location_id)
+        public string BootUpDataShow()
         {
 
+            //List<Alert> / List<Sensor> / List <ReadingTypes>/ List<Users>
+            string values = JsonConvert.SerializeObject(AlertController.Instance.GetAllAlerts());
+            values += "/" + JsonConvert.SerializeObject(SensorController.Instance.GetAllSensors());
+            values += "/" + JsonConvert.SerializeObject(SensorController.Instance.GetAllReadingTypes());
+            values += "/" + JsonConvert.SerializeObject(UserController.Instance.GetAllUsersSafe());
 
+            return values;
         }
-        public void parseSensorData(int sensor_id, string reading_name, string value,[Optional] string location_name)
+        public void ParseSensorData(int sensor_id, string reading_name, string value,[Optional] string location_name)
         {
             int locationId=-1;
             if (!SensorController.Instance.GetSensor(sensor_id).Personal)

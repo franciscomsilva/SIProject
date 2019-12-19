@@ -24,6 +24,9 @@ namespace DSA
             Menus menu = new Menus();
             DataController sqlData = DataController.Instance;
             #endregion
+            SQLAssistant.Instance.ReseedTable("t_generated_alerts");
+            SQLAssistant.Instance.ReseedTable("t_alerts");
+
 
 
 

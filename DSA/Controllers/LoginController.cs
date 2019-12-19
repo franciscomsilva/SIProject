@@ -38,18 +38,18 @@ namespace DSA.Controllers
                 {
 
                     passwordDB = Convert.ToBase64String((byte[])reader["password"]);
-                }
-                if (password.Equals(passwordDB))
-                {
-                    result[0] = (string)reader["id"];
-                    result[1] = (string)reader["token"];
-                }
-                else
-                {
-                    result[0] = "-1";
-                    result[1] = "00000";
-                }
 
+                    if (password.Equals(passwordDB))
+                    {
+                        result[0] = (string)reader["id"].ToString();
+                        result[1] = (string)reader["token"];
+                    }
+                    else
+                    {
+                        result[0] = "0";
+                        result[1] = "00000";
+                    }
+                }
             }
             catch (Exception e)
             {

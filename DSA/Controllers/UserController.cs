@@ -97,9 +97,43 @@ namespace DSA.Controllers
 
             return users;
         }
+        public List<User> GetAllUsersSafe()
+        {
+
+            List<User> users = new List<User>();
+            try
+            {
+                SqlConnection sql = new SqlConnection(connectionString);
+                sql.Open();
+                SqlCommand sqlCommand = new SqlCommand("SELECT * FROM t_users", sql);
+                SqlDataReader reader = sqlCommand.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    User user = new User
+                    {
+                        Id = (int)reader["id"],
+                        Name = (string)reader["name"],
+
+                    };
+                    users.Add(user);
+                };
+                sql.Close();
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine("Failed retrieving user list! Reason:" + e.Message);
+                Console.ReadKey();
+                return null;
+            }
+
+
+            return users;
+        }
         public string GetUserToken(string token)
         {
-            string userId = "-1";
+            string userId = "0";
             try
             {
                 SqlConnection sql = new SqlConnection(connectionString);

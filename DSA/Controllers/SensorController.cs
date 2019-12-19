@@ -270,6 +270,7 @@ namespace DSA.Controllers
                     {
                         Id = (int)reader["id"],
                         MeasureType = (string)reader["measure_type"],
+                        MeasureName = (string)reader["measure_name"],
                         SensorId = (int)reader["sensor_id"],
                         Timestamp = (string)reader["timestamp"]
                     };
