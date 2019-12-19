@@ -14,6 +14,9 @@ namespace GlobalAPI
             // Make the API return JSON data if it is opened with a browser
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
 
+            // Authentication
+            config.SuppressHostPrincipal();
+
             // Web API routes
             config.MapHttpAttributeRoutes();
             
