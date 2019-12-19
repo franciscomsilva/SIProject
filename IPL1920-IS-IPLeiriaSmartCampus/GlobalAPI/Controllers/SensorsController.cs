@@ -14,9 +14,9 @@ namespace GlobalAPI.Controllers
     public class SensorsController : ApiController
     {
         // GET: api/Sensors
-        // TODO https://docs.microsoft.com/en-us/aspnet/web-api/overview/security/authentication-and-authorization-in-aspnet-web-api
         public IHttpActionResult Get()
         {
+            return Ok(Sensor.GetAll());
             Sensor[] sensors = new Sensor[] {
                 new Sensor()
                 {
