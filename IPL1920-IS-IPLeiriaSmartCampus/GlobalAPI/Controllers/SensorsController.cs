@@ -20,22 +20,22 @@ namespace GlobalAPI.Controllers
             Sensor[] sensors = new Sensor[] {
                 new Sensor()
                 {
-                    id = 1,
-                    user_id = 2,
-                    location_id = null,
-                    description = "DHT",
-                    personal = false,
-                    valid = true,
-                    fields = new SensorField[] {
+                    Id = 1,
+                    UserId = 2,
+                    LocationId = null,
+                    Description = "DHT",
+                    Personal = false,
+                    Valid = true,
+                    Fields = new SensorField[] {
                         new SensorField()
                         {
-                            name = "temperature",
-                            type = "float",
-                            min_value = "-20",
-                            max_value = "60"
+                            Name = "temperature",
+                            Type = "float",
+                            MinValue = "-20",
+                            MaxValue = "60"
                         }
                     },
-                    date = DateTime.Now
+                    Date = DateTime.Now
                 }
             };
             return Ok(sensors);

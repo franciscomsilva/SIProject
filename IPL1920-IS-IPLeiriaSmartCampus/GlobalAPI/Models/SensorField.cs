@@ -1,10 +1,19 @@
-﻿namespace GlobalAPI.Models
+﻿using Newtonsoft.Json;
+
+namespace GlobalAPI.Models
 {
     public class SensorField
     {
-        public string name;
-        public string type;
-        public string min_value;
-        public string max_value;
+        [JsonProperty(PropertyName = "name")]
+        public string Name { get; set; }
+
+        [JsonProperty(PropertyName = "type")]
+        public string Type { get; set; }
+
+        [JsonProperty(PropertyName = "min_value")]
+        public string MinValue { get; set; }
+
+        [JsonProperty(PropertyName = "max_value")]
+        public string MaxValue { get; set; }
     }
 }
