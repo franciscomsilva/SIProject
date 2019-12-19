@@ -27,7 +27,7 @@ namespace DataShowApplication
             lblInfoTemperature.Text = data.Temperature.ToString();
             lblInfoHumidity.Text = data.Humidity.ToString();
             lblInfoBattery.Text = data.Battery.ToString();
-            lblInfoDate.Text = data.TemperatureTimestamp.ToString() + "\n" + data.HumidityTimestamp.ToString();
+            lblInfoDate.Text = data.TemperatureTimestamp + "\n" + data.HumidityTimestamp + "\n" + data.BatteryTimestamp;
         }
     }
 }

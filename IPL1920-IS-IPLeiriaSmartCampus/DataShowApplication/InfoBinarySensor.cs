@@ -25,7 +25,7 @@ namespace DataShowApplication
             lblInfoLocation.Text = AppData.Instance.FindLocationById(data.LocationId).LocationName;
             lblInfoTemperature.Text = data.Temperature.ToString();
             lblInfoHumidity.Text = data.Humidity.ToString();
-            lblInfoDate.Text = data.TemperatureTimestamp.ToString() + "\n" + data.HumidityTimestamp.ToString();
+            lblInfoDate.Text = data.TemperatureTimestamp + "\n" + data.HumidityTimestamp;
         }
     }
 }

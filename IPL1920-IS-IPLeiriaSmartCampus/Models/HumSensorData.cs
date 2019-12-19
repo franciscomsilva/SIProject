@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    class HumSensorData : SensorData
+    public class HumSensorData : SensorData
     {
         public float Humidity { get; set; }
         public DateTime HumidityTimestamp { get; set; }

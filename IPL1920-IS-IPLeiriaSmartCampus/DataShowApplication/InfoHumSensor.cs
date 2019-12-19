@@ -10,16 +10,17 @@ using System.Windows.Forms;
 using Models;
 
 namespace DataShowApplication {
-    public partial class InfoHumSensor : UserControl, ISensorView<HumiditySensorData> {
+    public partial class InfoHumSensor : UserControl, ISensorView<HumSensorData> {
         public InfoHumSensor() {
             InitializeComponent();
         }
 
-        public void update(HumiditySensorData data) {
-            //lblInfoSensor.Text = data.sensor;
-            //lblInfoHumidity.Text = data.humidity.ToString();
-            //lblInfoBaterry.Text = data.baterry.ToString();
-            //lblInfoDate.Text = data.date.ToString();
+        public void update(HumSensorData data) {
+            //TODO NOME DO SENSOR
+            lblInfoSensor.Text = AppData.Instance.FindSensorById(data.SensorId).Id.ToString();
+            lblInfoLocation.Text = AppData.Instance.FindLocationById(data.LocationId).LocationName;
+            lblInfoHumidity.Text = data.Humidity.ToString();
+            lblInfoDate.Text = data.HumidityTimestamp.ToString();
         }
     }
 }
