@@ -17,34 +17,15 @@ namespace GlobalAPI.Controllers
         public IHttpActionResult Get()
         {
             return Ok(Sensor.GetAll());
-            Sensor[] sensors = new Sensor[] {
-                new Sensor()
-                {
-                    Id = 1,
-                    UserId = 2,
-                    LocationId = null,
-                    Description = "DHT",
-                    Personal = false,
-                    Valid = true,
-                    Fields = new SensorField[] {
-                        new SensorField()
-                        {
-                            Name = "temperature",
-                            Type = "float",
-                            MinValue = "-20",
-                            MaxValue = "60"
-                        }
-                    },
-                    Date = DateTime.Now
-                }
-            };
-            return Ok(sensors);
         }
 
         // GET: api/Sensors/5
-        public string Get(int id)
+        public IHttpActionResult Get(int id)
         {
-            return "value";
+            Sensor sensor = Sensor.GetById(id);
+            if (sensor == null) return NotFound();
+
+            return Ok(sensor);
         }
 
         // POST: api/Sensors
