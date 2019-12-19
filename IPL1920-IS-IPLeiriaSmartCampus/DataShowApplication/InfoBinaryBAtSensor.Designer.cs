@@ -1,5 +1,7 @@
-﻿namespace DataShowApplication {
-    partial class InfoBinarySensor {
+﻿namespace DataShowApplication
+{
+    partial class InfoBinaryBatSensor
+    {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -9,8 +11,10 @@
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing) {
-            if(disposing && (components != null)) {
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -22,14 +26,15 @@
         /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent() {
+        private void InitializeComponent()
+        {
             this.tableLayoutSensors = new System.Windows.Forms.TableLayoutPanel();
             this.lblSensor = new System.Windows.Forms.Label();
             this.lblInfoSensor = new System.Windows.Forms.Label();
             this.lblUpdate = new System.Windows.Forms.Label();
             this.lblInfoDate = new System.Windows.Forms.Label();
             this.lblBattery = new System.Windows.Forms.Label();
-            this.lblInfoBaterry = new System.Windows.Forms.Label();
+            this.lblInfoBattery = new System.Windows.Forms.Label();
             this.lblHumidity = new System.Windows.Forms.Label();
             this.lblInfoHumidity = new System.Windows.Forms.Label();
             this.lblInfoTemperature = new System.Windows.Forms.Label();
@@ -50,7 +55,7 @@
             this.tableLayoutSensors.Controls.Add(this.lblUpdate, 0, 5);
             this.tableLayoutSensors.Controls.Add(this.lblInfoDate, 1, 5);
             this.tableLayoutSensors.Controls.Add(this.lblBattery, 0, 4);
-            this.tableLayoutSensors.Controls.Add(this.lblInfoBaterry, 1, 4);
+            this.tableLayoutSensors.Controls.Add(this.lblInfoBattery, 1, 4);
             this.tableLayoutSensors.Controls.Add(this.lblHumidity, 0, 3);
             this.tableLayoutSensors.Controls.Add(this.lblInfoHumidity, 1, 3);
             this.tableLayoutSensors.Controls.Add(this.lblInfoTemperature, 1, 2);
@@ -71,8 +76,8 @@
             // 
             // lblSensor
             // 
-            this.lblSensor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.lblSensor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSensor.AutoSize = true;
             this.lblSensor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -85,8 +90,8 @@
             // 
             // lblInfoSensor
             // 
-            this.lblInfoSensor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.lblInfoSensor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblInfoSensor.AutoSize = true;
             this.lblInfoSensor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -98,8 +103,8 @@
             // 
             // lblUpdate
             // 
-            this.lblUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.lblUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblUpdate.AutoSize = true;
             this.lblUpdate.Location = new System.Drawing.Point(3, 180);
@@ -111,8 +116,8 @@
             // 
             // lblInfoDate
             // 
-            this.lblInfoDate.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.lblInfoDate.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblInfoDate.AutoSize = true;
             this.lblInfoDate.Location = new System.Drawing.Point(117, 180);
@@ -123,8 +128,8 @@
             // 
             // lblBattery
             // 
-            this.lblBattery.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.lblBattery.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblBattery.AutoSize = true;
             this.lblBattery.Location = new System.Drawing.Point(3, 144);
@@ -134,22 +139,22 @@
             this.lblBattery.Text = "Battery";
             this.lblBattery.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // lblInfoBaterry
+            // lblInfoBattery
             // 
-            this.lblInfoBaterry.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.lblInfoBattery.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblInfoBaterry.AutoSize = true;
-            this.lblInfoBaterry.Location = new System.Drawing.Point(117, 144);
-            this.lblInfoBaterry.Name = "lblInfoBaterry";
-            this.lblInfoBaterry.Size = new System.Drawing.Size(165, 36);
-            this.lblInfoBaterry.TabIndex = 8;
-            this.lblInfoBaterry.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblInfoBattery.AutoSize = true;
+            this.lblInfoBattery.Location = new System.Drawing.Point(117, 144);
+            this.lblInfoBattery.Name = "lblInfoBattery";
+            this.lblInfoBattery.Size = new System.Drawing.Size(165, 36);
+            this.lblInfoBattery.TabIndex = 8;
+            this.lblInfoBattery.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblHumidity
             // 
-            this.lblHumidity.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.lblHumidity.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblHumidity.AutoSize = true;
             this.lblHumidity.Location = new System.Drawing.Point(3, 108);
@@ -161,8 +166,8 @@
             // 
             // lblInfoHumidity
             // 
-            this.lblInfoHumidity.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.lblInfoHumidity.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblInfoHumidity.AutoSize = true;
             this.lblInfoHumidity.Location = new System.Drawing.Point(117, 108);
@@ -173,8 +178,8 @@
             // 
             // lblInfoTemperature
             // 
-            this.lblInfoTemperature.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.lblInfoTemperature.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblInfoTemperature.AutoSize = true;
             this.lblInfoTemperature.Location = new System.Drawing.Point(117, 72);
@@ -185,8 +190,8 @@
             // 
             // lblInfoLocation
             // 
-            this.lblInfoLocation.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.lblInfoLocation.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblInfoLocation.AutoSize = true;
             this.lblInfoLocation.Location = new System.Drawing.Point(117, 36);
@@ -197,8 +202,8 @@
             // 
             // lblTemperature
             // 
-            this.lblTemperature.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.lblTemperature.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTemperature.AutoSize = true;
             this.lblTemperature.Location = new System.Drawing.Point(3, 72);
@@ -210,8 +215,8 @@
             // 
             // lblLocation
             // 
-            this.lblLocation.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.lblLocation.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblLocation.AutoSize = true;
             this.lblLocation.Location = new System.Drawing.Point(3, 36);
@@ -246,7 +251,7 @@
         private System.Windows.Forms.Label lblInfoSensor;
         private System.Windows.Forms.Label lblInfoTemperature;
         private System.Windows.Forms.Label lblInfoHumidity;
-        private System.Windows.Forms.Label lblInfoBaterry;
+        private System.Windows.Forms.Label lblInfoBattery;
         private System.Windows.Forms.Label lblInfoDate;
         private System.Windows.Forms.Label lblLocation;
         private System.Windows.Forms.Label lblInfoLocation;

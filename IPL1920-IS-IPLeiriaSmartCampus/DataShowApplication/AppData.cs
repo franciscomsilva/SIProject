@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace DataShowApplication
 {
@@ -13,7 +14,12 @@ namespace DataShowApplication
         private Dictionary<int, Sensor> Sensors = new Dictionary<int, Sensor>();
         private Dictionary<int, Location> Locations = new Dictionary<int, Location>();
         private Dictionary<int, Alert> Alerts = new Dictionary<int, Alert>();
-        private Dictionary<int, Dictionary<string, List<float>>> ValuesByLocation = new Dictionary<int, Dictionary<string, List<float>>>();
+        private Dictionary<int, Dictionary<string, List<Tuple<DateTime, float>>>> ValuesByLocation = new Dictionary<int, Dictionary<string, List<Tuple<DateTime, float>>>>();
+        // wild card (can receive any type --> in this case I want to receive any Info...Sensor)
+        private Dictionary<int, ISensorView<dynamic>> SensorsControl = new Dictionary<int, ISensorView<dynamic>>();
+        //save function that will be called after a control is created by the AppData
+        private Action<UserControl> OnControlCreated = null;
+        private List<ReadingType> ReadingTypes = new List<ReadingType>();
 
         public static AppData Instance = new AppData();
 
@@ -50,13 +56,26 @@ namespace DataShowApplication
             return Alerts;
         }
 
-        public Dictionary<int, Dictionary<string, List<float>>> GetAllValuesByLocation()
+        public Dictionary<int, Dictionary<string, List<Tuple<DateTime, float>>>> GetAllValuesWithLocation()
         {
             return ValuesByLocation;
         }
-        public Dictionary<string, List<float>> GetValuesByLocationId(int id)
+
+        public Dictionary<string, List<Tuple<DateTime, float>>> GetValuesByLocation(int locationId)
         {
-            return ValuesByLocation[id];
+            return ValuesByLocation[locationId];
+        }
+
+        public string[] GetReadingTypesByLocation(int locationId)
+        {
+            Dictionary<string, List<Tuple<DateTime, float>>> locationValues = ValuesByLocation[locationId];
+
+            return locationValues.Keys.ToArray<string>();
+        }
+
+        public List<Tuple<DateTime, float>> GetReadingsByTypeAndLocation(int locationId, String readingType)
+        {
+            return ValuesByLocation[locationId][readingType];
         }
         #endregion
 
@@ -86,7 +105,32 @@ namespace DataShowApplication
             }
             return sensors;
         }
+
+        public List<ReadingType> FindReadingTypesBySensorId(int sensorId)
+        {
+            List<ReadingType> readingTypes = new List<ReadingType>();
+
+            foreach (ReadingType readingType in ReadingTypes)
+            {
+                if (readingType.SensorId == sensorId)
+                {
+                    readingTypes.Add(readingType);
+                }
+            }
+
+            return readingTypes;
+        }
         #endregion
+
+        public void SetOnControllCreated(Action<UserControl> OnControlCreated)
+        {
+            this.OnControlCreated = OnControlCreated;
+        }
+
+        public void SetReadingTypes(List<ReadingType> readingTypes)
+        {
+            this.ReadingTypes = new List<ReadingType>();
+        }
 
         public void SaveSensorValues(SensorData sensor)
         {
@@ -103,17 +147,59 @@ namespace DataShowApplication
                     float value = float.Parse(sensor.GetType().GetProperty(key).GetValue(sensor).ToString());
                     if (!ValuesByLocation.ContainsKey(sensor.LocationId))
                     {
-                        ValuesByLocation.Add(sensor.LocationId, new Dictionary<string, List<float>>());
+                        ValuesByLocation.Add(sensor.LocationId, new Dictionary<string, List<Tuple<DateTime, float>>>());
                     }
 
-                    Dictionary<string, List<float>> locationValues = ValuesByLocation[sensor.LocationId];
+                    Dictionary<string, List<Tuple<DateTime, float>>> locationValues = ValuesByLocation[sensor.LocationId];
 
                     if (!locationValues.ContainsKey(key))
                     {
-                        locationValues.Add(key, new List<float>());
+                        locationValues.Add(key, new List<Tuple<DateTime, float>>());
                     }
-                    locationValues[key].Add(value);
+                    locationValues[key].Add(new Tuple<DateTime, float>((DateTime)prop.GetValue(sensor), value));
                 }
+            }
+        }
+
+        public void CreateSensorsControl(Sensor sensor)
+        {
+            //verificar os reading types
+            List<String> typeNames = new List<String>();
+            UserControl control = null;
+
+            foreach (ReadingType type in FindReadingTypesBySensorId(sensor.Id))
+            {
+                typeNames.Add(type.MeasureName);
+            }
+
+            if (typeNames.Contains("Temperature") && typeNames.Contains("Humidity") && typeNames.Contains("Battery"))
+            {
+                control = new InfoBinaryBatSensor();
+            }
+            else if (typeNames.Contains("Temperature") && typeNames.Contains("Humidity"))
+            {
+                control = new InfoBinarySensor();
+            }
+            else if (typeNames.Contains("Humidity") && typeNames.Contains("Battery"))
+            {
+                control = new InfoHumBatSensor();
+            }
+            else if (typeNames.Contains("Temperature") && typeNames.Contains("Battery"))
+            {
+                control = new InfoTempBatSensor();
+            }
+            else if (typeNames.Contains("Temperature"))
+            {
+                control = new InfoTempSensor();
+            }
+            else
+            {
+                control = new InfoHumSensor();
+            }
+
+            if (OnControlCreated != null && control != null)
+            {
+                OnControlCreated(control);
             }
         }
     }

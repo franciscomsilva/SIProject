@@ -28,3 +28,12 @@ C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCa
 C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\DataShowApplication\bin\Debug\Models.dll
 C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\DataShowApplication\bin\Debug\Models.pdb
 C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\DataShowApplication\obj\Debug\DataShowApplication.csproj.CopyComplete
+C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\DataShowApplication\bin\Debug\LiveCharts.dll
+C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\DataShowApplication\bin\Debug\LiveCharts.WinForms.dll
+C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\DataShowApplication\bin\Debug\LiveCharts.Wpf.dll
+C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\DataShowApplication\bin\Debug\LiveCharts.pdb
+C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\DataShowApplication\bin\Debug\LiveCharts.xml
+C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\DataShowApplication\bin\Debug\LiveCharts.WinForms.pdb
+C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\DataShowApplication\bin\Debug\LiveCharts.WinForms.xml
+C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\DataShowApplication\bin\Debug\LiveCharts.Wpf.pdb
+C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\DataShowApplication\bin\Debug\LiveCharts.Wpf.xml

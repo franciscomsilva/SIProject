@@ -53,7 +53,7 @@
             // 
             this.groupBoxFilterLocation.Controls.Add(this.comboBox1);
             this.groupBoxFilterLocation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxFilterLocation.Location = new System.Drawing.Point(33, 13);
+            this.groupBoxFilterLocation.Location = new System.Drawing.Point(33, 2);
             this.groupBoxFilterLocation.Name = "groupBoxFilterLocation";
             this.groupBoxFilterLocation.Size = new System.Drawing.Size(207, 78);
             this.groupBoxFilterLocation.TabIndex = 3;
@@ -70,31 +70,34 @@
             // 
             // groupBoxAlerts
             // 
+            this.groupBoxAlerts.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxAlerts.Controls.Add(this.listBoxAlerts);
             this.groupBoxAlerts.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxAlerts.Location = new System.Drawing.Point(295, 13);
+            this.groupBoxAlerts.Location = new System.Drawing.Point(295, 2);
             this.groupBoxAlerts.Name = "groupBoxAlerts";
-            this.groupBoxAlerts.Size = new System.Drawing.Size(692, 96);
+            this.groupBoxAlerts.Size = new System.Drawing.Size(692, 107);
             this.groupBoxAlerts.TabIndex = 4;
             this.groupBoxAlerts.TabStop = false;
             this.groupBoxAlerts.Text = "Alerts";
             // 
             // listBoxAlerts
             // 
-            this.listBoxAlerts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.listBoxAlerts.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxAlerts.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxAlerts.FormattingEnabled = true;
             this.listBoxAlerts.ItemHeight = 16;
-            this.listBoxAlerts.Location = new System.Drawing.Point(0, 27);
+            this.listBoxAlerts.Location = new System.Drawing.Point(6, 27);
             this.listBoxAlerts.Name = "listBoxAlerts";
-            this.listBoxAlerts.Size = new System.Drawing.Size(692, 52);
+            this.listBoxAlerts.Size = new System.Drawing.Size(680, 68);
             this.listBoxAlerts.TabIndex = 0;
             // 
             // ChartSensor
             // 
-            this.ChartSensor.BackColor = System.Drawing.SystemColors.Control;
+            this.ChartSensor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             chartArea1.Name = "ChartArea1";
             this.ChartSensor.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
@@ -118,7 +121,7 @@
             series2.Name = "Humidity";
             this.ChartSensor.Series.Add(series1);
             this.ChartSensor.Series.Add(series2);
-            this.ChartSensor.Size = new System.Drawing.Size(529, 300);
+            this.ChartSensor.Size = new System.Drawing.Size(994, 300);
             this.ChartSensor.TabIndex = 5;
             this.ChartSensor.Text = "Sensor Data";
             // 

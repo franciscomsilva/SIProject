@@ -10,18 +10,24 @@ using System.Windows.Forms;
 using Models;
 
 
-namespace DataShowApplication {
-    public partial class InfoBinarySensor : UserControl, ISensorView<BinarySensorData> {
-        public InfoBinarySensor() {
+namespace DataShowApplication
+{
+    public partial class InfoBinaryBatSensor : UserControl, ISensorView<BinaryBatSensorData>
+    {
+        public InfoBinaryBatSensor()
+        {
             InitializeComponent();
         }
 
-        public void update(BinarySensorData data) {
-            //lblInfoSensor.Text = data.SensorName();
-            //lblInfoTemperature.Text = data.Temperature.ToString();
-            //lblInfoHumidity.Text = data.Humidity.ToString();
-            //lblInfoBaterry.Text = data.baterry.ToString();
-            //lblInfoDate.Text = data.date.ToString();
+        public void update(BinaryBatSensorData data)
+        {
+            //TODO NOME DO SENSOR
+            lblInfoSensor.Text = AppData.Instance.FindSensorById(data.SensorId).Id.ToString();
+            lblInfoLocation.Text = AppData.Instance.FindLocationById(data.LocationId).LocationName;
+            lblInfoTemperature.Text = data.Temperature.ToString();
+            lblInfoHumidity.Text = data.Humidity.ToString();
+            lblInfoBattery.Text = data.Battery.ToString();
+            lblInfoDate.Text = data.TemperatureTimestamp.ToString() + "\n" + data.HumidityTimestamp.ToString();
         }
     }
 }

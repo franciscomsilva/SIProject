@@ -16,10 +16,11 @@ namespace DataShowApplication {
         }
 
         public void update(TempSensorData data) {
-            //lblInfoSensor.Text = data.sensor;
-            //lblInfoLocation.Text = data.temperature.ToString();
-            //lblInfoTemperature.Text = data.baterry.ToString();
-            //lblInfoDate.Text = data.date.ToString();
+
+            lblInfoSensor.Text = AppData.Instance.FindSensorById(data.SensorId).Id.ToString();
+            lblInfoLocation.Text = AppData.Instance.FindLocationById(data.LocationId).LocationName;  
+            lblInfoTemperature.Text = data.Temperature.ToString();
+            lblInfoDate.Text = data.TemperatureTimestamp.ToString();
         }
     }
 }
