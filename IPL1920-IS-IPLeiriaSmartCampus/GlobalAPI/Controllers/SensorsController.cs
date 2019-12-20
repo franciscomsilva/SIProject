@@ -24,7 +24,7 @@ namespace GlobalAPI.Controllers
         public IHttpActionResult Get(int id)
         {
             Sensor sensor = Sensor.GetById(id);
-            if (sensor == null) return this.Content(HttpStatusCode.BadRequest, new ApiError("Invalid sensor"));
+            if (sensor == null) return NotFound();
 
             return Ok(sensor);
         }
@@ -81,7 +81,7 @@ namespace GlobalAPI.Controllers
                 sensorField.Insert(sensor);
             }
 
-            return Ok(sensor);
+            return Created("/sensors/" + sensor.Id, sensor);
         }
 
         // TODO

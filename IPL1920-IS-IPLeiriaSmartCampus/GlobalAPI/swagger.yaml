@@ -88,6 +88,14 @@ components:
     SensorField:
       type: "object"
       properties:
+        id:
+          type: "number"
+          format: "integer"
+          example: 1
+        sensor_id:
+          type: "number"
+          format: "integer"
+          example: 1
         name:
           type: "string"
           example: "temperature"
@@ -108,6 +116,10 @@ components:
     SensorData:
       type: "object"
       properties:
+        id:
+          type: "number"
+          format: "integer"
+          example: 1
         sensor_id:
           type: "number"
           format: "integer"
@@ -116,16 +128,13 @@ components:
           type: "number"
           format: "integer"
           example: 1
-        humidity:
+        field_id:
           type: "number"
-          format: "float"
-          example: 64.3
-          description: "Example only; each sensor has specific fields (see `fields` of `Sensor`)"
-        temperature:
-          type: "number"
-          format: "float"
-          example: 15.6
-          description: "Example only; each sensor has specific fields (see `fields` of `Sensor`)"
+          format: "integer"
+          example: 1
+        value:
+          type: "string"
+          example: "15.6"
         valid:
           type: "boolean"
           example: true
@@ -254,7 +263,7 @@ paths:
                 Invalid field range (max_value less than min_value):
                   value:
                     error: "Invalid field range; max_value must be greater than min_value"
-        "200":
+        "201":
           description: "Success"
           content:
             application/json:
@@ -290,16 +299,6 @@ paths:
           description: "Unauthorized"
         "404":
           description: "Sensor not found"
-        "400":
-          description: "Invalid data"
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiError'
-              examples:
-                Invalid sensor:
-                  value:
-                    error: "Invalid sensor"
         "200":
           description: "Success"
           content:
@@ -350,16 +349,19 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiError'
               examples:
+                Empty name:
+                  value:
+                    error: "Name is required"
                 Name too long:
                   value:
                     error: "Name too long; must be less than 255 characters"
                 Duplicate name:
                   value:
                     error: "Duplicate name; must be unique"
-                Invalid GPS coords:
+                Empty GPS coordinates:
                   value:
-                    error: "Invalid GPS coords"
-        "200":
+                    error: "GPS coordinates are required"
+        "201":
           description: "Success"
           content:
             application/json:
@@ -386,16 +388,6 @@ paths:
           description: "Unauthorized"
         "404":
           description: "Location not found"
-        "400":
-          description: "Invalid data"
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiError'
-              examples:
-                Invalid location:
-                  value:
-                    error: "Invalid location"
         "200":
           description: "Success"
           content:
@@ -421,8 +413,11 @@ paths:
                   nullable: true
                   example: 1
                   description: "If the sensor `location_id` is `null`, a location must be provided"
-                temperature:
-                  description: "Example only; each sensor has specific fields (see `fields` of `Sensor`)"
+                field_id:
+                  type: "number"
+                  format: "integer"
+                  example: 1
+                value:
                   type: "number"
                   format: "float"
                   example: 15.6
@@ -442,13 +437,22 @@ paths:
                 Invalid location:
                   value:
                     error: "Invalid location"
-                Invalid field name:
+                Invalid field:
                   value:
-                    error: "Invalid field name; the field isn't recognized by the sensor"
-                Invalid field value:
+                    error: "Invalid field"
+                Sensor and field mismatch:
                   value:
-                    error: "Invalid field value; the provided field can't be casted to the correct type"
-        "200":
+                    error: "Invalid field and sensor; the sensor doesn't have the specified field"
+                Empty value:
+                  value:
+                    error: "Value is required"
+                Invalid value type:
+                  value:
+                    error: "Invalid value; the provided value can't be casted to the correct type"
+                Invalid value range:
+                  value:
+                    error: "Invalid value; the provided value is not in the field range"
+        "201":
           description: "Success"
           content:
             application/json:
@@ -471,16 +475,6 @@ paths:
           description: "Unauthorized"
         "404":
           description: "Reading not found"
-        "400":
-          description: "Invalid data"
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiError'
-              examples:
-                Invalid reading:
-                  value:
-                    error: "Invalid reading"
         "204":
           description: "Success"
   /readings/sensor/{id}:

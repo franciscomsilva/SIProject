@@ -55,14 +55,14 @@ namespace GlobalAPI.Controllers
 
             reading.Insert();
 
-            return Ok(reading);
+            return Created("/readings/" + reading.Id, reading);
         }
 
         // DELETE: api/Readings/5
         public IHttpActionResult Delete(int id)
         {
             SensorData reading = SensorData.GetById(id);
-            if (reading == null) return this.Content(HttpStatusCode.BadRequest, new ApiError("Invalid reading"));
+            if (reading == null) return NotFound();
 
             reading.Invalidate();
 

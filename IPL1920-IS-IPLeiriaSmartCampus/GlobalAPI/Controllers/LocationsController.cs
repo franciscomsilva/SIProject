@@ -24,7 +24,7 @@ namespace GlobalAPI.Controllers
         public IHttpActionResult Get(int id)
         {
             Location location = Location.GetById(id);
-            if (location == null) return this.Content(HttpStatusCode.BadRequest, new ApiError("Invalid location"));
+            if (location == null) return NotFound();
 
             return Ok(location);
         }
@@ -39,7 +39,7 @@ namespace GlobalAPI.Controllers
 
             location.Insert();
 
-            return Ok(location);
+            return Created("/locations/" + location.Id, location);
         }
     }
 }
