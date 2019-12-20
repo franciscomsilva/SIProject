@@ -12,6 +12,9 @@ namespace GlobalAPI.Models
         [JsonProperty(PropertyName = "id")]
         public int Id { get; set; }
 
+        [JsonProperty(PropertyName = "sensor_id")]
+        public int SensorId { get; set; }
+
         [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
@@ -43,13 +46,12 @@ namespace GlobalAPI.Models
             }
         }
 
-
         public static List<SensorField> GetAllForSensor(int sensorId)
         {
             using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.DB))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("SELECT id, measure_name, measure_type, min_value, max_value FROM t_sensor_reading_types WHERE sensor_id = @sensorId", conn))
+                using (SqlCommand cmd = new SqlCommand("SELECT id, sensor_id, measure_name, measure_type, min_value, max_value FROM t_sensor_reading_types WHERE sensor_id = @sensorId", conn))
                 {
                     cmd.Parameters.AddWithValue("sensorId", sensorId);
                     List<SensorField> sensorFields = new List<SensorField>();
@@ -57,19 +59,42 @@ namespace GlobalAPI.Models
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        sensorFields.Add(new SensorField()
-                        {
-                            Id = (int) reader["id"],
-                            Name = reader["measure_name"].ToString(),
-                            Type = reader["measure_type"].ToString(),
-                            MinValue = reader["min_value"].ToString(),
-                            MaxValue = reader["max_value"].ToString()
-                        });
+                        sensorFields.Add(SensorField.FromDB(reader));
                     }
 
                     return sensorFields;
                 }
             }
+        }
+
+        public static SensorField GetById(int id)
+        {
+            using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.DB))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand("SELECT id, sensor_id, measure_name, measure_type, min_value, max_value FROM t_sensor_reading_types WHERE id = @id", conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (!reader.Read()) return null;
+
+                    return SensorField.FromDB(reader);
+                }
+            }
+        }
+
+        public static SensorField FromDB(SqlDataReader reader)
+        {
+            return new SensorField()
+            {
+                Id = (int)reader["id"],
+                SensorId = (int)reader["sensor_id"],
+                Name = reader["measure_name"].ToString(),
+                Type = reader["measure_type"].ToString(),
+                MinValue = reader["min_value"].ToString(),
+                MaxValue = reader["max_value"].ToString()
+            };
         }
     }
 }
