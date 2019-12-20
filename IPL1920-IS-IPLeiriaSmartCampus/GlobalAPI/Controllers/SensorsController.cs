@@ -24,7 +24,7 @@ namespace GlobalAPI.Controllers
         public IHttpActionResult Get(int id)
         {
             Sensor sensor = Sensor.GetById(id);
-            if (sensor == null) return NotFound();
+            if (sensor == null) return this.Content(HttpStatusCode.BadRequest, new ApiError("Invalid sensor"));
 
             return Ok(sensor);
         }

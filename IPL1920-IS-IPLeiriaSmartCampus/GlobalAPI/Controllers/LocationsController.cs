@@ -19,5 +19,14 @@ namespace GlobalAPI.Controllers
         {
             return Ok(Location.GetAll());
         }
+
+        // GET: api/Locations/5
+        public IHttpActionResult Get(int id)
+        {
+            Location location = Location.GetById(id);
+            if (location == null) return this.Content(HttpStatusCode.BadRequest, new ApiError("Invalid location"));
+
+            return Ok(location);
+        }
     }
 }
