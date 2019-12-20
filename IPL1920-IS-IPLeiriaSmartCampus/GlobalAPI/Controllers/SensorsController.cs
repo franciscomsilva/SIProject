@@ -32,7 +32,7 @@ namespace GlobalAPI.Controllers
         // POST: api/Sensors
         public IHttpActionResult Post([FromBody]Sensor sensor)
         {
-            if (sensor.Description != null && sensor.Description.Length > 140) return this.Content(HttpStatusCode.BadRequest, new ApiError("Description too long; must be less than 140 characters"));
+            if (sensor == null || sensor.Description != null && sensor.Description.Length > 140) return this.Content(HttpStatusCode.BadRequest, new ApiError("Description too long; must be less than 140 characters"));
             if (sensor.Fields == null || sensor.Fields.Length < 1) return this.Content(HttpStatusCode.BadRequest, new ApiError("No fields were provided"));
 
             foreach (SensorField sensorField in sensor.Fields)

@@ -28,5 +28,18 @@ namespace GlobalAPI.Controllers
 
             return Ok(location);
         }
+
+        // POST: api/Locations
+        public IHttpActionResult Post([FromBody]Location location)
+        {
+            if (location == null || location.Name == null) return this.Content(HttpStatusCode.BadRequest, new ApiError("Name is required"));
+            if (location.Name.Length > 255) return this.Content(HttpStatusCode.BadRequest, new ApiError("Name too long; must be less than 255 characters"));
+            if (location.GpsCoords == null) return this.Content(HttpStatusCode.BadRequest, new ApiError("GPS coordinates are required"));
+            if (Location.GetByName(location.Name) != null) return this.Content(HttpStatusCode.BadRequest, new ApiError("Duplicate name; must be unique"));
+
+            location.Insert();
+
+            return Ok(location);
+        }
     }
 }
