@@ -31,7 +31,7 @@ namespace GlobalAPI.Models
         public SensorField[] Fields { get; set; }
 
         [JsonProperty(PropertyName = "date")]
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
 
         public static List<Sensor> GetAll()
         {
@@ -49,6 +49,27 @@ namespace GlobalAPI.Models
                     }
 
                     return sensors;
+                }
+            }
+        }
+
+        public void Insert()
+        {
+            using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.DB))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand("INSERT INTO t_sensors (user_id, location_id, description, personal, valid, date) output INSERTED.ID VALUES (@user_id, @location_id, @description, 1, 1, @date)", conn))
+                {
+                    this.Personal = true;
+                    this.Valid = true;
+                    this.Date = DateTime.Now.ToShortDateString();
+
+                    cmd.Parameters.AddWithValue("@user_id", this.UserId);
+                    cmd.Parameters.AddWithValue("@location_id", this.LocationId);
+                    cmd.Parameters.AddWithValue("@description", this.Description);
+                    cmd.Parameters.AddWithValue("@date", this.Date);
+
+                    this.Id = (int) cmd.ExecuteScalar();
                 }
             }
         }
@@ -84,7 +105,7 @@ namespace GlobalAPI.Models
                 Personal = (bool)reader["personal"],
                 Valid = (bool)reader["valid"],
                 Fields = SensorField.GetAllForSensor(sensorId).ToArray(),
-                Date = DateTime.Parse((string)reader["date"])
+                Date = reader["date"].ToString()
             };
         }
     }

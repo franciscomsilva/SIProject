@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 
@@ -6,6 +7,8 @@ namespace GlobalAPI.Models
 {
     public class SensorField
     {
+        public static List<string> ValidTypes { get { return new List<string>() { "float", "int", "string", "bool" }; } }
+
         [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
@@ -17,6 +20,26 @@ namespace GlobalAPI.Models
 
         [JsonProperty(PropertyName = "max_value")]
         public string MaxValue { get; set; }
+
+        public void Insert(Sensor sensor)
+        {
+            using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.DB))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand("INSERT INTO t_sensor_reading_types (measure_name, measure_type, sensor_id, timestamp, min_value, max_value) VALUES (@measure_name, @measure_type, @sensor_id, @timestamp, @min_value, @max_value)", conn))
+                {
+                    cmd.Parameters.AddWithValue("@measure_name", this.Name);
+                    cmd.Parameters.AddWithValue("@measure_type", this.Type);
+                    cmd.Parameters.AddWithValue("@sensor_id", sensor.Id);
+                    cmd.Parameters.AddWithValue("@timestamp", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@min_value", this.MinValue);
+                    cmd.Parameters.AddWithValue("@max_value", this.MaxValue);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
 
         public static List<SensorField> GetAllForSensor(int sensorId)
         {

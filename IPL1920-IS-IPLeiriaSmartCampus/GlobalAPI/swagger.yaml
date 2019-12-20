@@ -49,6 +49,7 @@ components:
           example: "1º piso da biblioteca"
         gps_coords:
           type: "string"
+          nullable: true
           example: "35.89421911 139.94637467"
           
     Sensor:
@@ -82,8 +83,8 @@ components:
             $ref: "#/components/schemas/SensorField"
         date:
           type: "string"
-          format: "date-time"
-          example: "2019-12-02T11:29:50.00Z"
+          format: "date"
+          example: "02/12/2019"
     SensorField:
       type: "object"
       properties:
@@ -93,13 +94,15 @@ components:
         type:
           type: "string"
           example: "float"
-          description: "Must be `float`, `int`, `string` or `boolean`"
+          description: "Must be `float`, `int`, `string` or `bool`"
         min_value:
           type: "string"
+          nullable: true
           example: "-20"
           description: "The minimum value a sensor can read; values below `min_value` will be discarded"
         max_value:
           type: "string"
+          nullable: true
           example: "60"
           description: "The maximum value a sensor can read; values above `max_value` will be discarded"
     SensorData:
@@ -227,16 +230,28 @@ paths:
                 Empty fields:
                   value:
                     error: "No fields were provided"
+                Empty field name:
+                  value:
+                    error: "Field name is required"
                 Field name too long:
                   value:
                     error: "Field name too long; must be less than 32 characters"
+                Empty field type:
+                  value:
+                    error: "Field type is required"
                 Invalid field type:
                   value:
-                    error: "Invalid field type; type must be float, int, string or boolean"
-                Invalid field range (min_value):
+                    error: "Invalid field type; type must be float, int, string or bool"
+                Invalid field range for type:
+                  value:
+                    error: "Invalid field range; this field type doesn't support min_value and max_value"
+                Invalid field range (type mismatch):
+                  value:
+                    error: "Invalid field range; max_value and min_value must be the same type as type"
+                Invalid field range (min_value greater than max_value):
                   value:
                     error: "Invalid field range; min_value must be less than max_value"
-                Invalid field range (max_value):
+                Invalid field range (max_value less than min_value):
                   value:
                     error: "Invalid field range; max_value must be greater than min_value"
         "200":
@@ -257,7 +272,7 @@ paths:
                     type: "float"
                     min_value: "-20"
                     max_value: "60"
-                date: "2019-12-02T11:29:50.00Z"
+                date: "02/12/2019"
   /sensors/{id}:
     get:
       tags:

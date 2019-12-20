@@ -91,7 +91,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ApiError.cs" />
     <Compile Include="Models\ApiStatus.cs" />
+    <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Sensor.cs" />
     <Compile Include="Models\SensorField.cs" />
     <Compile Include="Models\AuthUser.cs" />
