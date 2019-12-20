@@ -18,7 +18,7 @@ namespace DataShowApplication
             InitializeComponent();
         }
 
-        public void update(TempBatSensorData data)
+        public void Update(TempBatSensorData data)
         {
             //TODO NOME DO SENSOR
             lblInfoSensor.Text = AppData.Instance.FindSensorById(data.SensorId).Id.ToString();

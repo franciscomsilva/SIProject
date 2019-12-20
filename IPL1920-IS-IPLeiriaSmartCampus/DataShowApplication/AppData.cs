@@ -16,9 +16,10 @@ namespace DataShowApplication
         private Dictionary<int, Alert> Alerts = new Dictionary<int, Alert>();
         private Dictionary<int, Dictionary<string, List<Tuple<DateTime, float>>>> ValuesByLocation = new Dictionary<int, Dictionary<string, List<Tuple<DateTime, float>>>>();
         // wild card (can receive any type --> in this case I want to receive any Info...Sensor)
-        private Dictionary<int, ISensorView<dynamic>> SensorsControl = new Dictionary<int, ISensorView<dynamic>>();
+        private Dictionary<int, dynamic> SensorsControl = new Dictionary<int, dynamic>();
         //save function that will be called after a control is created by the AppData
         private Action<UserControl> OnControlCreated = null;
+        private Action<Alert> OnAlertCreated = null;
         private List<ReadingType> ReadingTypes = new List<ReadingType>();
 
         public static AppData Instance = new AppData();
@@ -37,6 +38,11 @@ namespace DataShowApplication
         public void AddAlert(Alert alert)
         {
             Alerts.Add(alert.Id, alert);
+        }
+
+        public void AddReadingType(ReadingType readingType)
+        {
+            ReadingTypes.Add(readingType);
         }
         #endregion
 
@@ -122,15 +128,22 @@ namespace DataShowApplication
         }
         #endregion
 
+        #region Set Methods
         public void SetOnControllCreated(Action<UserControl> OnControlCreated)
         {
             this.OnControlCreated = OnControlCreated;
+        }
+
+        public void SetOnAlertCreated(Action<Alert> OnAlertCreated)
+        {
+            this.OnAlertCreated = OnAlertCreated;
         }
 
         public void SetReadingTypes(List<ReadingType> readingTypes)
         {
             this.ReadingTypes = new List<ReadingType>();
         }
+        #endregion
 
         public void SaveSensorValues(SensorData sensor)
         {
@@ -159,6 +172,7 @@ namespace DataShowApplication
                     locationValues[key].Add(new Tuple<DateTime, float>((DateTime)prop.GetValue(sensor), value));
                 }
             }
+            (SensorsControl[sensor.SensorId] as ISensorView<dynamic>).Update(sensor);
         }
 
         public void CreateSensorsControl(Sensor sensor)
@@ -169,26 +183,26 @@ namespace DataShowApplication
 
             foreach (ReadingType type in FindReadingTypesBySensorId(sensor.Id))
             {
-                typeNames.Add(type.MeasureName);
+                typeNames.Add(type.MeasureName.ToLower());
             }
 
-            if (typeNames.Contains("Temperature") && typeNames.Contains("Humidity") && typeNames.Contains("Battery"))
+            if (typeNames.Contains("temperature") && typeNames.Contains("humidity") && typeNames.Contains("battery"))
             {
                 control = new InfoBinaryBatSensor();
             }
-            else if (typeNames.Contains("Temperature") && typeNames.Contains("Humidity"))
+            else if (typeNames.Contains("temperature") && typeNames.Contains("humidity"))
             {
                 control = new InfoBinarySensor();
             }
-            else if (typeNames.Contains("Humidity") && typeNames.Contains("Battery"))
+            else if (typeNames.Contains("humidity") && typeNames.Contains("battery"))
             {
                 control = new InfoHumBatSensor();
             }
-            else if (typeNames.Contains("Temperature") && typeNames.Contains("Battery"))
+            else if (typeNames.Contains("temperature") && typeNames.Contains("battery"))
             {
                 control = new InfoTempBatSensor();
             }
-            else if (typeNames.Contains("Temperature"))
+            else if (typeNames.Contains("temperature"))
             {
                 control = new InfoTempSensor();
             }
@@ -199,8 +213,18 @@ namespace DataShowApplication
 
             if (OnControlCreated != null && control != null)
             {
+                SensorsControl.Add(sensor.Id, control);
                 OnControlCreated(control);
             }
         }
+
+        public void ShowAlert(Alert alert)
+        {
+            if (OnAlertCreated != null && alert != null)
+            {
+                OnAlertCreated(alert);
+            }
+        }
+
     }
 }

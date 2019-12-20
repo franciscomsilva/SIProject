@@ -12,14 +12,14 @@ using Models;
 
 namespace DataShowApplication
 {
-    public partial class InfoBinaryBatSensor : UserControl, ISensorView<BinaryBatSensorData>
+    public partial class InfoBinaryBatSensor : ISensorView<BinaryBatSensorData>
     {
         public InfoBinaryBatSensor()
         {
             InitializeComponent();
         }
 
-        public void update(BinaryBatSensorData data)
+        public override void Update(BinaryBatSensorData data)
         {
             //TODO NOME DO SENSOR
             lblInfoSensor.Text = AppData.Instance.FindSensorById(data.SensorId).Id.ToString();

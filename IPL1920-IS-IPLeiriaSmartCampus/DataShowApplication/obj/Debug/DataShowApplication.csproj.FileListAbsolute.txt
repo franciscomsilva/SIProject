@@ -17,7 +17,6 @@ C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCa
 C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\DataShowApplication\obj\Debug\DataShowApplication.exe
 C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\DataShowApplication\obj\Debug\DataShowApplication.pdb
 C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\DataShowApplication\obj\Debug\DataShowApplication.DataShow.resources
-C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\DataShowApplication\obj\Debug\DataShowApplication.InfoBinarySensorData.resources
 C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\DataShowApplication\obj\Debug\DataShowApplication.InfoHumBatSensor.resources
 C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\DataShowApplication\obj\Debug\DataShowApplication.InfoHumSensor.resources
 C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\DataShowApplication\obj\Debug\DataShowApplication.InfoTempBatSensor.resources
@@ -37,3 +36,4 @@ C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCa
 C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\DataShowApplication\bin\Debug\LiveCharts.WinForms.xml
 C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\DataShowApplication\bin\Debug\LiveCharts.Wpf.pdb
 C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\DataShowApplication\bin\Debug\LiveCharts.Wpf.xml
+C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\DataShowApplication\obj\Debug\DataShowApplication.InfoBinaryBatSensor.resources

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DataShowApplication {
-    public interface ISensorView<T> {
-        void update(T data);
+    public class ISensorView<T> : UserControl {
+        public virtual void Update(T data) { }
     }
 }

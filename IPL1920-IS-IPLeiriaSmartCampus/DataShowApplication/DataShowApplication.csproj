@@ -62,7 +62,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppData.cs" />
-    <Compile Include="DSSensorData.cs" />
     <Compile Include="DataShow.cs">
       <SubType>Form</SubType>
     </Compile>

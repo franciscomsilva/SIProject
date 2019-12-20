@@ -15,7 +15,7 @@ namespace DataShowApplication {
             InitializeComponent();
         }
 
-        public void update(HumSensorData data) {
+        public void Update(HumSensorData data) {
             //TODO NOME DO SENSOR
             lblInfoSensor.Text = AppData.Instance.FindSensorById(data.SensorId).Id.ToString();
             lblInfoLocation.Text = AppData.Instance.FindLocationById(data.LocationId).LocationName;

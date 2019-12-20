@@ -12,5 +12,6 @@ namespace Models
         public bool Personal { get; set; }
         public bool Valid { get; set; }
         public DateTime CreatedAt { get; set; }
+        public string Description { get; set; }
     }
 }
