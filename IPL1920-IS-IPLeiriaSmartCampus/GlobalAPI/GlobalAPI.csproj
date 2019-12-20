@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
+    <Compile Include="Controllers\LocationsController.cs" />
     <Compile Include="Controllers\SensorsController.cs" />
     <Compile Include="Filters\AuthenticationFilter.cs" />
     <Compile Include="Global.asax.cs">

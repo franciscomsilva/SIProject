@@ -33,26 +33,6 @@ namespace GlobalAPI.Models
         [JsonProperty(PropertyName = "date")]
         public string Date { get; set; }
 
-        public static List<Sensor> GetAll()
-        {
-            using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.DB))
-            {
-                conn.Open();
-                using (SqlCommand cmd = new SqlCommand("SELECT id, user_id, location_id, description, personal, valid, date FROM t_sensors", conn))
-                {
-                    List<Sensor> sensors = new List<Sensor>();
-
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        sensors.Add(Sensor.FromDB(reader));
-                    }
-
-                    return sensors;
-                }
-            }
-        }
-
         public void Insert()
         {
             using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.DB))
@@ -69,7 +49,27 @@ namespace GlobalAPI.Models
                     cmd.Parameters.AddWithValue("@description", this.Description);
                     cmd.Parameters.AddWithValue("@date", this.Date);
 
-                    this.Id = (int) cmd.ExecuteScalar();
+                    this.Id = (int)cmd.ExecuteScalar();
+                }
+            }
+        }
+
+        public static List<Sensor> GetAll()
+        {
+            using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.DB))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand("SELECT id, user_id, location_id, description, personal, valid, date FROM t_sensors", conn))
+                {
+                    List<Sensor> sensors = new List<Sensor>();
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        sensors.Add(Sensor.FromDB(reader));
+                    }
+
+                    return sensors;
                 }
             }
         }

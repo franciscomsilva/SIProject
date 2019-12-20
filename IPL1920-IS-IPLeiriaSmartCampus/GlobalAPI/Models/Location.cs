@@ -18,6 +18,26 @@ namespace GlobalAPI.Models
         [JsonProperty(PropertyName = "gps_coords")]
         public string GpsCoords { get; set; }
 
+        public static List<Location> GetAll()
+        {
+            using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.DB))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand("SELECT id, location_name, gps_coords FROM t_locations", conn))
+                {
+                    List<Location> locations = new List<Location>();
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        locations.Add(Location.FromDB(reader));
+                    }
+
+                    return locations;
+                }
+            }
+        }
+
         public static Location GetById(int id)
         {
             using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.DB))

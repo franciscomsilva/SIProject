@@ -84,11 +84,7 @@ namespace GlobalAPI.Controllers
             return Ok(sensor);
         }
 
-        // PUT: api/Sensors/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
+        // TODO
         // DELETE: api/Sensors/5
         public void Delete(int id)
         {
