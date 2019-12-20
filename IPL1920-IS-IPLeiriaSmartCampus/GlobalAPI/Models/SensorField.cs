@@ -9,6 +9,9 @@ namespace GlobalAPI.Models
     {
         public static List<string> ValidTypes { get { return new List<string>() { "float", "int", "string", "bool" }; } }
 
+        [JsonProperty(PropertyName = "id")]
+        public int Id { get; set; }
+
         [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
@@ -26,7 +29,7 @@ namespace GlobalAPI.Models
             using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.DB))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("INSERT INTO t_sensor_reading_types (measure_name, measure_type, sensor_id, timestamp, min_value, max_value) VALUES (@measure_name, @measure_type, @sensor_id, @timestamp, @min_value, @max_value)", conn))
+                using (SqlCommand cmd = new SqlCommand("INSERT INTO t_sensor_reading_types (measure_name, measure_type, sensor_id, timestamp, min_value, max_value) output INSERTED.ID VALUES (@measure_name, @measure_type, @sensor_id, @timestamp, @min_value, @max_value)", conn))
                 {
                     cmd.Parameters.AddWithValue("@measure_name", this.Name);
                     cmd.Parameters.AddWithValue("@measure_type", this.Type);
@@ -35,7 +38,7 @@ namespace GlobalAPI.Models
                     cmd.Parameters.AddWithValue("@min_value", this.MinValue);
                     cmd.Parameters.AddWithValue("@max_value", this.MaxValue);
 
-                    cmd.ExecuteNonQuery();
+                    this.Id = (int)cmd.ExecuteScalar();
                 }
             }
         }
@@ -46,7 +49,7 @@ namespace GlobalAPI.Models
             using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.DB))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("SELECT measure_name, measure_type, min_value, max_value FROM t_sensor_reading_types WHERE sensor_id = @sensorId", conn))
+                using (SqlCommand cmd = new SqlCommand("SELECT id, measure_name, measure_type, min_value, max_value FROM t_sensor_reading_types WHERE sensor_id = @sensorId", conn))
                 {
                     cmd.Parameters.AddWithValue("sensorId", sensorId);
                     List<SensorField> sensorFields = new List<SensorField>();
@@ -56,6 +59,7 @@ namespace GlobalAPI.Models
                     {
                         sensorFields.Add(new SensorField()
                         {
+                            Id = (int) reader["id"],
                             Name = reader["measure_name"].ToString(),
                             Type = reader["measure_type"].ToString(),
                             MinValue = reader["min_value"].ToString(),
