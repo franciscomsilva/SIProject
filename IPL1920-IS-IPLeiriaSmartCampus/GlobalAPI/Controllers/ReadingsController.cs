@@ -57,5 +57,16 @@ namespace GlobalAPI.Controllers
 
             return Ok(reading);
         }
+
+        // DELETE: api/Readings/5
+        public IHttpActionResult Delete(int id)
+        {
+            SensorData reading = SensorData.GetById(id);
+            if (reading == null) return this.Content(HttpStatusCode.BadRequest, new ApiError("Invalid reading"));
+
+            reading.Invalidate();
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
     }
 }
