@@ -28,21 +28,21 @@ namespace GlobalAPI.Models
         public bool Valid { get; set; }
 
         [JsonProperty(PropertyName = "date")]
-        public string Date { get; set; }
+        public DateTime Timestamp { get; set; }
 
         public void Insert()
         {
             using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.DB))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("INSERT INTO t_sensor_data (location_id, id_reading, data_value, valid) output INSERTED.ID VALUES (@location_id, @id_reading, @data_value, 1)", conn))
+                using (SqlCommand cmd = new SqlCommand("INSERT INTO t_sensor_data (location_id, id_reading, data_value, valid, timestamp) output INSERTED.ID VALUES (@location_id, @id_reading, @data_value, 1, @timestamp)", conn))
                 {
-                    // TODO Timestamp
-                    this.Date = DateTime.Now.ToString();
+                    this.Timestamp = DateTime.Now;
 
                     cmd.Parameters.AddWithValue("@location_id", this.LocationId);
                     cmd.Parameters.AddWithValue("@id_reading", this.FieldId);
                     cmd.Parameters.AddWithValue("@data_value", this.Value);
+                    cmd.Parameters.AddWithValue("@timestamp", this.Timestamp);
 
                     this.Id = (int)cmd.ExecuteScalar();
                 }
@@ -68,8 +68,7 @@ namespace GlobalAPI.Models
             using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.DB))
             {
                 conn.Open();
-                // TODO Timestamp
-                using (SqlCommand cmd = new SqlCommand("SELECT id, location_id, id_reading, data_value, valid FROM t_sensor_data WHERE id = @id", conn))
+                using (SqlCommand cmd = new SqlCommand("SELECT id, location_id, id_reading, data_value, valid, timestamp FROM t_sensor_data WHERE id = @id", conn))
                 {
                     cmd.Parameters.AddWithValue("@id", id);
 
@@ -89,7 +88,8 @@ namespace GlobalAPI.Models
                 LocationId = (int)reader["location_id"],
                 FieldId = (int)reader["id_reading"],
                 Value = reader["data_value"].ToString(),
-                Valid = (bool) reader["valid"]
+                Valid = (bool) reader["valid"],
+                Timestamp = DateTime.Parse(reader["timestamp"].ToString())
             };
         }
     }
