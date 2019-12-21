@@ -45,6 +45,7 @@
     <Compile Include="Alert.cs" />
     <Compile Include="BinaryBatSensorData.cs" />
     <Compile Include="BinarySensorData.cs" />
+    <Compile Include="GeneratedAlert.cs" />
     <Compile Include="HumBatSensorData.cs" />
     <Compile Include="HumSensorData.cs" />
     <Compile Include="Location.cs" />

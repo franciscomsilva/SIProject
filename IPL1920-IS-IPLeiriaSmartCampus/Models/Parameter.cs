@@ -11,7 +11,7 @@ namespace Models
     {
         public string Condition { get; set; }
         public ReadingType ReadingType { get; set; }
-        public decimal Value { get; set; }
+        public string Value { get; set; }
         public override string ToString()
         {
             return Condition + ReadingType + Value;

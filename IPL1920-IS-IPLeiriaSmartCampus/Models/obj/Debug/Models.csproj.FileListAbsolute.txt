@@ -8,3 +8,8 @@ C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCa
 C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\Models\obj\Debug\Models.csprojAssemblyReference.cache
 C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\Models\obj\Debug\Models.dll
 C:\Users\admin\Documents\IPL\3Ano\1Semestre\SIProject\IPL1920-IS-IPLeiriaSmartCampus\Models\obj\Debug\Models.pdb
+C:\Users\joaopms\Dev\SIProject\IPL1920-IS-IPLeiriaSmartCampus\Models\bin\Debug\Models.dll
+C:\Users\joaopms\Dev\SIProject\IPL1920-IS-IPLeiriaSmartCampus\Models\bin\Debug\Models.pdb
+C:\Users\joaopms\Dev\SIProject\IPL1920-IS-IPLeiriaSmartCampus\Models\obj\Debug\Models.csprojAssemblyReference.cache
+C:\Users\joaopms\Dev\SIProject\IPL1920-IS-IPLeiriaSmartCampus\Models\obj\Debug\Models.dll
+C:\Users\joaopms\Dev\SIProject\IPL1920-IS-IPLeiriaSmartCampus\Models\obj\Debug\Models.pdb

@@ -24,41 +24,6 @@ namespace DataShowApplication
         {
             AppData.Instance.SetOnControllCreated(OnControlCreated);
             AppData.Instance.SetOnAlertCreated(OnAlertCreated);
-
-            return;
-            //add alerts list
-            listBoxAlerts.Items.Clear();
-
-
-            Sensor sensor = new Sensor() { Id = 1, LocationID = 1, CreatedAt = new DateTime(2019, 12, 6), Personal = false, UserID = 1, Valid = true };
-
-            AppData.Instance.AddSensor(sensor);
-            AppData.Instance.AddLocation(new Location() { Id = 1, LocationName = "Piso Cima", GpsCoordenations = "12354" });
-
-            /*
-            AppData.Instance.SaveSensorValues(new BinarySensorData() { SensorId = 2, LocationId = 1, Date = new DateTime(2019, 12, 16), Temperature = 50F, Humidity = 55, HumidityTimestamp = new DateTime(2019, 11, 27), TemperatureTimestamp = new DateTime(2019, 11, 27) });
-            AppData.Instance.SaveSensorValues(new BinarySensorData() { SensorId = 1, LocationId = 1, Date = new DateTime(2019, 12, 10), Temperature = 12.6F, Humidity = 40, HumidityTimestamp = new DateTime(2019, 12, 10), TemperatureTimestamp = new DateTime(2019, 12, 2) });
-            AppData.Instance.SaveSensorValues(new BinarySensorData() { SensorId = 2, LocationId = 1, Date = new DateTime(2019, 12, 16), Temperature = 25.4F, Humidity = 30, HumidityTimestamp = new DateTime(2019, 12, 16), TemperatureTimestamp = new DateTime(2019, 12, 16) });
-
-            this.ChartSensor.Series.Clear();
-
-            */
-            this.ChartSensor.Titles.Add("Location " + sensor.LocationID + " Chart");
-
-
-            foreach (String readingType in AppData.Instance.GetReadingTypesByLocation(sensor.LocationID))
-            {
-                Series series = this.ChartSensor.Series.Add(readingType);
-                series.ChartType = SeriesChartType.Line;
-                series.BorderWidth = 2;
-                series.MarkerStyle = MarkerStyle.Circle;
-                ChartSensor.ChartAreas[0].AxisX.Interval = 2;
-
-                foreach (Tuple<DateTime, float> readingTuple in AppData.Instance.GetReadingsByTypeAndLocation(sensor.LocationID, readingType))
-                {
-                    series.Points.AddXY(readingTuple.Item1, readingTuple.Item2);
-                }
-            }
         }
 
         private void OnControlCreated(UserControl sensorView)
@@ -85,12 +50,12 @@ namespace DataShowApplication
         private void btnSensors_Click(object sender, EventArgs e)
         {
             AppData.Instance.AddLocation(new Location() { Id = 1, LocationName = "Test location", GpsCoordenations = "" });
-            Sensor sensor = new Sensor() { Id = 1, UserID = 1, LocationID = 1, Valid = true, CreatedAt = new DateTime(2019, 12, 20), Description = "Sensor temperatura e humidade", Personal = false };
+            Sensor sensor = new Sensor() { Id = 1, UserID = 1, LocationID = 1, Valid = true, CreatedAt = "", Description = "Sensor temperatura e humidade", Personal = false };
             AppData.Instance.AddReadingType(new ReadingType { Id = 1, SensorId = 1, MaxValue = "100", MeasureName = "Temperature", MeasureType = "Temperature" });
             AppData.Instance.AddReadingType(new ReadingType { Id = 2, SensorId = 1, MaxValue = "50", MeasureName = "Humidity", MeasureType = "Humidity" });
             AppData.Instance.AddSensor(sensor);
 
-            var binarySensor = new BinarySensorData() { SensorId = 1, LocationId = 1, Date = new DateTime(2019, 12, 16), Temperature = 17F, Humidity = 80, HumidityTimestamp = new DateTime(2019, 12, 20), TemperatureTimestamp = new DateTime(2019, 12, 20) };
+            var binarySensor = new BinarySensorData() { SensorId = 1, LocationId = 1, Date = "", Temperature = 17F, Humidity = 80, HumidityTimestamp = new DateTime(2019, 12, 20), TemperatureTimestamp = new DateTime(2019, 12, 20) };
             AppData.Instance.SaveSensorValues(binarySensor);
             
         }

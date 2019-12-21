@@ -10,6 +10,9 @@ namespace Models
     {
         public int SensorId { get; set; }
         public int LocationId { get; set; }
-        public DateTime Date { get; set; }
+        public string MeasureName { get; set; }
+        public string MeasureType { get; set; }
+        public string Value { get; set; }
+        public string Date { get; set; }
     }
 }
