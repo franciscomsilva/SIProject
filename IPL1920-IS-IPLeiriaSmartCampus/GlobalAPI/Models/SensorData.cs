@@ -136,6 +136,40 @@ namespace GlobalAPI.Models
             }
         }
 
+        public static List<SensorData> GetAllByLocationId(int locationId, Nullable<DateTime> startDate = null, Nullable<DateTime> endDate = null)
+        {
+            using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.DB))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand("SELECT data.id, data.location_id, data.id_reading, data.data_value, data.valid, data.timestamp, reading.sensor_id FROM t_sensor_data data, t_sensor_reading_types reading WHERE data.id_reading = reading.id AND data.location_id = @locationId", conn))
+                {
+                    if (startDate != null)
+                    {
+                        cmd.CommandText += " AND data.timestamp >= @startDate ";
+                        cmd.Parameters.AddWithValue("@startDate", startDate);
+                    }
+
+                    if (endDate != null)
+                    {
+                        cmd.CommandText += " AND data.timestamp <= @endDate ";
+                        cmd.Parameters.AddWithValue("@endDate", endDate);
+                    }
+
+                    cmd.Parameters.AddWithValue("@locationId", locationId);
+
+                    List<SensorData> sensorData = new List<SensorData>();
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        sensorData.Add(SensorData.FromDB(reader));
+                    }
+
+                    return sensorData;
+                }
+            }
+        }
+
         public static SensorData FromDB(SqlDataReader reader)
         {
             return new SensorData()
