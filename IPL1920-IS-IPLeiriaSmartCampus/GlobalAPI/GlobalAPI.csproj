@@ -88,6 +88,7 @@
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\ReadingsController.cs" />
     <Compile Include="Controllers\LocationsController.cs" />
+    <Compile Include="Controllers\AlertsController.cs" />
     <Compile Include="Controllers\SensorsController.cs" />
     <Compile Include="Filters\AuthenticationFilter.cs" />
     <Compile Include="Global.asax.cs">
@@ -95,6 +96,7 @@
     </Compile>
     <Compile Include="Models\ApiError.cs" />
     <Compile Include="Models\ApiStatus.cs" />
+    <Compile Include="Models\Alert.cs" />
     <Compile Include="Models\SensorData.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Sensor.cs" />
