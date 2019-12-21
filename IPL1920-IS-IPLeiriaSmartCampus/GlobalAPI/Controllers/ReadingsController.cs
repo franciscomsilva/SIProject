@@ -62,11 +62,34 @@ namespace GlobalAPI.Controllers
         public IHttpActionResult Delete(int id)
         {
             SensorData reading = SensorData.GetById(id);
-            if (reading == null) return NotFound();
+            if (reading == null || !reading.Valid) return NotFound();
 
             reading.Invalidate();
 
             return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        // GET api/Readings/Sensor/5
+        [Route("api/readings/sensor/{sensorId}/{startDate?}/{endDate?}")]
+        public IHttpActionResult GetSensorReadings(int sensorId, string startDate = null, string endDate = null)
+        {
+            Sensor sensor = Sensor.GetById(sensorId);
+            if (sensor == null) return NotFound();
+
+            DateTime _startDateTime, _endDateTime;
+            Nullable<DateTime> startDateTime = null, endDateTime = null;
+
+            if (startDate != null) startDateTime = DateTime.TryParse(startDate, out _startDateTime) ? _startDateTime : (DateTime?)null;
+            if (startDate != null && startDateTime == null) return this.Content(HttpStatusCode.BadRequest, new ApiError("Invalid start date"));
+            if (startDateTime != null && (startDateTime < DateTime.MinValue || startDateTime > DateTime.MaxValue)) return this.Content(HttpStatusCode.BadRequest, new ApiError("Invalid start date"));
+
+            if (endDate != null) endDateTime = DateTime.TryParse(endDate, out _endDateTime) ? _endDateTime : (DateTime?)null;
+            if (endDate != null && endDateTime == null) return this.Content(HttpStatusCode.BadRequest, new ApiError("Invalid end date"));
+            if (endDateTime != null && (endDateTime < DateTime.MinValue || endDateTime > DateTime.MaxValue)) return this.Content(HttpStatusCode.BadRequest, new ApiError("Invalid end date"));
+
+            if ((startDateTime != null && endDateTime != null) && endDateTime < startDateTime) return this.Content(HttpStatusCode.BadRequest, new ApiError("Invalid date range; endDate must be greater than or equal to startDate"));
+
+            return Ok(SensorData.GetAllBySensorId(sensorId, startDateTime, endDateTime));
         }
     }
 }

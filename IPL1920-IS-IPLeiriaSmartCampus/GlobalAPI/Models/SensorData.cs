@@ -37,7 +37,7 @@ namespace GlobalAPI.Models
                 conn.Open();
                 using (SqlCommand cmd = new SqlCommand("INSERT INTO t_sensor_data (location_id, id_reading, data_value, valid, timestamp) output INSERTED.ID VALUES (@location_id, @id_reading, @data_value, 1, @timestamp)", conn))
                 {
-                    this.Timestamp = DateTime.Now;
+                    this.Timestamp = DateTime.Parse(DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
 
                     cmd.Parameters.AddWithValue("@location_id", this.LocationId);
                     cmd.Parameters.AddWithValue("@id_reading", this.FieldId);
@@ -68,7 +68,7 @@ namespace GlobalAPI.Models
             using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.DB))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("SELECT id, location_id, id_reading, data_value, valid, timestamp FROM t_sensor_data WHERE id = @id", conn))
+                using (SqlCommand cmd = new SqlCommand("SELECT data.id, data.location_id, data.id_reading, data.data_value, data.valid, data.timestamp, reading.sensor_id FROM t_sensor_data data, t_sensor_reading_types reading WHERE data.id_reading = reading.id AND data.id = @id", conn))
                 {
                     cmd.Parameters.AddWithValue("@id", id);
 
@@ -80,15 +80,50 @@ namespace GlobalAPI.Models
             }
         }
 
+        public static List<SensorData> GetAllBySensorId(int sensorId, Nullable<DateTime> startDate = null, Nullable<DateTime> endDate = null)
+        {
+            using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.DB))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand("SELECT data.id, data.location_id, data.id_reading, data.data_value, data.valid, data.timestamp, reading.sensor_id FROM t_sensor_data data, t_sensor_reading_types reading WHERE data.id_reading = reading.id AND reading.sensor_id = @sensorId", conn))
+                {
+                    if (startDate != null)
+                    {
+                        cmd.CommandText += " AND data.timestamp >= @startDate ";
+                        cmd.Parameters.AddWithValue("@startDate", startDate);
+                    }
+
+                    if (endDate != null)
+                    {
+                        cmd.CommandText += " AND data.timestamp <= @endDate ";
+                        cmd.Parameters.AddWithValue("@endDate", endDate);
+                    }
+
+                    cmd.Parameters.AddWithValue("@sensorId", sensorId);
+
+                    List<SensorData> sensorData = new List<SensorData>();
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        sensorData.Add(SensorData.FromDB(reader));
+                    }
+
+                    return sensorData;
+                }
+            }
+        }
+
         public static SensorData FromDB(SqlDataReader reader)
         {
             return new SensorData()
             {
                 Id = (int)reader["id"],
+                SensorId = (int)reader["sensor_id"],
                 LocationId = (int)reader["location_id"],
                 FieldId = (int)reader["id_reading"],
                 Value = reader["data_value"].ToString(),
-                Valid = (bool) reader["valid"],
+                Valid = (bool)reader["valid"],
                 Timestamp = DateTime.Parse(reader["timestamp"].ToString())
             };
         }

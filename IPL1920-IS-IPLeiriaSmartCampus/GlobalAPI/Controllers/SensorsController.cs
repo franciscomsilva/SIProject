@@ -51,8 +51,8 @@ namespace GlobalAPI.Controllers
                         if (sensorField.MaxValue != null) maxValueF = float.TryParse(sensorField.MaxValue, out _maxValueF) ? _maxValueF : (float?)null;
 
                         if ((minValueF != null && maxValueF != null) && (minValueF == null || maxValueF == null)) return this.Content(HttpStatusCode.BadRequest, new ApiError("Invalid field range; max_value and min_value must be the same type as type"));
-                        if (minValueF > maxValueF) return this.Content(HttpStatusCode.BadRequest, new ApiError("Invalid field range; min_value must be less than max_value"));
-                        if (maxValueF < minValueF) return this.Content(HttpStatusCode.BadRequest, new ApiError("Invalid field range; max_value must be greater than min_value"));
+                        if (minValueF > maxValueF) return this.Content(HttpStatusCode.BadRequest, new ApiError("Invalid field range; min_value must be less than or equal to max_value"));
+                        if (maxValueF < minValueF) return this.Content(HttpStatusCode.BadRequest, new ApiError("Invalid field range; max_value must be greater than or equal to min_value"));
                         break;
                     case "int":
                         int _minValueI, _maxValueI;
@@ -61,7 +61,6 @@ namespace GlobalAPI.Controllers
                         if (sensorField.MaxValue != null) maxValueI = int.TryParse(sensorField.MaxValue, out _maxValueI) ? _maxValueI : (int?)null;
 
                         if ((minValueI != null && maxValueI != null) && (minValueI == null || maxValueI == null)) return this.Content(HttpStatusCode.BadRequest, new ApiError("Invalid field range; max_value and min_value must be the same type as type"));
-                        if (minValueI > maxValueI) return this.Content(HttpStatusCode.BadRequest, new ApiError("Invalid field range; min_value must be less than max_value"));
                         if (maxValueI < minValueI) return this.Content(HttpStatusCode.BadRequest, new ApiError("Invalid field range; max_value must be greater than min_value"));
                         break;
                     case "string":
