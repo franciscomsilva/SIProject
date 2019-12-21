@@ -1,22 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Models
 {
     public class Location
     {
-        public int id { get; set; }
-        public string location_name { get; set; }
-        public string gps_coords { get; set; }
-        public Location()
-        {
-
-        }
-        public Location(string name)
-        {
-            this.location_name = name;
-        }
-
+        public int Id { get; set; }
+        public String LocationName{ get; set; }
+        public String GpsCoordenations { get; set; }
     }
 }

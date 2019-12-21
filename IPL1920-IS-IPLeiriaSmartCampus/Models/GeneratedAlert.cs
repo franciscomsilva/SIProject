@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    class GeneratedAlert
+    public class GeneratedAlert
     {
         public int id { get; set; }
         public int alert_id { get; set; }
