@@ -141,7 +141,23 @@ namespace DataShowApplication
 
         public void SetReadingTypes(List<ReadingType> readingTypes)
         {
-            this.ReadingTypes = new List<ReadingType>();
+            ReadingTypes = new List<ReadingType>();
+        }
+
+        public void SetAlerts(List<Alert> alerts)
+        {
+            foreach (Alert alert in alerts)
+            {
+                Alerts.Add(alert.Id, alert);
+            }
+        }
+
+        public void SetSensors(List<Sensor> sensors)
+        {
+            foreach(Sensor sensor in sensors)
+            {
+                Sensors.Add(sensor.Id, sensor);
+            }
         }
         #endregion
 
