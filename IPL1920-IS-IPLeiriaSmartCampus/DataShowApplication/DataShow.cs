@@ -22,12 +22,19 @@ namespace DataShowApplication
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            MQTTHandler.Instance.ConnectAndSubscribe();
             AppData.Instance.SetOnControllCreated(OnControlCreated);
             AppData.Instance.SetOnAlertCreated(OnAlertCreated);
         }
 
         private void OnControlCreated(UserControl sensorView)
         {
+            if (InvokeRequired)
+            {
+                this.Invoke(new Action(() => OnControlCreated(sensorView)));
+                return;
+            }
+
             flowLayoutPanelSensorsInfo.Controls.Add(sensorView);
         }
 

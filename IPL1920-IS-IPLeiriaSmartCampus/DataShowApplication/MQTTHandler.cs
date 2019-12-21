@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Forms;
 using DataShowApplication;
 using Models;
 using Newtonsoft.Json;
 using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
 
-namespace ALERTS_APPLICATION
+namespace DataShowApplication
 {
     class MQTTHandler
     {
@@ -28,6 +29,8 @@ namespace ALERTS_APPLICATION
             topics.Add("dataShow/start");
 
             ConnectAndSubscribe();
+
+            publishData("dataShow/start", "request");
         }
         public static MQTTHandler Instance {
             get {
@@ -81,31 +84,38 @@ namespace ALERTS_APPLICATION
 
             string[] data = e.Topic.Split('/');
             int sensorID = 0;
-            Console.WriteLine(Encoding.UTF8.GetString(e.Message));
-            string[] topics = null;
+            string message = Encoding.UTF8.GetString(e.Message);
+            Console.WriteLine(message);
             string[] information = null;
 
             if (data[0].Equals("dataShow"))
             {
                 //RECEIVE: List<Alert>/List<Sensor>/List<ReadingTypes>/List<Users>
-                information = Encoding.UTF8.GetString(e.Message).Split('/');
+                information = message.Split('§');
+
+                if (message.ToLower().Equals("request")) return;
 
                 //unsubscribe the topic 
-                topics[0] = "dataShow/start";
-                unsubscribe(topics);
+                unsubscribe(new string[] { "dataShow/start" });
 
+                Console.WriteLine("Adding initial data");
 
-                //Add the alerts
-                AppData.Instance.SetAlerts(JsonConvert.DeserializeObject<List<Alert>>(information[0]));
-
-                //Add the Sensors
-                AppData.Instance.SetSensors(JsonConvert.DeserializeObject<List<Sensor>>(information[1]));
+                // Add the locations
+                List<Location> locations = JsonConvert.DeserializeObject<List<Location>>(information[0]);
 
                 //Add the ReadingTypes
-                AppData.Instance.SetReadingTypes(JsonConvert.DeserializeObject<List<ReadingType>>(information[2]));
+                AppData.Instance.SetReadingTypes(JsonConvert.DeserializeObject<List<ReadingType>>(information[1]));
 
-                //Add the Users -- I don't need??
-                //AppData.Instance.??????(JsonCosnvert.DeserializeObject<List<????>>(information[3]));
+                //Add the Sensors
+                List<Sensor> sensors = JsonConvert.DeserializeObject<List<Sensor>>(information[2]);
+                foreach (Sensor sensor in sensors)
+                {
+                    AppData.Instance.AddSensor(sensor);
+                }
+
+                //Add the alerts
+                AppData.Instance.SetAlerts(JsonConvert.DeserializeObject<List<Alert>>(information[3]));
+
             }
 
             if (data[0].Equals("clean_data"))

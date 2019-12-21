@@ -30,12 +30,10 @@ namespace DSA.Controllers
         }
         public string BootUpDataShow()
         {
-
-            //List<Alert> / List<Sensor> / List <ReadingTypes>/ List<Users>
-            string values = JsonConvert.SerializeObject(AlertController.Instance.GetAllAlerts());
-            values += "/" + JsonConvert.SerializeObject(SensorController.Instance.GetAllSensors());
-            values += "/" + JsonConvert.SerializeObject(SensorController.Instance.GetAllReadingTypes());
-            values += "/" + JsonConvert.SerializeObject(UserController.Instance.GetAllUsersSafe());
+            string values = JsonConvert.SerializeObject(LocationController.Instance.GetAllLocations());
+            values += "§" + JsonConvert.SerializeObject(SensorController.Instance.GetAllReadingTypes());
+            values += "§" + JsonConvert.SerializeObject(SensorController.Instance.GetAllSensors());
+            values += "§" + JsonConvert.SerializeObject(AlertController.Instance.GetAllAlerts());
 
             return values;
         }
