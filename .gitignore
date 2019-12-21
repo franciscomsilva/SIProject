@@ -1,1 +1,5 @@
 .vs/
+*.exe
+*.pdb
+*.cache
+/IPL1920-IS-IPLeiriaSmartCampus
