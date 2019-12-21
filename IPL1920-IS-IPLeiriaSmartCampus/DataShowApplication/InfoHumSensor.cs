@@ -10,12 +10,13 @@ using System.Windows.Forms;
 using Models;
 
 namespace DataShowApplication {
-    public partial class InfoHumSensor : UserControl, ISensorView<HumSensorData> {
+    public partial class InfoHumSensor : SensorView
+    {
         public InfoHumSensor() {
             InitializeComponent();
         }
 
-        public void Update(HumSensorData data) {
+        public override void Update(dynamic data) {
             //TODO NOME DO SENSOR
             lblInfoSensor.Text = AppData.Instance.FindSensorById(data.SensorId).Id.ToString();
             lblInfoLocation.Text = AppData.Instance.FindLocationById(data.LocationId).LocationName;

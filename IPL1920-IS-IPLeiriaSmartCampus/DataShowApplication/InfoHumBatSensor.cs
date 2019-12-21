@@ -11,14 +11,14 @@ using Models;
 
 namespace DataShowApplication
 {
-    public partial class InfoHumBatSensor : UserControl, ISensorView<HumBatSensorData>
+    public partial class InfoHumBatSensor : SensorView
     {
         public InfoHumBatSensor()
         {
             InitializeComponent();
         }
 
-        public void Update(HumBatSensorData data)
+        public override void Update(dynamic data)
         {
             //TODO NOME DO SENSOR
             lblInfoSensor.Text = AppData.Instance.FindSensorById(data.SensorId).Id.ToString();

@@ -11,14 +11,14 @@ using Models;
 
 namespace DataShowApplication
 {
-    public partial class InfoTempBatSensor : UserControl, ISensorView<TempBatSensorData>
+    public partial class InfoTempBatSensor : SensorView
     {
         public InfoTempBatSensor()
         {
             InitializeComponent();
         }
 
-        public void Update(TempBatSensorData data)
+        public override void Update(dynamic data)
         {
             //TODO NOME DO SENSOR
             lblInfoSensor.Text = AppData.Instance.FindSensorById(data.SensorId).Id.ToString();

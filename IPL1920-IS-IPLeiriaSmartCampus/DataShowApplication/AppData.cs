@@ -16,7 +16,7 @@ namespace DataShowApplication
         private Dictionary<int, Alert> Alerts = new Dictionary<int, Alert>();
         private Dictionary<int, Dictionary<string, List<Tuple<DateTime, float>>>> ValuesByLocation = new Dictionary<int, Dictionary<string, List<Tuple<DateTime, float>>>>();
         // wild card (can receive any type --> in this case I want to receive any Info...Sensor)
-        private Dictionary<int, dynamic> SensorsControl = new Dictionary<int, dynamic>();
+        private Dictionary<int, SensorView> SensorsControl = new Dictionary<int, SensorView>();
         //save function that will be called after a control is created by the AppData
         private Action<UserControl> OnControlCreated = null;
         private Action<Alert> OnAlertCreated = null;
@@ -28,6 +28,7 @@ namespace DataShowApplication
         public void AddSensor(Sensor sensor)
         {
             Sensors.Add(sensor.Id, sensor);
+            CreateSensorsControl(sensor);
         }
 
         public void AddLocation(Location location)
@@ -188,14 +189,14 @@ namespace DataShowApplication
                     locationValues[key].Add(new Tuple<DateTime, float>((DateTime)prop.GetValue(sensor), value));
                 }
             }
-            (SensorsControl[sensor.SensorId] as ISensorView<dynamic>).Update(sensor);
+            SensorsControl[sensor.SensorId].Update(sensor);
         }
 
-        public void CreateSensorsControl(Sensor sensor)
+        private void CreateSensorsControl(Sensor sensor)
         {
             //verificar os reading types
             List<String> typeNames = new List<String>();
-            UserControl control = null;
+            SensorView control = null;
 
             foreach (ReadingType type in FindReadingTypesBySensorId(sensor.Id))
             {

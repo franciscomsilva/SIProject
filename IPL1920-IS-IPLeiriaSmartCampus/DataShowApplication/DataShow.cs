@@ -84,10 +84,11 @@ namespace DataShowApplication
 
         private void btnSensors_Click(object sender, EventArgs e)
         {
+            AppData.Instance.AddLocation(new Location() { Id = 1, LocationName = "Test location", GpsCoordenations = "" });
             Sensor sensor = new Sensor() { Id = 1, UserID = 1, LocationID = 1, Valid = true, CreatedAt = new DateTime(2019, 12, 20), Description = "Sensor temperatura e humidade", Personal = false };
             AppData.Instance.AddReadingType(new ReadingType { Id = 1, SensorId = 1, MaxValue = "100", MeasureName = "Temperature", MeasureType = "Temperature" });
             AppData.Instance.AddReadingType(new ReadingType { Id = 2, SensorId = 1, MaxValue = "50", MeasureName = "Humidity", MeasureType = "Humidity" });
-            AppData.Instance.CreateSensorsControl(sensor);
+            AppData.Instance.AddSensor(sensor);
 
             var binarySensor = new BinarySensorData() { SensorId = 1, LocationId = 1, Date = new DateTime(2019, 12, 16), Temperature = 17F, Humidity = 80, HumidityTimestamp = new DateTime(2019, 12, 20), TemperatureTimestamp = new DateTime(2019, 12, 20) };
             AppData.Instance.SaveSensorValues(binarySensor);
