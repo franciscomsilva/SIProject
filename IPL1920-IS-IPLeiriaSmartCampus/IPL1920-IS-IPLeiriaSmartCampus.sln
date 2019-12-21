@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DSA", "DSA\DSA.csproj", "{C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{06263645-F456-4CE7-B74C-58CFC49926B0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALERTS-APPLICATION", "ALERTS-APPLICATION\ALERTS-APPLICATION.csproj", "{0AA591DB-D304-425E-8588-980BEB4B8AE9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{06263645-F456-4CE7-B74C-58CFC49926B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06263645-F456-4CE7-B74C-58CFC49926B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06263645-F456-4CE7-B74C-58CFC49926B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AA591DB-D304-425E-8588-980BEB4B8AE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AA591DB-D304-425E-8588-980BEB4B8AE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AA591DB-D304-425E-8588-980BEB4B8AE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AA591DB-D304-425E-8588-980BEB4B8AE9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
