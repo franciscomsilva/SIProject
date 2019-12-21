@@ -124,5 +124,15 @@ namespace GlobalAPI.Controllers
 
             return Ok(SensorData.GetAllByLocationId(locationId, startDateTime, endDateTime));
         }
+
+        // GET api/Readings/Location/5/latest
+        [Route("api/readings/location/{locationId}/latest")]
+        public IHttpActionResult GetLatestLocationReadings(int locationId)
+        {
+            Location location = Location.GetById(locationId);
+            if (location == null) return NotFound();
+
+            return Ok(SensorData.GetLatestByLocationId(locationId));
+        }
     }
 }
