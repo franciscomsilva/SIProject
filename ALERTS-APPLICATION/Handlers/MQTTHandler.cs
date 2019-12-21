@@ -28,7 +28,6 @@ namespace ALERTS_APPLICATION
             this.topics.Add("alerts/login");
             this.topics.Add("alerts/readingType");
             this.topics.Add("alerts_data/new_alert");
-            this.topics.Add("clean_data/4");
             this.topics.Add("alerts/state");
             this.topics.Add("alerts/login/userID");
             ConnectAndSubscribe();
@@ -170,6 +169,16 @@ namespace ALERTS_APPLICATION
 
             publishData("alerts_data/new_alert", json);
 
+        }
+
+
+        public void subscribeTopic(string topic)
+        {
+            if (!this.topics.Contains(topic))
+            {
+                this.topics.Add(topic);
+                mClient.Subscribe(new string[] { topic }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
+            }
         }
 
         public void sendGeneratedAlert(GeneratedAlert alert)

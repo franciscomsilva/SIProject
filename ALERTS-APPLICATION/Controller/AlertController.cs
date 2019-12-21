@@ -111,6 +111,9 @@ namespace ALERTS_APPLICATION.Controller
                 Parameters = new List<Parameter>(parameters)
             };
 
+            /*SUBSCRIBE TO SENSOR ID CHANNEL IF NOT SUBSCRIBED YET*/
+            MQTTHandler.Instance.subscribeTopic($"clean_data/{sensorID}");
+
             return alert;
         }
 
