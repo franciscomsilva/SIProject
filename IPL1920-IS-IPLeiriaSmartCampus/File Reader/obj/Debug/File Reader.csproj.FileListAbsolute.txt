@@ -4,3 +4,10 @@ C:\Users\Francisco Silva\Desktop\SIProject\IPL1920-IS-IPLeiriaSmartCampus\File R
 C:\Users\Francisco Silva\Desktop\SIProject\IPL1920-IS-IPLeiriaSmartCampus\File Reader\obj\Debug\File Reader.csprojAssemblyReference.cache
 C:\Users\Francisco Silva\Desktop\SIProject\IPL1920-IS-IPLeiriaSmartCampus\File Reader\obj\Debug\File Reader.exe
 C:\Users\Francisco Silva\Desktop\SIProject\IPL1920-IS-IPLeiriaSmartCampus\File Reader\obj\Debug\File Reader.pdb
+C:\Users\Francisco Silva\Desktop\SIProject\IPL1920-IS-IPLeiriaSmartCampus\File Reader\bin\Debug\M2Mqtt.Net.dll
+C:\Users\Francisco Silva\Desktop\SIProject\IPL1920-IS-IPLeiriaSmartCampus\File Reader\bin\Debug\Models.dll
+C:\Users\Francisco Silva\Desktop\SIProject\IPL1920-IS-IPLeiriaSmartCampus\File Reader\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Francisco Silva\Desktop\SIProject\IPL1920-IS-IPLeiriaSmartCampus\File Reader\bin\Debug\Models.pdb
+C:\Users\Francisco Silva\Desktop\SIProject\IPL1920-IS-IPLeiriaSmartCampus\File Reader\bin\Debug\M2Mqtt.Net.pdb
+C:\Users\Francisco Silva\Desktop\SIProject\IPL1920-IS-IPLeiriaSmartCampus\File Reader\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Francisco Silva\Desktop\SIProject\IPL1920-IS-IPLeiriaSmartCampus\File Reader\obj\Debug\File Reader.csproj.CopyComplete

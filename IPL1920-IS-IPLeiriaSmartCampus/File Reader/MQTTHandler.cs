@@ -11,18 +11,11 @@ namespace File_Reader
     class MQTTHandler
     {
         private MqttClient mClient = null;
-        public List<string> topics = new List<string>();
         private static MQTTHandler instance = null;
      
 
         private MQTTHandler()
         {
-            this.topics.Add("alerts/login");
-            this.topics.Add("alerts/readingType");
-            this.topics.Add("alerts_data/new_alert");
-            this.topics.Add("clean_data/4");
-            this.topics.Add("alerts/state");
-            this.topics.Add("alerts/login/userID");
             ConnectAndSubscribe();
         }
         public static MQTTHandler Instance
@@ -33,12 +26,10 @@ namespace File_Reader
                 {
                     instance = new MQTTHandler();
                 }
+               
                 return instance;
             }
         }
-
-
-
 
         public void ConnectAndSubscribe()
         {
@@ -57,12 +48,6 @@ namespace File_Reader
                 Console.WriteLine("ERROR_CONNECTING_BROKER!");
                 return;
             }
-            for (int h = 0; h < this.topics.Count; h++)
-            {
-                Console.WriteLine("Connecting to topic number " + h + ":" + this.topics[h]);
-                mClient.Subscribe(new string[] { this.topics[h] }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
-                Console.WriteLine("Connected sucessfully!");
-            }
             mClient.MqttMsgPublishReceived += MClient_MqttMsgPublishReceived;
 
         }
@@ -80,12 +65,6 @@ namespace File_Reader
 
             string[] data = e.Topic.Split('/');
             Console.WriteLine(Encoding.UTF8.GetString(e.Message));
-
-
-
-            if (data[0].Equals("clean_data"))
-            {
-            }
         }
 
      
