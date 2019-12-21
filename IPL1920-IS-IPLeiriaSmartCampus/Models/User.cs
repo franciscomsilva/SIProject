@@ -8,27 +8,32 @@ namespace Models
 {
     public class User
     {
-
         public int Id { get; set; }
         public string Name { get; set; }
         public string Password { get; set; }
         public bool IsAdmin { get; set; }
-        public User(string Username, string password)
+        public User(string name, string password)
         {
-            this.Name = Username;
+            this.Id = -1;
+            this.Name = name;
             this.Password = password;
         }
-        public User(int id, string Username, string password,bool isAdmin)
+        public User(int id, string name, string password)
         {
-            this.Name = Username;
-            this.Password = password;
-            this.IsAdmin = isAdmin;
             this.Id = id;
+            this.Name = name;
+            this.Password = password;
         }
         public User()
         {
 
         }
-
+        public User(int id, string name, string password, bool isAdmin)
+        {
+            this.Id = id;
+            this.Name = name;
+            this.Password = password;
+            this.IsAdmin = isAdmin;
+        }
     }
 }

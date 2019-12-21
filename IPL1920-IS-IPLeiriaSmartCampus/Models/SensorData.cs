@@ -8,10 +8,11 @@ namespace Models
 {
     public class SensorData
     {
-        public int SensorID { get; set; }
-        public int LocationID { get; set; }
+        public int SensorId { get; set; }
+        public int LocationId { get; set; }
         public string MeasureName { get; set; }
         public string MeasureType { get; set; }
         public string Value { get; set; }
+        public DateTime Date { get; set; }
     }
 }

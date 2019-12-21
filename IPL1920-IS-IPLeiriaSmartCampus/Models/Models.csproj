@@ -43,13 +43,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Alert.cs" />
+    <Compile Include="BinaryBatSensorData.cs" />
+    <Compile Include="BinarySensorData.cs" />
     <Compile Include="GeneratedAlert.cs" />
+    <Compile Include="HumBatSensorData.cs" />
+    <Compile Include="HumSensorData.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="Parameter.cs" />
     <Compile Include="ReadingType.cs" />
     <Compile Include="Sensor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SensorData.cs" />
+    <Compile Include="TempBatSensorData.cs" />
+    <Compile Include="TempSensorData.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
