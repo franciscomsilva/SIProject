@@ -91,5 +91,15 @@ namespace GlobalAPI.Controllers
 
             return Ok(SensorData.GetAllBySensorId(sensorId, startDateTime, endDateTime));
         }
+
+        // GET api/Readings/Sensor/5/latest
+        [Route("api/readings/sensor/{sensorId}/latest")]
+        public IHttpActionResult GetLatestSensorReadings(int sensorId)
+        {
+            Sensor sensor = Sensor.GetById(sensorId);
+            if (sensor == null) return NotFound();
+
+            return Ok(SensorData.GetLatestBySensorId(sensorId));
+        }
     }
 }

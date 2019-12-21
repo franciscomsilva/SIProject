@@ -88,14 +88,17 @@ namespace GlobalAPI.Models
 
         public static SensorField FromDB(SqlDataReader reader)
         {
+            string minValue = reader["min_value"].ToString();
+            string maxValue = reader["max_value"].ToString();
+
             return new SensorField()
             {
                 Id = (int)reader["id"],
                 SensorId = (int)reader["sensor_id"],
                 Name = reader["measure_name"].ToString(),
                 Type = reader["measure_type"].ToString(),
-                MinValue = reader["min_value"].ToString(),
-                MaxValue = reader["max_value"].ToString()
+                MinValue = minValue.Equals("") ? null : minValue,
+                MaxValue = maxValue.Equals("") ? null : maxValue
             };
         }
     }

@@ -114,6 +114,28 @@ namespace GlobalAPI.Models
             }
         }
 
+        public static List<SensorData> GetLatestBySensorId(int sensorId)
+        {
+            using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.DB))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand("SELECT data.id, data.location_id, data.id_reading, data.data_value, data.valid, data.timestamp, reading.sensor_id FROM t_sensor_data data, t_sensor_reading_types reading WHERE data.id_reading = reading.id AND reading.sensor_id = @sensorId AND valid = 1 AND data.timestamp = (SELECT MAX(timestamp) FROM t_sensor_data WHERE valid = 1 AND id_reading = data.id_reading)", conn))
+                {
+                    cmd.Parameters.AddWithValue("@sensorId", sensorId);
+
+                    List<SensorData> sensorData = new List<SensorData>();
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        sensorData.Add(SensorData.FromDB(reader));
+                    }
+
+                    return sensorData;
+                }
+            }
+        }
+
         public static SensorData FromDB(SqlDataReader reader)
         {
             return new SensorData()
