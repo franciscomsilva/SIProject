@@ -73,28 +73,7 @@ namespace ALERTS_APPLICATION
             //Acerca desta função: Nós vamos ter de separar os dados incoming apropriadamente para poderem ser parsed pelo controlador apropriado e reenviados para clean data, ou para poder
             //realizar operações non-sensor data related(IE ajudar o boot do alerts etc)
             string[] topics = e.Topic.Split('/');
-            Console.WriteLine(Encoding.UTF8.GetString(e.Message));
-            //----------------------------------------DADOS DE SENSORES----------------------------------------------------------//
-            if (topics[0].Equals("sensor_data"))
-            {
-
-            }
-            //---------------------------------------Bootup alerts--------------------------------------------------------------//
-            if (topics[0].Equals("alerts"))
-            {
-                if (Encoding.UTF8.GetString(e.Message).Equals("Request"))
-                {
-                    List<string> readingTypes = SensorController.Instance.getAllReadingTypes();
-                    publishData("alerts/readingType", JsonConvert.SerializeObject(readingTypes.ToArray()));
-                }
-
-            }
-            //----------------------------------------------Dados de alerts------------------------------------------------------//
-            if (topics[0].Equals("alerts_data"))
-            {
-
-            }
-
+            
         }
     }
 }
