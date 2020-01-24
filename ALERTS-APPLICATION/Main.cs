@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Models;
+using System.Xml;
 
 namespace ALERTS_APPLICATION
 {
@@ -19,7 +20,7 @@ namespace ALERTS_APPLICATION
         private ErrorProvider errorProvider;
         private LinkedList<Alert> alerts;
 
-        private static string FILE_PATH = "alerts.config";
+        private static string FILE_PATH = "alerts_config.xml";
 
 
         public Main()
@@ -38,8 +39,8 @@ namespace ALERTS_APPLICATION
 
 
 
-            cbDataType.DataSource = Enum.GetValues(typeof(DataType));
-            cbDataType.SelectedItem = DataType.TEMPERATURA;
+           // cbReadingType.DataSource = Enum.GetValues(typeof(ReadingType));
+            //cbReadingType.SelectedItem = ReadingType.;
 
             cbParameterCondition.SelectedIndex = 0;
 
@@ -91,7 +92,7 @@ namespace ALERTS_APPLICATION
                 /*CARREGA O ALERTAS NA LISTA*/
                 foreach (Alert alertI in alerts)
                 {
-                    item = new ListViewItem(new string[] { alertI.Parameters.Count.ToString(), alertI.Description, alertI.DateCreated.ToShortDateString(), alertI.Enabled.ToString() });
+                    item = new ListViewItem(new string[] { alertI.Parameters.Count.ToString(), alertI.Description, alertI.CreatedAt, alertI.Enabled.ToString() });
                     lvAlerts.Items.Add(item);
                 }
 
@@ -107,7 +108,7 @@ namespace ALERTS_APPLICATION
 
             string condition = cbParameterCondition.SelectedItem.ToString();
 
-            DataType dataType = (DataType)cbDataType.SelectedItem;
+            ReadingType dataType = (ReadingType)cbReadingType.SelectedItem;
 
 
 
@@ -116,7 +117,7 @@ namespace ALERTS_APPLICATION
             Parameter parameter = new Parameter
             {
                 Condition = condition,
-                DataType = dataType,
+                ReadingType = null,
                 Value = value
             };
 
@@ -129,7 +130,7 @@ namespace ALERTS_APPLICATION
             lvParameters.Items.Clear();
             foreach (Parameter parameterI in parameters)
             {
-                item = new ListViewItem(new string[] { parameterI.Condition, parameterI.DataType.ToString(), parameterI.Value.ToString() });
+                item = new ListViewItem(new string[] { parameterI.Condition,"boas", parameterI.Value.ToString() });
                 lvParameters.Items.Add(item);
             }
 
@@ -160,25 +161,33 @@ namespace ALERTS_APPLICATION
                 return;
             }
 
+            if(nrSensorID.Value <= 0)
+            {
+                errorProvider.SetError(nrSensorID, "Sensor ID must be positive integer");
+                return;
+            }
 
 
             /*CRIAR O ALERTA*/
-            Alert alerta = new Alert
+            Alert alert = new Alert
             {
                 Parameters = parameters,
                 Description = txtAlertDescription.Text,
                 UserID = 1,
-                Enabled = 1,
-                DateCreated = DateTime.UtcNow
+                Enabled = true,
+                SensorID = Convert.ToInt32(nrSensorID.Value),
+                CreatedAt = DateTime.UtcNow.ToShortDateString()
             };
 
-            guardarAlert(alerta);
+            saveAlert(alert);
 
 
             /*LIMPA OS DADOS*/
             txtAlertDescription.Clear();
             nrParameterValue.Value = 0;
-            cbDataType.SelectedIndex = 0;
+            nrSensorID.Value = 0;
+
+            // cbReadingType.SelectedIndex = 0;
             cbParameterCondition.SelectedIndex = 0;
 
             lvParameters.Items.Clear();
@@ -190,43 +199,28 @@ namespace ALERTS_APPLICATION
         }
 
 
-        private void guardarAlert(Alert alerta)
+        private void saveAlert(Alert alert)
         {
-            if (alerta == null)
+            if (alert == null)
             {
                 return;
             }
 
-            alerts.AddLast(alerta);
+            alerts.AddLast(alert);
 
             /*ATUALIZA LISTA*/
             ListViewItem item = null;
-
             lvAlerts.Items.Clear();
-            /*CARREGA O ALERTAS NA LISTA*/
-            foreach (Alert alertI in alerts)
+
+            XMLHandler.save(this.alerts);
+
+            foreach(Alert alertI in this.alerts)
             {
-                item = new ListViewItem(new string[] { alertI.Parameters.Count.ToString(), alertI.Description, alertI.DateCreated.ToShortDateString(), alertI.Enabled.ToString() });
+                item = new ListViewItem(new string[] { alertI.Parameters.Count.ToString(), alertI.Description, alertI.CreatedAt, alertI.Enabled.ToString() });
                 lvAlerts.Items.Add(item);
             }
 
-
-
-            /*SERIALIZAR E GUARDAR NUM FICHEIRO*/
-            string json = JsonConvert.SerializeObject(alerts);
-
-            try
-            {
-                File.WriteAllText(FILE_PATH, json);
-                Console.WriteLine("ALERT CONFIG FILE WRITING SUCCESSFULL");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("ERROR_WRITING_FILE => " + ex.Message);
-
-            }
-
-
+          
         }
 
         private void lvParameters_SelectedIndexChanged(object sender, EventArgs e)

@@ -45,16 +45,19 @@ namespace ALERTS_APPLICATION
             this.lblAlertsParameters = new System.Windows.Forms.Label();
             this.btnAddParameter = new System.Windows.Forms.Button();
             this.lblParameterDataType = new System.Windows.Forms.Label();
-            this.cbDataType = new System.Windows.Forms.ComboBox();
+            this.cbReadingType = new System.Windows.Forms.ComboBox();
             this.lblParameterCondition = new System.Windows.Forms.Label();
             this.cbParameterCondition = new System.Windows.Forms.ComboBox();
             this.lblConfigureAlert = new System.Windows.Forms.Label();
             this.lblAlertDescription = new System.Windows.Forms.Label();
             this.txtAlertDescription = new System.Windows.Forms.TextBox();
+            this.lblSensorID = new System.Windows.Forms.Label();
+            this.nrSensorID = new System.Windows.Forms.NumericUpDown();
             this.tabControl1.SuspendLayout();
             this.alertsTab.SuspendLayout();
             this.addAlertTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nrParameterValue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nrSensorID)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -124,6 +127,8 @@ namespace ALERTS_APPLICATION
             // 
             // addAlertTab
             // 
+            this.addAlertTab.Controls.Add(this.nrSensorID);
+            this.addAlertTab.Controls.Add(this.lblSensorID);
             this.addAlertTab.Controls.Add(this.lvParameters);
             this.addAlertTab.Controls.Add(this.nrParameterValue);
             this.addAlertTab.Controls.Add(this.lblParameterValue);
@@ -132,7 +137,7 @@ namespace ALERTS_APPLICATION
             this.addAlertTab.Controls.Add(this.lblAlertsParameters);
             this.addAlertTab.Controls.Add(this.btnAddParameter);
             this.addAlertTab.Controls.Add(this.lblParameterDataType);
-            this.addAlertTab.Controls.Add(this.cbDataType);
+            this.addAlertTab.Controls.Add(this.cbReadingType);
             this.addAlertTab.Controls.Add(this.lblParameterCondition);
             this.addAlertTab.Controls.Add(this.cbParameterCondition);
             this.addAlertTab.Controls.Add(this.lblConfigureAlert);
@@ -190,7 +195,7 @@ namespace ALERTS_APPLICATION
             this.btnCreateAlert.TabIndex = 11;
             this.btnCreateAlert.Text = "CREATE ALERT";
             this.btnCreateAlert.UseVisualStyleBackColor = true;
-            this.btnCreateAlert.Click += new System.EventHandler(this.btnCriarAlerta_Click);
+            this.btnCreateAlert.Click += new System.EventHandler(this.btnCriarAlert_Click);
             // 
             // lblAddParameter
             // 
@@ -232,13 +237,13 @@ namespace ALERTS_APPLICATION
             this.lblParameterDataType.TabIndex = 6;
             this.lblParameterDataType.Text = "Data Type";
             // 
-            // cbDataType
+            // cbReadingType
             // 
-            this.cbDataType.FormattingEnabled = true;
-            this.cbDataType.Location = new System.Drawing.Point(118, 204);
-            this.cbDataType.Name = "cbDataType";
-            this.cbDataType.Size = new System.Drawing.Size(121, 21);
-            this.cbDataType.TabIndex = 5;
+            this.cbReadingType.FormattingEnabled = true;
+            this.cbReadingType.Location = new System.Drawing.Point(118, 204);
+            this.cbReadingType.Name = "cbReadingType";
+            this.cbReadingType.Size = new System.Drawing.Size(121, 21);
+            this.cbReadingType.TabIndex = 5;
             // 
             // lblParameterCondition
             // 
@@ -276,7 +281,7 @@ namespace ALERTS_APPLICATION
             // lblAlertDescription
             // 
             this.lblAlertDescription.AutoSize = true;
-            this.lblAlertDescription.Location = new System.Drawing.Point(25, 89);
+            this.lblAlertDescription.Location = new System.Drawing.Point(28, 74);
             this.lblAlertDescription.Name = "lblAlertDescription";
             this.lblAlertDescription.Size = new System.Drawing.Size(60, 13);
             this.lblAlertDescription.TabIndex = 1;
@@ -284,10 +289,36 @@ namespace ALERTS_APPLICATION
             // 
             // txtAlertDescription
             // 
-            this.txtAlertDescription.Location = new System.Drawing.Point(118, 89);
+            this.txtAlertDescription.Location = new System.Drawing.Point(118, 67);
             this.txtAlertDescription.Name = "txtAlertDescription";
             this.txtAlertDescription.Size = new System.Drawing.Size(448, 20);
             this.txtAlertDescription.TabIndex = 0;
+            // 
+            // lblSensorID
+            // 
+            this.lblSensorID.AutoSize = true;
+            this.lblSensorID.Location = new System.Drawing.Point(28, 104);
+            this.lblSensorID.Name = "lblSensorID";
+            this.lblSensorID.Size = new System.Drawing.Size(54, 13);
+            this.lblSensorID.TabIndex = 16;
+            this.lblSensorID.Text = "Sensor ID";
+            // 
+            // nrSensorID
+            // 
+            this.nrSensorID.Location = new System.Drawing.Point(116, 97);
+            this.nrSensorID.Maximum = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            this.nrSensorID.Minimum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            -2147483648});
+            this.nrSensorID.Name = "nrSensorID";
+            this.nrSensorID.Size = new System.Drawing.Size(120, 20);
+            this.nrSensorID.TabIndex = 17;
             // 
             // Main
             // 
@@ -304,14 +335,11 @@ namespace ALERTS_APPLICATION
             this.addAlertTab.ResumeLayout(false);
             this.addAlertTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nrParameterValue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nrSensorID)).EndInit();
             this.ResumeLayout(false);
 
         }
 
-        private void btnCriarAlerta_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
 
         #endregion
 
@@ -327,7 +355,7 @@ namespace ALERTS_APPLICATION
         private System.Windows.Forms.Label lblAlertsParameters;
         private System.Windows.Forms.Button btnAddParameter;
         private System.Windows.Forms.Label lblParameterDataType;
-        private System.Windows.Forms.ComboBox cbDataType;
+        private System.Windows.Forms.ComboBox cbReadingType;
         private System.Windows.Forms.Button btnCreateAlert;
         private System.Windows.Forms.Label lblParameterValue;
         private System.Windows.Forms.NumericUpDown nrParameterValue;
@@ -336,6 +364,8 @@ namespace ALERTS_APPLICATION
         private System.Windows.Forms.ListView lvAlerts;
         private System.Windows.Forms.Button btnCleanAlerts;
         private System.Windows.Forms.TabPage generatedAlertsTab;
+        private System.Windows.Forms.NumericUpDown nrSensorID;
+        private System.Windows.Forms.Label lblSensorID;
     }
 }
 
