@@ -12,7 +12,7 @@ namespace ALERTS_APPLICATION
     {
         private static string FILE_PATH = "alerts_config.xml";
 
-        public static void save(LinkedList<Alert> alerts)
+        public static void save(List<Alert> alerts)
         {
             XmlDocument document = new XmlDocument();
 

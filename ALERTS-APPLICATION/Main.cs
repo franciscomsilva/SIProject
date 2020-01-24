@@ -16,9 +16,9 @@ namespace ALERTS_APPLICATION
 {
     public partial class Main : Form
     {
-        private LinkedList<Parameter> parameters;
+        private List<Parameter> parameters;
         private ErrorProvider errorProvider;
-        private LinkedList<Alert> alerts;
+        private List<Alert> alerts;
 
         private static string FILE_PATH = "alerts_config.xml";
 
@@ -34,8 +34,8 @@ namespace ALERTS_APPLICATION
         private void Main_Load(object sender, EventArgs e)
         {
 
-            parameters = new LinkedList<Parameter>();
-            alerts = new LinkedList<Alert>();
+            parameters = new List<Parameter>();
+            alerts = new List<Alert>();
 
 
 
@@ -77,7 +77,7 @@ namespace ALERTS_APPLICATION
                 try
                 {
                     string json = File.ReadAllText(FILE_PATH);
-                    alerts = JsonConvert.DeserializeObject<LinkedList<Alert>>(json);
+                    alerts = JsonConvert.DeserializeObject<List<Alert>>(json);
 
                     Console.WriteLine("ALERT CONFIG FILE READING SUCCESSFULL");
                 }
@@ -121,7 +121,7 @@ namespace ALERTS_APPLICATION
                 Value = value
             };
 
-            parameters.AddLast(parameter);
+            parameters.Add(parameter);
 
             ListViewItem item = null;
 
@@ -206,7 +206,7 @@ namespace ALERTS_APPLICATION
                 return;
             }
 
-            alerts.AddLast(alert);
+            alerts.Add(alert);
 
             /*ATUALIZA LISTA*/
             ListViewItem item = null;
