@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Models;
 using System.Xml;
+using ALERTS_APPLICATION.Controller;
 
 namespace ALERTS_APPLICATION
 {
@@ -19,6 +20,8 @@ namespace ALERTS_APPLICATION
         private List<Parameter> parameters;
         private ErrorProvider errorProvider;
         private List<Alert> alerts;
+        private List<ReadingType> readingTypes;
+        private int userID;
 
         private static string FILE_PATH = "alerts_config.xml";
 
@@ -31,16 +34,37 @@ namespace ALERTS_APPLICATION
 
         }
 
+        public void setReadingTypes(List<ReadingType> readingTypes)
+        {
+            this.readingTypes = readingTypes;
+        }
+
         private void Main_Load(object sender, EventArgs e)
         {
 
             parameters = new List<Parameter>();
             alerts = new List<Alert>();
+            MQTTHandler.Instance.getReadingTypes();
 
+            while (MQTTHandler.Instance.ReadingTypes == null){}
+            
+            this.readingTypes = MQTTHandler.Instance.ReadingTypes;
 
+            /*GETS USER ID*/
+            this.userID = LoginController.Instance.checkUserLogin();
 
-           // cbReadingType.DataSource = Enum.GetValues(typeof(ReadingType));
-            //cbReadingType.SelectedItem = ReadingType.;
+       /*    if(this.userID == -1)
+            {
+               
+
+                this.Close();
+            }
+            */
+       
+
+            cbReadingType.DataSource = this.readingTypes;
+            cbReadingType.ValueMember = "MeasureName";
+
 
             cbParameterCondition.SelectedIndex = 0;
 
@@ -117,7 +141,7 @@ namespace ALERTS_APPLICATION
             Parameter parameter = new Parameter
             {
                 Condition = condition,
-                ReadingType = null,
+                ReadingType = (ReadingType)cbReadingType.SelectedItem,
                 Value = value
             };
 
@@ -171,7 +195,7 @@ namespace ALERTS_APPLICATION
             /*CRIAR O ALERTA*/
             Alert alert = new Alert
             {
-                Parameters = parameters,
+              //  Parameters = parameters,
                 Description = txtAlertDescription.Text,
                 UserID = 1,
                 Enabled = true,
